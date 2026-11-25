@@ -1,6 +1,6 @@
 {
- "name": "Essencial em Família",
- "short_name": "Família",
+ "name": "Essencial",
+ "short_name": "Essencial",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",

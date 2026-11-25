@@ -155,6 +155,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
 .testnote{font-size:12.5px;color:var(--muted);line-height:1.45;margin:10px 0 4px;padding-left:10px;border-left:3px solid var(--gold)}
 #fundPanel a.btn{text-decoration:none}.demob{margin-top:4px}.demobar{position:fixed;left:0;right:0;top:0;z-index:15;background:#c9a24b;color:#14213d;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;padding-top:max(8px,env(safe-area-inset-top));font-size:.92rem}.demobar .btn{background:#14213d;color:#fff;padding:8px 12px;min-height:0}body.demo{padding-top:52px}
 .cmpt{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:.92rem}.cmpt th,.cmpt td{padding:8px 6px;border-bottom:1px solid #e3d9c4;text-align:center}.cmpt td:first-child,.cmpt th:first-child{text-align:left}.cmpt th{font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}.cmpt .hi{background:#14213d;color:#c9a24e;font-weight:700}
+.fcodew{margin:2px 0 4px}.fcodew summary{cursor:pointer}
 .lockc{margin:12px 0;padding:14px 16px;border:1.5px dashed var(--gold);border-radius:10px;background:var(--card);display:grid;gap:6px}.lockc p{margin:0}.fben{list-style:none;padding:0;margin:4px 0;display:grid;gap:6px}.fben li{padding-left:22px;position:relative}.fben li:before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}.fprice{font-size:1.6rem;font-weight:800}.fprice small{font-size:.85rem;font-weight:500;opacity:.75;display:block}.finp{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:1rem;box-sizing:border-box}.errbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:30;background:#14213d;color:#fff;border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 6px 20px rgba(0,0,0,.25)}.errbar a{color:#14213d}.errbar button{background:none;border:0;color:#fff;font-size:1.2rem}.fbadge{display:inline-block;padding:2px 8px;border-radius:99px;background:var(--gold);color:#14213d;font-size:.75rem;font-weight:700}
 .fbk{margin:16px 0;padding:14px 16px;border:1.5px solid var(--gold);border-radius:10px;background:var(--card)}
 .fbk b{display:block;font-size:16px;margin-bottom:4px}.fbk p{margin:0 0 10px;font-size:14px;color:var(--soft)}
@@ -201,17 +202,17 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
 .vt .vh-no{border-left-color:#b9b2a5}
 .vt a,.vt a:visited{color:var(--ink);text-decoration-color:var(--gold);text-underline-offset:3px}
 .stick small{white-space:nowrap!important}.tag.t-no{background:#f6e3dc;color:#a3402c}.nrw{margin-top:8px}
-</style>
+.geby{display:flex;align-items:center;gap:12px;margin:22px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);text-decoration:none;font-size:14px;line-height:1.35}.geby b{font-weight:800}.geby small{display:block;color:var(--soft);font-weight:600;font-size:13px;margin-top:2px}.gesel{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:10px;background:#c9a24e;color:#14213d;font:700 15px/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.03em;flex:none}@media(max-width:380px){#topbar .stick small{font-size:10px!important;letter-spacing:0!important}#topbar .stick b{font-size:12px!important}#topbar .stick{gap:6px!important}}@media(max-width:340px){#topbar .ya{display:none}}</style>
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#14213d"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Família">
-<style>.apoio,#apix{display:none!important}</style>
+<style>.apoio,#apix{display:none!important}.scr{padding-bottom:130px!important}.pbody,.vbody{padding-bottom:110px!important}.toast{bottom:76px!important}.errbar{bottom:72px!important}</style>
 <script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script>
 
 </head>
 <body>
 <header class="topbar" id="topbar" hidden>
   <button type="button" class="tb-back" id="back" aria-label="Voltar">‹</button>
-  <div class="tb-mid"><div class="prog"><i id="prog"></i></div><div class="stick" id="stick"><span><small>Gasto/mês</small><b id="sTot">R$ 0</b></span><span><small>Gasto/ano</small><b id="sAno">R$ 0</b></span><span class="eco"><small>Economia/ano</small><b id="sBig">R$ 0</b></span></div></div>
+  <div class="tb-mid"><div class="prog"><i id="prog"></i></div><div class="stick" id="stick"><span><small>Gasto/mês</small><b id="sTot">R$ 0</b></span><span><small>Gasto/ano</small><b id="sAno">R$ 0</b></span><span class="eco"><small>Economia<span class="ya">/ano</span></small><b id="sBig">R$ 0</b></span></div></div>
   <button type="button" class="tb-more" id="more">Mais</button>
 </header>
 
@@ -227,6 +228,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
   <button type="button" class="btn wide demob" id="demoBtn">Ver um exemplo antes (sem enviar nada)</button>
   <div class="inst" id="inst" hidden><b>Instale como app</b><span id="instTxt"></span><button type="button" class="btn gold" id="instBtn" hidden>Instalar app</button></div>
   <div class="priv"><b>Seus dados ficam com você</b><span>Os documentos são lidos aqui no seu celular. Nada é enviado para a internet nem guardado fora dele, e você pode apagar tudo em Mais › Recomeçar do zero.</span></div>
+  <a class="geby" href="https://governancaexistencial.com.br" target="_blank" rel="noopener"><span class="gesel" aria-hidden="true">GE</span><span>Uma ferramenta da <b>Governança Existencial</b><small>Conheça o método completo ›</small></span></a>
   <p class="ver" data-ver></p>
 </div></section>
 
@@ -324,14 +326,14 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
       <tr><td>Versão Família (casal)</td><td>–</td><td class="hi">✓</td></tr>
     </tbody></table>
     <div class="fprice">R$ 39,90 no primeiro ano<small>Preço de lançamento até 31/12/2026. Depois, R$ 99/ano. Garantia de 7 dias: não gostou, devolvemos.</small></div>
-    <a class="btn gold xl" id="fPay" target="_blank" rel="noopener" href="#">Assinar por R$ 39,90 (Mercado Pago)</a>
-    <a class="btn wide" id="fComp" target="_blank" rel="noopener" href="#">Já paguei: enviar comprovante (WhatsApp)</a>
-    <h3 class="addh">Recebeu seu código?</h3>
-    <input class="finp" id="fMail" type="email" inputmode="email" autocomplete="email" placeholder="Seu e-mail (o mesmo do pagamento)">
-    <input class="finp" id="fCode" autocapitalize="characters" placeholder="Código (ex.: AB12-CD34)">
-    <button class="btn gold" id="fAct" type="button">Ativar</button>
+    <a class="btn gold xl" id="fPay" href="#">Assinar por R$ 39,90 (Mercado Pago)</a>
+    <p class="lead small" style="text-align:center;margin:6px 0 0">Pix ou cartão. Ao concluir, você volta para cá com tudo liberado.</p>
+    <h3 class="addh">Já comprou?</h3>
+    <input class="finp" id="fMail" type="email" inputmode="email" autocomplete="email" placeholder="E-mail usado no Mercado Pago">
+    <details class="fcodew"><summary class="lead small">Tenho um código</summary><input class="finp" id="fCode" autocapitalize="characters" placeholder="Código (ex.: AB12-CD34)"></details>
+    <button class="btn gold" id="fAct" type="button">Ativar minha compra</button>
     <p class="lead small" id="fMsg"></p>
-    <p class="lead small">Pagamento único anual, sem cobrança automática. Depois de pagar, envie o comprovante e receba seu código. Seus dados continuam só neste celular.</p>
+    <p class="lead small">Pagamento único anual, sem cobrança automática. Seus dados continuam só neste celular. <a id="fComp" target="_blank" rel="noopener" href="#">Precisa de ajuda?</a></p>
   </div>
 </div>
 <div class="demobar" id="demoBar" hidden><span><b>Exemplo</b> · dados fictícios</span><button type="button" class="btn gold" id="demoExit">Usar minha fatura</button></div>
@@ -477,7 +479,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="25/11/2026 08:47";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="25/11/2026 15:45";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -743,7 +745,7 @@ async function ingest(getters){
   if(okN){for(const x of newFp)if(!st.fps.includes(x))st.fps.push(x);if(!st.fpLab)st.fpLab=newLab;
     let AUTO=null;if(wasEmpty&&newFp.size){const m=profs().find(p=>p.sid!==st.sid&&p.fps.some(x=>newFp.has(x)));if(m){PEND=m;const a=maxMo(st),b=maxMo(m.st);if(a&&b)AUTO=a>b?"cmp":a===b?"same":null}}
     if(!st.start)st.start=Date.now();recompute();save();renderAll();const k=Object.values(st.items).filter(v=>v.src==="fatura"||v.src==="conta"||v.src==="extrato").length;
-    say("st1",PEND?"Esta fatura é do mesmo cartão (ou conta) de uma simulação anterior. Escolha abaixo: comparar ou fazer uma nova.":opMsg+(k?`${okN} ${okN===1?"documento lido agora":"documentos lidos agora"}. No total: ${k} ${k===1?"item":"itens"}. Toque em Ver meu resultado.`:(/Extrato lido/.test(opMsg)?"":"Li a fatura e não encontrei assinaturas nem cobranças recorrentes nela. Se você paga algo nesse cartão, marque em Mais › Avançado › Ajustar itens."))+(warn?" "+warn:""));
+    say("st1",PEND?"Esta fatura é do mesmo cartão (ou conta) de uma simulação anterior. Escolha abaixo: comparar ou fazer uma nova.":opMsg+(k?`${okN} ${okN===1?"documento lido agora":"documentos lidos agora"}. No total: ${k} ${k===1?"item":"itens"}. Toque em Ver meu resultado.`:(/Extrato lido/.test(opMsg)?"":"Não encontrei assinaturas nem cobranças recorrentes neste arquivo. Confira se é o PDF da fatura do cartão baixado do app do banco. Se você paga algo nesse cartão, marque em Mais › Avançado › Ajustar itens."))+(warn?" "+warn:""));
     if(AUTO==="cmp"){doMatch("cmp");return}
     if(AUTO==="same"){const prev=PEND;PEND=null;const keepP=P;st=wrap(JSON.parse(JSON.stringify(prev.st)));P=keepP;renderMatch();save();go(4);say("st1",`Essa é a mesma fatura de ${moName(maxMo(prev.st))}. Abrimos a simulação que você já tinha.`);return}
     if(sampleFn)$("ai").disabled=false;
@@ -1171,7 +1173,7 @@ function renderCal(r){const today=new Date().getDate();const its=r.its.filter(i=
   its.sort((a,b)=>a.d-b.d);const soon=d=>{const diff=(d-today+31)%31;return diff>=0&&diff<=7};
   $("cal").innerHTML=its.length?its.map(i=>`<div class="cd${soon(i.d)?" soon":""}"><div class="day">${String(i.d).padStart(2,"0")}<small>dia</small></div><div><b>${esc(i.name)}</b>${i.t||soon(i.d)?`<small class="ctype">${[i.t,soon(i.d)?"cobra em breve":""].filter(Boolean).join(" · ")}</small>`:""}</div><span class="v">${brl(i.v)}</span></div>`).join(""):`<div class="empty">As datas aparecem quando você sobe uma fatura ou um extrato.</div>`}
 function renderChal(r){const A=r.A.filter(a=>a.v>0||/^([a-f]\|)?[cmrnox]:/.test(a.id));const dn=A.filter(a=>st.done[a.id]);const pct=A.length?Math.round(dn.length/A.length*100):0;const dv=dn.reduce((x,a)=>x+a.v,0);
-  $("chal").innerHTML=`<b>Seu checklist</b><div class="bar"><i style="width:${pct}%"></i></div><div>${dn.length} de ${A.length} ações feitas · ${brl(dv*12)}/ano já resolvidos</div><small>${pct===100&&A.length?"Tudo feito. Parabéns!":"Marque Já fiz quando resolver cada uma."}</small>`}
+  $("chal").innerHTML=`<b>Seu checklist</b><div class="bar"><i style="width:${pct}%"></i></div><div>${dn.length} de ${A.length} ${A.length===1?"ação feita":"ações feitas"} · ${brl(dv*12)}/ano já resolvidos</div><small>${pct===100&&A.length?"Tudo feito. Parabéns!":"Marque Já fiz quando resolver cada uma."}</small>`}
 /* Opinião dos testadores: número de WhatsApp que recebe as respostas (só dígitos, com 55 e DDD). Vazio = botão escondido. */
 const FB_WA="5511999709664";
 /* Fundador: link de pagamento e verificação do código pessoal */
@@ -1180,13 +1182,31 @@ const licOf=e=>{e=String(e||"").trim().toLowerCase();const h=t=>{let x=216613626
 const CONVITE="amigos";
 function PAID(){try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");return!!(L&&L.e&&licOf(L.e)===L.c)}catch(e){return false}}
 (function(){try{const q=new URLSearchParams(location.search).get("convite");const tag=q&&q.toLowerCase()===CONVITE?"convite":((OLDUSER||!MP_LINK)?"teste":"");if(tag&&!PAID()){const e=tag+"@essencial";localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}if(q)history.replaceState(null,"",location.pathname)}catch(e){}})();
-function fundador(why){$("fWhy").textContent=why||"Libere o plano completo e o acompanhamento mês a mês.";$("fPay").href=MP_LINK||"#";$("fPay").textContent=MP_LINK?"Assinar por R$ 39,90 (Mercado Pago)":"Pagamento abre em breve";
-  $("fComp").href=`https://wa.me/${FB_WA}?text=${encodeURIComponent("Assinei o Essencial Completo. Segue o comprovante.\nMeu e-mail: ")}`;$("fMsg").textContent="";$("fundPanel").hidden=false}
-function fundUI(){const L=(()=>{try{return JSON.parse(localStorage.getItem("ess-lic")||"null")}catch(e){return null}})();const ok=PAID();$("fundBtn").hidden=ok;$("fundOk").hidden=!ok;if(ok)$("fundOk").innerHTML=/@essencial$/.test(L.e)?`<span class="fbadge">Convidado</span> Acesso completo liberado neste aparelho`:`<span class="fbadge">Completo</span> Licenciado para ${esc(L.e)}`;$("pdf").textContent=ok?"Guardar meu plano (PDF)":"Guardar meu plano completo (PDF) · Completo"}
+function fundador(why){$("fWhy").textContent=why||"Libere o plano completo e o acompanhamento mês a mês.";$("fPay").textContent=MP_LINK?"Assinar por R$ 39,90 (Mercado Pago)":"Pagamento abre em breve";
+  $("fComp").href=`https://wa.me/${FB_WA}?text=${encodeURIComponent("Olá! Preciso de ajuda com o Essencial Completo.")}`;$("fMsg").textContent="";$("fundPanel").hidden=false}
+function fundUI(){const L=(()=>{try{return JSON.parse(localStorage.getItem("ess-lic")||"null")}catch(e){return null}})();const ok=PAID();$("fundBtn").hidden=ok;$("fundOk").hidden=!ok;if(ok)$("fundOk").innerHTML=/@pago$/.test(L.e)?`<span class="fbadge">Completo</span> Ativo neste aparelho`:/@essencial$/.test(L.e)?`<span class="fbadge">Convidado</span> Acesso completo liberado neste aparelho`:`<span class="fbadge">Completo</span> Licenciado para ${esc(L.e)}`;$("pdf").textContent=ok?"Guardar meu plano (PDF)":"Guardar meu plano completo (PDF) · Completo"}
 $("fundClose").addEventListener("click",()=>{$("fundPanel").hidden=true});$("fundBtn").addEventListener("click",()=>{$("morePanel").hidden=true;fundador()});
-$("fAct").addEventListener("click",()=>{const e=$("fMail").value.trim().toLowerCase(),c=$("fCode").value.trim().toUpperCase().replace(/\s/g,"");if(!/^\S+@\S+\.\S+$/.test(e)){$("fMsg").textContent="Confira o e-mail.";return}
-  if(licOf(e)!==c){$("fMsg").textContent="Código não confere com este e-mail. Confira e tente de novo.";return}
-  try{localStorage.setItem("ess-lic",JSON.stringify({e,c}))}catch(x){}$("fMsg").textContent="Pronto! Seu Essencial Completo está ativo.";fundUI();setTimeout(()=>{$("fundPanel").hidden=true;try{renderResult()}catch(x){}},900)});
+$("fAct").addEventListener("click",async()=>{const e=$("fMail").value.trim().toLowerCase(),c=$("fCode").value.trim().toUpperCase().replace(/\s/g,"");if(!/^\S+@\S+\.\S+$/.test(e)){$("fMsg").textContent="Confira o e-mail.";return}
+  if(c){if(licOf(e)!==c){$("fMsg").textContent="Código não confere com este e-mail. Confira e tente de novo.";return}grant(e);return}
+  $("fMsg").textContent="Procurando sua compra…";$("fAct").disabled=true;
+  try{const d=await mpVerify("email="+encodeURIComponent(e));if(d.ok){grant(d.email||e);return}$("fMsg").textContent="Não encontramos uma compra aprovada com este e-mail. Use o e-mail da sua conta Mercado Pago ou toque em Precisa de ajuda."}
+  catch(x){$("fMsg").textContent="Sem conexão agora. Tente de novo em instantes."}finally{$("fAct").disabled=false}});
+/* Pagamento automático (Mercado Pago Checkout Pro + funções do Netlify) */
+const FN="/.netlify/functions/";
+async function mpVerify(q){const r=await fetch(FN+"verify?"+q,{cache:"no-store"});return r.json()}
+function grant(email,pid){const e=String(email||("mp-"+pid+"@pago")).toLowerCase();try{localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}catch(x){}
+  $("fMsg").textContent="Pronto! Seu Essencial Completo está ativo.";fundUI();setTimeout(()=>{$("fundPanel").hidden=true;try{renderResult()}catch(x){}},900);say("st1","Pronto! Seu Essencial Completo está ativo.")}
+async function startCheckout(){if(location.protocol==="file:"){location.href=MP_LINK;return}const b=$("fPay"),t=b.textContent;b.textContent="Abrindo o pagamento…";
+  try{const r=await fetch(FN+"checkout",{method:"POST"});const d=await r.json();if(d.url){location.href=d.url;return}}catch(x){}b.textContent=t;location.href=MP_LINK}
+$("fPay").addEventListener("click",ev=>{ev.preventDefault();startCheckout()});
+(async function(){try{const q=new URLSearchParams(location.search),pid=q.get("payment_id")||q.get("collection_id");
+  if(q.get("assinar")==="1"){history.replaceState(null,"",location.pathname);if(!PAID())startCheckout();return}
+  if(!pid||pid==="null")return;history.replaceState(null,"",location.pathname);
+  for(let i=0;i<40;i++){let d={};try{d=await mpVerify("payment_id="+encodeURIComponent(pid))}catch(x){}
+    if(d.ok){grant(d.email,d.pid||pid);return}
+    if(d.status==="rejected"||d.status==="cancelled"){say("st1","O pagamento não foi aprovado. Você pode tentar de novo em Mais › Conhecer o Completo.");return}
+    if(i===0)say("st1","Confirmando seu pagamento…");await new Promise(r=>setTimeout(r,5000))}
+  say("st1","Ainda aguardando a confirmação. Se já pagou, use Já comprou? com seu e-mail.")}catch(x){}})();
 const ERRS=[];function errTxt(){return`Problema no ${FAM?"Essencial em Família":"Essencial"}\nVersão: ${VERSAO}\nTela: ${(()=>{try{return SCR}catch(e){return"?"}})()}\nAparelho: ${navigator.userAgent.slice(0,120)}\nErro: ${ERRS.slice(-3).join(" | ")||"nenhum registrado"}\n\nO que aconteceu (conte em 1 linha):\n`}
 function errLinks(){const u=`https://wa.me/${FB_WA}?text=${encodeURIComponent(errTxt())}`;$("errSend").href=u;$("bugBtn").href=u}
 function onErr(m){ERRS.push(String(m).slice(0,160));errLinks();$("errBar").hidden=false}

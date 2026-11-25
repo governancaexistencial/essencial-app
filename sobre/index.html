@@ -31,7 +31,7 @@ a{color:inherit}
 nav{position:absolute;top:0;left:0;right:0;z-index:5}
 nav .w{display:flex;align-items:center;justify-content:space-between;height:72px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--cream);text-decoration:none;font-family:"Cormorant Garamond",serif;font-size:1.25rem;font-weight:700;letter-spacing:.02em}
-.brand img{width:34px;height:34px;border-radius:8px}
+.gesel{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--gold);color:var(--navy);font:700 16px/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.03em;box-shadow:0 4px 14px rgba(0,0,0,.3);flex:none}.essbadge{display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;letter-spacing:.02em}.essbadge img{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--gold);box-shadow:0 4px 12px rgba(0,0,0,.25)}
 nav .lk{color:var(--gold2);font-size:.9rem;text-decoration:none;font-weight:500}
 /* hero */
 .hero{position:relative;background:radial-gradient(120% 90% at 70% 10%,#2a3d66 0%,var(--navy) 55%,#0e1830 100%);color:var(--cream);overflow:hidden;padding:120px 0 0}
@@ -77,7 +77,7 @@ section{padding:84px 0}
 .pl li:before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%2314213d' stroke-width='2'/%3E%3C/svg%3E") center/16px no-repeat}
 .pl li.off{color:#a3a8b3}.pl li.off:before{background:#e7e1d3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 8h6' stroke='%23a3a8b3' stroke-width='2'/%3E%3C/svg%3E") center/16px no-repeat}
 .pl.hi{background:var(--navy);color:var(--cream);border-color:var(--navy);position:relative;box-shadow:0 26px 60px rgba(20,33,61,.28)}
-.pl.hi .note,.pl.hi .pr small{color:#cdd3df}.pl.hi .pr{color:var(--gold2)}
+.pl.hi .note,.pl.hi .pr small{color:#cdd3df;white-space:nowrap;display:inline-block}.pl.hi .pr{color:var(--gold2)}
 .rib{position:absolute;top:-13px;left:30px;background:var(--gold);color:var(--navy);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
 .strike{text-decoration:line-through;opacity:.6;margin-right:6px}
 .after{display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:center;margin-top:26px;color:var(--soft);font-size:.92rem}
@@ -102,10 +102,10 @@ footer a{color:var(--gold2);text-decoration:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 @media (max-width:860px){.jr{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}.plans{grid-template-columns:1fr}.gal{grid-template-columns:1fr;max-width:320px;margin-left:auto;margin-right:auto}}
 @media (max-width:520px){.jr{grid-template-columns:1fr}section{padding:64px 0}.hero{padding-top:104px}.cta .btn{flex:1 1 100%}}
-</style>
-</head>
+.plans{grid-template-columns:minmax(0,1fr)}@media(min-width:900px){.plans{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}}.pl{min-width:0}.pl li{overflow-wrap:anywhere}html,body{overflow-x:hidden}</style>
+<style id="netlify-badge-space">body{padding-bottom:72px}</style></head>
 <body>
-<nav><div class="w"><a class="brand" href="#"><img src="img/icon-192.png" alt="">Governança Existencial</a><a class="lk" href="#planos">Planos</a></div></nav>
+<nav><div class="w"><a class="brand" href="#"><span class="gesel" aria-hidden="true">GE</span>Governança Existencial</a><a class="lk" href="#planos">Planos</a></div></nav>
 
 <header class="hero">
   <div class="w">
@@ -154,7 +154,7 @@ footer a{color:var(--gold2);text-decoration:none}
 
 <section class="ess" id="essencial">
   <div class="w">
-    <div class="sh rv"><div class="kick">A primeira ferramenta · Blindagem</div><h2>Descubra quanto você paga sem perceber.</h2><p>Assinaturas esquecidas, planos maiores do que você usa, combos que já vêm na sua operadora. O Essencial encontra tudo isso em poucos minutos.</p></div>
+    <div class="sh rv"><div class="essbadge"><img src="img/essencial-icon.png" alt="">Essencial</div><div class="kick">A primeira ferramenta · Blindagem</div><h2>Descubra quanto você paga sem perceber.</h2><p>Assinaturas esquecidas, planos maiores do que você usa, combos que já vêm na sua operadora. O Essencial encontra tudo isso em poucos minutos.</p></div>
     <div class="steps">
       <div class="sp rv"><i>1</i><b>Envie a fatura</b><span>Do cartão e, se quiser, a conta do celular ou o extrato do banco. Sem senha de banco.</span></div>
       <div class="sp rv"><i>2</i><b>Responda o que usa</b><span>Um toque por item: uso, pago mais do que uso, ou não uso.</span></div>
@@ -162,7 +162,7 @@ footer a{color:var(--gold2);text-decoration:none}
     </div>
     <div class="priv rv">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c9a24e" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-      <p><b>Nada sai do seu celular.</b> A fatura é lida no próprio aparelho, sem cadastro. Nenhum dado é enviado para servidor.</p>
+      <p><b>Nada sai do seu celular.</b> A fatura é lida no próprio aparelho, sem cadastro. Nenhum dado da fatura é enviado para servidor.</p>
     </div>
     <div class="cta rv"><a class="btn bg" href="/">Fazer meu diagnóstico grátis</a><a class="btn bo" href="/?exemplo=1">Ver um exemplo antes</a></div>
     <div class="gal">
@@ -187,10 +187,10 @@ footer a{color:var(--gold2);text-decoration:none}
         <span class="rib">Preço de lançamento</span>
         <h3>Completo</h3><div class="pr"><span class="strike" style="font-size:1.4rem">R$ 99</span>R$ 39,90 <small>no 1º ano</small></div><p class="note">Até 31/12/2026. Depois, R$ 99/ano. Pagamento único, sem cobrança automática.</p>
         <ul><li>Tudo do Grátis</li><li>Todas as ações, com o que muda em cada plano</li><li>Plano em PDF com passo a passo e links</li><li>Comparação automática com a fatura do mês seguinte</li><li>Versão Família, para o casal</li></ul>
-        <a class="btn bg" href="https://mpago.li/2Ls1jcn" target="_blank" rel="noopener">Assinar por R$ 39,90</a>
+        <a class="btn bg" href="/?assinar=1">Assinar por R$ 39,90</a>
       </div>
     </div>
-    <div class="after rv"><span>🛡 Garantia de 7 dias: não gostou, devolvemos.</span><span>Já assinou? <a href="https://wa.me/5511999709664?text=Assinei%20o%20Essencial%20Completo.%20Segue%20o%20comprovante.%0AMeu%20e-mail%3A%20" target="_blank" rel="noopener">Envie o comprovante e receba seu código</a></span></div>
+    <div class="after rv"><span>🛡 Garantia de 7 dias: não gostou, devolvemos.</span><span>Já assinou? <a href="/" target="_blank" rel="noopener">A liberação é automática. Se precisar, abra o app e toque em “Já comprou?”</a></span></div>
   </div>
 </section>
 
@@ -199,15 +199,15 @@ footer a{color:var(--gold2);text-decoration:none}
     <div class="sh rv"><div class="kick">Dúvidas</div><h2>Perguntas frequentes</h2></div>
     <details><summary>É seguro enviar minha fatura?</summary><p>Sim. A fatura é lida dentro do seu celular, no navegador. Ela não vai para nenhum servidor, não pedimos cadastro nem senha de banco.</p></details>
     <details><summary>O diagnóstico é grátis mesmo?</summary><p>É. Você vê quanto paga, quanto pode economizar e as 3 maiores ações. O Completo libera o plano inteiro, o PDF, a comparação mês a mês e a versão Família.</p></details>
-    <details><summary>Como recebo o acesso ao Completo?</summary><p>Pague pelo Mercado Pago (Pix ou cartão), envie o comprovante pelo WhatsApp e receba um código pessoal. No app, toque em Mais › Conhecer o Completo e digite o código.</p></details>
-    <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias de garantia. É só pedir pelo WhatsApp e devolvemos o valor.</p></details>
+    <details><summary>Como recebo o acesso ao Completo?</summary><p>Na hora. Pague pelo Mercado Pago (Pix ou cartão) e, ao voltar para o app, o Completo já aparece liberado. Se trocar de celular ou navegador, toque em “Já comprou?” e digite o e-mail usado na compra.</p></details>
+    <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias de garantia. É só pedir pelo <a href="https://wa.me/5511999709664?text=Ol%C3%A1%21%20Quero%20usar%20a%20garantia%20do%20Essencial%20Completo.%20E-mail%20da%20compra%3A%20" target="_blank" rel="noopener">WhatsApp</a> ou pelo e-mail de contato, e devolvemos o valor.</p></details>
     <details><summary>Funciona no iPhone?</summary><p>Sim. Abra no Safari e toque em Compartilhar › Adicionar à Tela de Início para usar como app. No Android, use o Chrome › Instalar app.</p></details>
     <details><summary>Os valores são exatos?</summary><p>O que você paga vem dos seus documentos. Preços de planos e combos vêm de fontes públicas, com link. Confira sempre com a empresa antes de trocar. O Essencial organiza e orienta; não é consultoria financeira nem recomenda investimentos.</p></details>
   </div>
 </section>
 
 <section class="soon">
-  <div class="w rv"><div class="kick">Em breve</div><h2>A Governança Existencial vai além do dinheiro.</h2><p>Novas ferramentas e o método completo chegam em 2027. Comece pela Blindagem: cuide do que você já construiu.</p></div>
+  <div class="w rv"><div class="kick">Em breve</div><h2>A Governança Existencial vai além do dinheiro.</h2><p>Novas ferramentas e o método completo chegam em breve. Comece pela Blindagem: cuide do que você já construiu.</p></div>
 </section>
 
 <footer><div class="w"><span>© 2026 Governança Existencial</span><span><a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Privacidade</a> · <a href="mailto:contato.governancaexistencial@gmail.com">contato.governancaexistencial@gmail.com</a></span></div></footer>
