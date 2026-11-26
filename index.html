@@ -87,6 +87,7 @@ select{width:100%;min-height:42px;border:1px solid var(--line);border-radius:6px
 textarea{width:100%;min-height:160px;margin-top:10px;border:1px solid var(--line);border-radius:6px;padding:10px;font:14px Manrope,sans-serif;background:var(--card);color:var(--ink)}
 .toast{position:fixed;left:50%;top:76px;transform:translateX(-50%);width:min(92vw,520px);background:var(--navy);color:#f6f1e7;border:1px solid #c9a24e88;border-radius:8px;padding:14px 16px;font-weight:600;font-size:15px;box-shadow:0 8px 30px #0005;z-index:9;opacity:0;pointer-events:none;transition:opacity .25s}.toast.on{opacity:1}
 .tile .status{margin-top:0}
+.simrow{display:flex;gap:8px;align-items:stretch;margin:8px 0}.simopen{flex:1;text-align:left;border:1px solid var(--line,#ddd3bf);background:#fffdf8;border-radius:10px;padding:10px 12px;display:grid;gap:2px;cursor:pointer;font:inherit;color:inherit}.simrow.first .simopen{border-color:#c9a24e}.simt{font-weight:700;font-size:15px}.simt em{font-style:normal;color:#8a6a1f;font-size:13px}.sims{font-size:13px;color:var(--soft,#6b6b6b)}.simv{font-size:13px;font-weight:600;color:#2f6b45}.simv.nv{color:var(--soft,#6b6b6b)}.simdel{border:1px solid var(--line,#ddd3bf);background:#fffdf8;border-radius:10px;width:44px;cursor:pointer;font-size:16px}
 .fstat{font-size:13px;font-weight:600;color:#2f6b45;white-space:nowrap}.backbox .linkbtn{display:block;margin:6px auto 0}
 html,body{overscroll-behavior-y:contain}main{min-height:100vh}.scr{display:none;padding:clamp(18px,4vw,40px) max(5vw,16px) 90px}.scr.on{display:block}.wrap{max-width:720px}
 body.hasbar main{padding-top:84px}
@@ -228,7 +229,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
   <p class="lead small five">Leva uns 5 minutos.</p>
   <button type="button" class="btn wide demob" id="demoBtn">Ver um exemplo antes (sem enviar nada)</button>
   <div class="inst" id="inst" hidden><b>Instale como app</b><span id="instTxt"></span><button type="button" class="btn gold" id="instBtn" hidden>Instalar app</button></div>
-  <div class="priv"><b>Seus dados ficam com você</b><span>Os documentos são lidos aqui no seu celular. Nada é enviado para a internet nem guardado fora dele, e você pode apagar tudo em Mais › Recomeçar do zero.</span></div>
+  <div class="priv"><b>Seus dados ficam com você</b><span>Os documentos são lidos aqui no seu celular. Nada é enviado para a internet nem guardado fora dele, e você pode apagar tudo em Mais (Recomeçar do zero e Simulações guardadas).</span></div>
   <a class="geby" href="https://governancaexistencial.com.br" target="_blank" rel="noopener"><span class="gesel" aria-hidden="true">GE</span><span>Uma ferramenta da <b>Governança Existencial</b><small>Conheça o método completo ›</small></span></a>
   <p class="ver" data-ver></p>
 </div></section>
@@ -350,7 +351,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
     <details class="adv"><summary>Avançado</summary>
     <details id="dList"><summary>Ajustar itens e incluir o que faltou</summary><div class="list" id="list"></div><h3 class="addh">Toque para incluir</h3><div class="chips" id="chips"></div></details>
     <details><summary>Comprovar com a fatura nova (opcional)</summary><p class="lead small">Compara a fatura nova com esta simulação e marca o que já sumiu.</p><span class="btn fb wide">Escolher a fatura nova<input type="file" id="f2" aria-label="Comprovar com a fatura nova"></span><div class="proof" id="proof"><b class="n" id="pVal">R$ 0</b><div id="pTxt" class="lead">A comprovação aparece aqui.</div></div></details>
-    <details><summary>Simulações guardadas neste aparelho</summary><p class="lead small" id="profTxt"></p><button class="btn" type="button" id="profDel">Apagar simulações guardadas</button></details>
+    <details><summary>Simulações guardadas neste aparelho</summary><p class="lead small" id="profTxt"></p><button class="btn gold" type="button" id="profOpen">Ver minhas simulações</button> <button class="btn" type="button" id="profDel">Apagar simulações guardadas</button></details>
     <details><summary>Quando cada uma cobra</summary><div class="cal" id="cal"></div></details>
     <details><summary>Abrir simulação salva</summary><span class="btn fb">Escolher arquivo<input type="file" id="fsim" aria-label="Abrir simulação salva"></span><button class="btn ghost" id="ai" type="button" disabled hidden>Ler a fatura com IA</button></details>
     <details><summary>Colar o texto da fatura</summary><div class="paste"><textarea id="pt" placeholder="Ex.: 02/11 NETFLIX.COM 51,90"></textarea><button class="btn ghost" id="ptb" type="button">Ler o texto colado</button></div></details>
@@ -480,7 +481,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 19:37";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 20:12";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -529,7 +530,7 @@ const SKEY=KEY+"_sessao";let RESTORED=null,SESS=true;try{sessionStorage.setItem(
 if(RESTORED&&RESTORED.st){try{st=wrap(RESTORED.st);P=RESTORED.P||"a"}catch(e){st=blank();RESTORED=null}}
 let tT;const say=(id,m)=>{$(id).textContent=m;if(!m)return;const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(tT);tT=setTimeout(()=>t.classList.remove("on"),3000)};
 const looksBill=(lines,found)=>{const U=lines.join(" ").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase();if(/\bINSS\b|PREVIDENCI|\bCNIS\b|BENEFICIARIO|HOLERITE|CONTRACHEQUE|BOLETIM/.test(U)&&Object.keys(found).length<2)return false;return Object.keys(found).length>=2||/FATURA|CARTAO DE CREDITO|VENCIMENTO|LIMITE (DE CREDITO|DISPONIVEL|TOTAL)|PAGAMENTO MINIMO|LANCAMENTOS|STMTTRN|<OFX>/.test(U)};
-const save=()=>{if(window.DEMO)return;try{writeProf()}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}try{let sc=0;try{sc=SCR}catch(e){}sessionStorage.setItem(SKEY,JSON.stringify({st,P,scr:sc,qh:typeof qHist!=="undefined"?qHist:[]}))}catch(e){}};
+const save=()=>{if(window.DEMO)return;try{writeProf()}catch(e){}try{writeSim()}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}try{let sc=0;try{sc=SCR}catch(e){}sessionStorage.setItem(SKEY,JSON.stringify({st,P,scr:sc,qh:typeof qHist!=="undefined"?qHist:[]}))}catch(e){}};
 
 /* ---------- leitura de arquivos ---------- */
 function linesFromOFX(t){const out=[];for(const m of t.matchAll(/<STMTTRN>([\s\S]*?)(<\/STMTTRN>|(?=<STMTTRN>))/gi)){const b=m[1];const g=k=>(b.match(new RegExp("<"+k+">([^<\\r\\n]*)","i"))||[])[1]||"";{const d=g("DTPOSTED");out.push(`${d?d.slice(6,8)+"/"+d.slice(4,6)+" ":""}${g("NAME")} ${g("MEMO")} ${g("TRNAMT")}`)}}return out}
@@ -623,6 +624,9 @@ function fpOf(lines){const U=lines.join(" ");const out=new Set();let lab="";cons
   return{fps:[...out].slice(0,8),lab}}
 const PKEY="essencial_perfis_"+(document.documentElement.dataset.mode==="familia"?"fam":"ind");let PEND=null;
 function profs(){try{return JSON.parse(localStorage.getItem(PKEY)||"[]")}catch(e){return[]}}
+const SIMK="essencial_sims_"+(document.documentElement.dataset.mode==="familia"?"fam":"ind");
+function sims(){try{return JSON.parse(localStorage.getItem(SIMK)||"[]")}catch(e){return[]}}
+function writeSim(){let sc=0;try{sc=SCR}catch(e){}if(sc<2||window.DEMO||!filesOf(st).length&&!Object.keys(st.items||{}).length)return;const L=sims().filter(x=>x.sid!==st.sid);L.unshift({sid:st.sid,at:Date.now(),st:JSON.parse(JSON.stringify(st))});try{localStorage.setItem(SIMK,JSON.stringify(L.slice(0,5)))}catch(e){try{localStorage.setItem(SIMK,JSON.stringify(L.slice(0,2)))}catch(e2){}}}
 function writeProf(){if(PEND||!(st.fps||[]).length)return;let sc=0;try{sc=SCR}catch(e){}if(sc<2)return;
   const L=profs().filter(p=>p.sid!==st.sid&&!p.fps.some(f=>st.fps.includes(f)));L.unshift({sid:st.sid,fps:st.fps,lab:st.fpLab,at:Date.now(),st:JSON.parse(JSON.stringify(st))});
   try{localStorage.setItem(PKEY,JSON.stringify(L.slice(0,4)))}catch(e){try{localStorage.setItem(PKEY,JSON.stringify(L.slice(0,1)))}catch(e){}}}
@@ -1369,8 +1373,9 @@ function doMatch(kind){if(!PEND)return;
   if(moNew)for(const p of PK()){const o=FAM?st.people[p]:st;if(o.proof)o.proof.mo=moNew}save();
   const quando=moNew&&moOld?`Fatura de ${moName(moNew)} comparada com ${moName(moOld)}`:`Comparado com ${new Date(prev.at).toLocaleDateString("pt-BR")}`;
   renderMatch();save();go(4);say("st1",ok>0.5?`${quando}: ${brl(ok*12)} por ano já saíram da fatura. Veja no plano o que ainda falta.`:`${quando}: nenhuma ação do plano sumiu da fatura ainda. Veja no plano o que falta.`)}
-$("profDel").addEventListener("click",()=>{try{localStorage.removeItem(PKEY)}catch(e){}PEND=null;renderMatch();renderProf();say("st2","Simulações guardadas apagadas deste aparelho.")});
-function renderProf(){const L=profs();$("profTxt").textContent=L.length?`${L.length} simulação(ões) guardada(s) só neste aparelho, para comparar no mês que vem: ${L.map(p=>`${p.lab||"documento"} (${new Date(p.at).toLocaleDateString("pt-BR")})`).join(", ")}.`:"Nenhuma simulação guardada neste aparelho ainda. Ela é guardada quando você vê o resultado."}
+$("profOpen").addEventListener("click",()=>{$("morePanel").hidden=true;document.body.style.overflow="";go(0)});
+$("profDel").addEventListener("click",()=>{try{localStorage.removeItem(PKEY);localStorage.removeItem(SIMK)}catch(e){}PEND=null;renderMatch();renderProf();say("st2","Simulações guardadas apagadas deste aparelho.")});
+function renderProf(){const L=sims();$("profTxt").textContent=L.length?`${L.length} ${L.length===1?"simulação guardada":"simulações guardadas"} só neste aparelho: ${L.map(p=>`${docsLab(p.st)} (${new Date(p.at).toLocaleDateString("pt-BR")})`).join(", ")}.`:"Nenhuma simulação guardada neste aparelho ainda. Ela é guardada quando você vê o resultado."}
 $("chips2").addEventListener("click",ev=>{const b=ev.target.closest("[data-c]");if(!b)return;const t=$("chips").querySelector(`[data-c="${b.dataset.c}"]`);if(t)t.click();renderSlots();renderChips()});
 $("apoiar").addEventListener("click",()=>{$("apix").hidden=false});
 $("vclose").addEventListener("click",closeViewer);document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("viewer").hidden)closeViewer()});
@@ -1386,14 +1391,20 @@ document.querySelectorAll("[data-ver]").forEach(e=>e.textContent=`Versão ${VERS
 {const b=document.createElement("button");b.className="btn";b.type="button";b.textContent="Guardar simulação em arquivo";b.addEventListener("click",()=>{const o=$("savesim");if(o)o.click()});$("savesimBox").appendChild(b)}
 /* volta: simulação salva neste aparelho */
 function curHas(){try{return analyzeAll().total>0.5}catch(e){return false}}
-function renderBack(){const b=$("backBox"),go1=document.querySelector('[data-s="0"] [data-go="1"]');const cur=!LAST&&SCR===0&&curHas();if((!LAST&&!cur)||SCR>0){b.hidden=true;if(go1)go1.hidden=false;return}
-  const keep=st,kP=P;let y=0,mo=null;try{if(LAST){st=wrap(JSON.parse(JSON.stringify(LAST)));P="a"}y=analyzeAll().save*12;mo=maxMo(LAST||JSON.parse(JSON.stringify(keep)))}catch(e){}st=keep;P=kP;
+function docsLab(o){const F=filesOf(o);const t=[];if(F.some(f=>f.op))t.push("Conta "+((F.find(f=>f.op).op||{}).op||"da operadora"));if(F.some(f=>!f.op&&f.kind!=="extrato"))t.push("Cartão");if(F.some(f=>f.kind==="extrato"))t.push("Extrato");return t.join(" + ")||"Serviços marcados"}
+function simList(){const out=[],seen=new Set();const add=(o,at,tag)=>{if(!o||seen.has(o.sid))return;seen.add(o.sid);out.push({o,at,tag})};
+  const S2=sims();if(LAST)add(LAST,(S2.find(p=>p.sid===LAST.sid)||{}).at||null,"Mais recente");else if(SCR===0&&curHas())add(JSON.parse(JSON.stringify(st)),(S2.find(p=>p.sid===st.sid)||{}).at||null,"Em andamento");
+  for(const p of S2)add(p.st,p.at,"");return out.slice(0,5)}
+function simInfo(o){const keep=st,kP=P;let y=0,np=0;try{st=wrap(JSON.parse(JSON.stringify(o)));P="a";const r=analyzeAll();y=r.save*12;np=r.its.filter(i=>i.use==="pend"||i.use==="conf").length}catch(e){}st=keep;P=kP;return{y,np}}
+function renderBack(){const b=$("backBox"),go1=document.querySelector('[data-s="0"] [data-go="1"]');const L=SCR===0?simList():[];if(!L.length){b.hidden=true;if(go1)go1.hidden=false;return}
   b.hidden=false;if(go1)go1.hidden=true;
-  b.innerHTML=`<b>Bem-vindo de volta</b><p>Sua simulação${mo?` de ${moName(mo)}`:""}${y>0.5?`: economia de <strong>${brl(y)}</strong> por ano.`:" está salva neste celular."}</p><button type="button" class="btn gold xl" data-back="cont">Continuar de onde parei</button><button type="button" class="linkbtn" data-back="new">Começar outra simulação</button>`}
-$("backBox").addEventListener("click",e=>{const t=e.target.closest("[data-back]");if(!t)return;const k=t.dataset.back;
-  if(k==="cont"){if(LAST){st=wrap(JSON.parse(JSON.stringify(LAST)));P="a";LAST=null}$("backBox").hidden=true;renderAll();const hasQ=PK().some(k2=>{const kp=P;P=k2;const c=qQueue().length;P=kp;return c});go(hasQ?3:4);return}
-  const old=LAST||JSON.parse(JSON.stringify(st));LAST=null;st=blank();save();renderBack();
-  if(k==="new"){go(1);say("st1",`Envie a fatura nova. Se for do mesmo cartão e de outro mês${maxMo(old)?` (a anterior é de ${moName(maxMo(old))})`:""}, comparamos sozinhos.`)}else{try{localStorage.removeItem(KEY)}catch(e){}go(0)}});
+  b.innerHTML=`<b>Minhas simulações</b><p class="small">Guardadas só neste celular. Toque para abrir: não precisa enviar os arquivos de novo.</p>`+L.map((x,i)=>{const mo=maxMo(x.o);const inf=simInfo(x.o);const dt=x.at?new Date(x.at).toLocaleDateString("pt-BR"):"";return`<div class="simrow${i===0?" first":""}"><button type="button" class="simopen" data-sim="${i}"><span class="simt">${esc(mo?moName(mo).replace(/^./,c=>c.toUpperCase()):dt?"Simulação de "+dt:"Simulação")}${x.tag?` · <em>${x.tag}</em>`:""}</span><span class="sims">${esc(docsLab(x.o))}${dt?` · salva em ${dt}`:""}</span><span class="simv${inf.y>0.5?"":" nv"}">${inf.y>0.5?`Economia de ${brl(inf.y)} por ano`:inf.np?`Faltam respostas`:`Sem economia encontrada`}</span></button><button type="button" class="simdel" data-simdel="${i}" aria-label="Apagar esta simulação">🗑</button></div>`}).join("")+`<button type="button" class="btn gold xl" data-sim="0">${L[0].tag==="Em andamento"?"Continuar":"Abrir a mais recente"}</button><button type="button" class="linkbtn" data-back="new">Começar outra simulação</button>`;
+  b._L=L}
+$("backBox").addEventListener("click",e=>{const d=e.target.closest("[data-simdel]");const o=e.target.closest("[data-sim]");const t=e.target.closest("[data-back]");const L=$("backBox")._L||[];
+  if(d){const x=L[+d.dataset.simdel];if(!x)return;if(!confirmDel(x))return;try{localStorage.setItem(PKEY,JSON.stringify(profs().filter(p=>p.sid!==x.o.sid)));localStorage.setItem(SIMK,JSON.stringify(sims().filter(p=>p.sid!==x.o.sid)))}catch(e2){}if(LAST&&LAST.sid===x.o.sid){LAST=null;try{localStorage.removeItem(KEY)}catch(e2){}}if(st.sid===x.o.sid){st=blank();save()}renderBack();renderProf();return}
+  if(o){const x=L[+o.dataset.sim];if(!x)return;st=wrap(JSON.parse(JSON.stringify(x.o)));P="a";LAST=null;$("backBox").hidden=true;save();renderAll();const hasQ=PK().some(k2=>{const kp=P;P=k2;const c=qQueue().length;P=kp;return c});go(hasQ?3:4);return}
+  if(t&&t.dataset.back==="new"){LAST=null;st=blank();save();go(1);say("st1","Envie os documentos da nova simulação.")}});
+function confirmDel(x){const b=$("backBox");if(b._arm===x.o.sid){b._arm=null;return true}b._arm=x.o.sid;say("st1","Toque de novo na lixeira para apagar esta simulação.");setTimeout(()=>{if(b._arm===x.o.sid)b._arm=null},4000);return false}
 if(!RESTORED)renderBack();
 /* instalar como app (só onde há manifesto) */
 (function(){var el=document.getElementById("inst");if(!el||!document.querySelector('link[rel="manifest"]'))return;var stA=matchMedia("(display-mode: standalone)").matches||navigator.standalone;if(stA)return;
