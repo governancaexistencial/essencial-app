@@ -479,7 +479,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 11:16";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 12:37";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -559,7 +559,7 @@ async function readFile(file){
 const mask=t=>String(t).replace(/\b\d{2}[- ]?\d{4,5}[- ]?\d{4}\b/g,"••••").replace(/\b\d{4,}\b/g,"••••");
 const NORM=x=>x.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase();
 const AMT=/-?\d{1,3}(?:\.\d{3})*,\d{2}/;
-function isOperator(lines){const U=NORM(lines.join(" "));return /TELEFONICA BRASIL|VIVO TOTAL|SEU NUMERO VIVO|CLARO S\.?A|NET SERVICOS|TIM S\.?A|TIM BRASIL|NOTA FISCAL DE FATURA DE SERVICO DE COMUNICACAO|SERVICOS? DE TELECOMUNICAC|ANATEL/.test(U)&&!/CARTAO DE CREDITO|LIMITE DE CREDITO|PAGAMENTO MINIMO/.test(U)&&!/EXTRATO DE CONTA|EXTRATO CONSOLIDADO|DETALHE DOS MOVIMENTOS|SALDO INICIAL|AGENCIA:?\s*\d{3,}.{0,20}CONTA/.test(U)}
+function isOperator(lines){const U=NORM(lines.join(" "));if(/MINHA ?CLARO|NET SERVICOS|CLARO S\.?A\b|SEU NUMERO VIVO|TELEFONICA BRASIL|SEUS NUMEROS TIM|TIM S\.?A\b/.test(U)&&!/LIMITE DE CREDITO|PAGAMENTO MINIMO|LIMITE DISPONIVEL/.test(U))return true;return /TELEFONICA BRASIL|VIVO TOTAL|SEU NUMERO VIVO|CLARO S\.?A|NET SERVICOS|TIM S\.?A|TIM BRASIL|NOTA FISCAL DE FATURA DE SERVICO DE COMUNICACAO|SERVICOS? DE TELECOMUNICAC|ANATEL/.test(U)&&!/CARTAO DE CREDITO|LIMITE DE CREDITO|PAGAMENTO MINIMO/.test(U)&&!/EXTRATO DE CONTA|EXTRATO CONSOLIDADO|DETALHE DOS MOVIMENTOS|SALDO INICIAL|AGENCIA:?\s*\d{3,}.{0,20}CONTA/.test(U)}
 function parseOperator(lines){
   const L=lines.map(r=>({raw:r,u:NORM(r)}));const U=L.map(x=>x.u).join("\n");
   const op=/SEUS NUMEROS TIM|TIM S\.?A\b/.test(U)?"TIM":/TELEFONICA BRASIL|\bVIVO\b/.test(U)?"Vivo":/CLARO|NET SERVICOS/.test(U)?"Claro":/\bTIM\b/.test(U)?"TIM":/\bOI\b|\bNIO\b/.test(U)?"Oi/Nio":"Operadora";
@@ -590,6 +590,14 @@ function parseOperator(lines){
     linesInfo=[];var ptail=tail;
     if(total!=null)parts.push({key:"op_cel"+(tail?"_"+tail:""),name:(plan||"Plano TIM")+(tail?` · final ${tail}`:""),price:total,s:"Total geral da conta TIM"});
     var acct=tail?"TIM"+tail:"";
+  }else if(op==="Claro"&&/TOTAL (INTERNET|CELULAR|TV|FIXO|TELEFONE)/.test(U)){beta=false;
+    total=null;for(const x of L){for(const lab of["VALOR TOTAL","TOTAL A PAGAR","VALOR A PAGAR"]){const v=amtAfter(x.u,lab);if(v!=null&&v>0){total=v;break}}if(total!=null)break}
+    const sp=first(/(\d{2,4})\s?MEGA/);if(sp)speed=+sp[1];const g=first(/(\d+)\s?GB/);if(g)gb=+g[1];
+    const seen={};for(const x of L){const m=x.u.match(/^\s*TOTAL (INTERNET|CELULAR|TV|FIXO|TELEFONE)\b/);if(!m||seen[m[1]])continue;const v=amtAfter(x.u,m[0].trim());if(v==null)continue;seen[m[1]]=1;
+      const k={INTERNET:"op_fibra",CELULAR:"op_cel",TV:"op_tv",FIXO:"op_fixo",TELEFONE:"op_fixo"}[m[1]];
+      const nm={op_fibra:speed?`Claro Fibra ${speed} Mega`:"Internet de casa (Claro)",op_cel:gb?`Celular Claro ${gb} GB`:"Celular Claro",op_tv:"TV Claro",op_fixo:"Telefone fixo Claro"}[k];
+      parts.push({key:k,name:nm,price:v,s:x.raw.replace(/\s+/g," ").trim().slice(0,60)})}
+    if(/SEM FIDELIZACAO/.test(U))plan=(plan?plan+" · ":"")+"sem fidelidade";
   }else{
     for(const x of L){if(/\bSUBTOTAL\b|\bTOTAL\b|ICMS|PIS|COFINS|FUST|FUNTTEL|TRIBUT|IMPOSTO|MULTA|JUROS|VENCIMENTO|PAGAMENTO/.test(x.u))continue;
       if(!/PLANO|\bPOS\b|CONTROLE|BLACK|FIBRA|ULTRAFIBRA|BANDA LARGA|INTERNET|\bTV\b|MULTI|COMBO|DEPENDENTE|LINHA ADICIONAL|SERVICOS? (ADICIONAIS|DIGITAIS)|PACOTE|DESCONTO/.test(x.u))continue;
@@ -748,7 +756,7 @@ async function ingest(getters){
   say("st1",getters.length>1?`Lendo ${getters.length} faturas…`:"Lendo a fatura…");
   let okN=0,fail=0,img=0,wrong=0,rep=0,total=0,pwN=0,opMsg="";st.files=st.files||[];const wasEmpty=PK().every(p=>!(FAM?st.people[p]:st).files.length&&!Object.keys((FAM?st.people[p]:st).items).length);const newFp=new Set();let newLab="";
   for(const g of getters){try{const {name,size,lines,blob}=await g();
-    if(!lines.join("").trim()){img++;continue}
+    if(lines.filter(l=>!/https?:\/\/|caixa de entrada|outlook|gmail|^\s*\d+\s*\/\s*\d+\s*$|^\s*\d{2}\/\d{2}\/\d{4},?\s+\d{1,2}:\d{2}/i.test(l)).join("").replace(/\s/g,"").length<60){img++;continue}
     {const fx=fpOf(lines);fx.fps.forEach(x=>newFp.add(x));if(!newLab)newLab=fx.lab}
     if(isOperator(lines)){const op=parseOperator(lines);if(!op.parts.length){wrong++;continue}const i2=st.files.findIndex(x=>x.name===name&&x.size===size);const rec={name,size,found:{},op,mo:monthOf(lines)};if(i2>=0){st.files[i2]=rec;rep++}else st.files.push(rec);keepFile(name+"|"+size,blob||new Blob([lines.join("\n")],{type:"text/plain"}));okN++;opMsg=`Conta ${op.op} lida: ${op.parts.length} ${op.parts.length===1?"parte":"partes"}. `+(op.ok?`Confere com o total (${brl(op.total)}) ✓`:`⚠ A soma das partes (${brl(op.sum)}) não bate com o total (${op.total!=null?brl(op.total):"não encontrado"}). Confira os valores nas perguntas.`)+(op.beta?" Leitura desta operadora em teste.":"")+" · ";continue}
     if(isExtrato(lines)){const px=parseExtrato(lines);const fnd=detect(px.debitLines);const slim2=Object.fromEntries(Object.entries(fnd).map(([k,x])=>[k,{v:+x.v.toFixed(2),n:x.n,s:x.s,d:x.d}]));const i3=st.files.findIndex(x=>x.name===name&&x.size===size);const rec={name,size,found:slim2,ext:px.ext,auto:px.auto,kind:"extrato",unk:lastUnknown.slice(),mo:monthOf(lines)};if(i3>=0){st.files[i3]=rec;rep++}else st.files.push(rec);keepFile(name+"|"+size,blob||new Blob([lines.join("\n")],{type:"text/plain"}));okN++;total+=Object.keys(fnd).length+Object.keys(px.ext).length;{const nIt=Object.keys(fnd).length+Object.keys(px.ext).length;opMsg+=nIt?`Extrato lido: ${nIt} itens (leitura em teste). · `:`Extrato lido: nenhuma cobrança recorrente, juros ou tarifa (só pagamentos de cartão e transferências). · `}continue}
@@ -756,7 +764,7 @@ async function ingest(getters){
     lastText=(lastText+"\n"+lines.join("\n")).slice(-18000);
     const slim=Object.fromEntries(Object.entries(found).map(([k,x])=>[k,{v:+x.v.toFixed(2),n:x.n,s:x.s,d:x.d}]));
     const i=st.files.findIndex(x=>x.name===name&&x.size===size);if(i>=0){st.files[i].found=slim;st.files[i].unk=lastUnknown.slice();st.files[i].mo=monthOf(lines);rep++}else st.files.push({name,size,found:slim,unk:lastUnknown.slice(),mo:monthOf(lines)});keepFile(name+"|"+size,blob||new Blob([lines.join("\n")],{type:"text/plain"}));okN++;total+=Object.keys(found).length}catch(err){if(err&&err.pw)pwN++;else fail++}}
-  const warn=[rep?`${rep===1?"Essa fatura já tinha sido lida: atualizei, sem contar de novo.":"Algumas faturas já tinham sido lidas: atualizei, sem contar de novo."}`:"",wrong?`${wrong===1?"Um arquivo não parece":"Alguns arquivos não parecem"} fatura de cartão nem conta de operadora (ex.: documento do INSS) e foi ignorado.`:"",img?"Foto ou PDF escaneado não tem texto para ler: use o PDF baixado do app do banco.":"",pwN?"Um PDF tem senha e não foi aberto: suba de novo e digite a senha (muitos bancos usam os primeiros dígitos do CPF).":"",fail?`${fail} arquivo(s) não puderam ser abertos.`:""].filter(Boolean).join(" ");
+  const warn=[rep?`${rep===1?"Essa fatura já tinha sido lida: atualizei, sem contar de novo.":"Algumas faturas já tinham sido lidas: atualizei, sem contar de novo."}`:"",wrong?`${wrong===1?"Um arquivo não parece":"Alguns arquivos não parecem"} fatura de cartão nem conta de operadora (ex.: documento do INSS) e foi ignorado.`:"",img?"Este arquivo é só imagem (foto, PDF escaneado ou impresso do e-mail) e não tem texto para ler. Baixe o PDF original da fatura no app ou site do banco ou da operadora (ou o anexo do e-mail) e envie de novo.":"",pwN?"Um PDF tem senha e não foi aberto: suba de novo e digite a senha (muitos bancos usam os primeiros dígitos do CPF).":"",fail?`${fail} arquivo(s) não puderam ser abertos.`:""].filter(Boolean).join(" ");
   if(okN){TK("doc");for(const x of newFp)if(!st.fps.includes(x))st.fps.push(x);if(!st.fpLab)st.fpLab=newLab;
     let AUTO=null;if(wasEmpty&&newFp.size){const m=profs().find(p=>p.sid!==st.sid&&p.fps.some(x=>newFp.has(x)));if(m){PEND=m;const a=maxMo(st),b=maxMo(m.st);if(a&&b)AUTO=a>b?"cmp":a===b?"same":null}}
     if(!st.start)st.start=Date.now();recompute();save();renderAll();const k=Object.values(st.items).filter(v=>v.src==="fatura"||v.src==="conta"||v.src==="extrato").length;
@@ -856,7 +864,7 @@ const MOB=[{n:"Vivo Pós Família 160GB (2 linhas)",gb:160,ln:2,p:270,src:SRC.vi
 const FIB=[{n:"Claro Fibra 350 Mega",sp:350,p:89.9,src:SRC.claroF,f:1},{n:"Claro Fibra 600 Mega",sp:600,p:99.9,src:SRC.claroF,f:1},{n:"TIM Ultrafibra 500 Mega",sp:500,p:99.99,src:SRC.timF,f:1},{n:"Vivo Fibra 600 Mega",sp:600,p:100,src:SRC.vivoF}];
 function opCompare(op){if(!op)return null;const out={mob:null,fib:null,bestMob:null,bestFib:null};
   const cels=op.parts.filter(p=>p.key.startsWith("op_cel"));const cel=cels.length>1?{...cels[0],price:+cels.reduce((a,p)=>a+p.price,0).toFixed(2)}:cels[0];out.cel=cel;const fib=op.parts.find(p=>p.key.startsWith("op_fibra"));
-  if(cel&&cel.price>0){const need=op.usage.length?Math.max(...op.usage)*1.15:(op.gb||0);const sep=cels.length>1&&cels.every(p=>/_\d{4}$/.test(p.key));const ln=sep?0:(op.lines||1);const minGain=Math.max(15,cel.price*.1);
+  if(cel&&cel.price>0&&(op.lines||op.gb||op.usage.length)){const need=op.usage.length?Math.max(...op.usage)*1.15:(op.gb||0);const sep=cels.length>1&&cels.every(p=>/_\d{4}$/.test(p.key));const ln=sep?0:(op.lines||1);const minGain=Math.max(15,cel.price*.1);
     const fit=MOB.filter(m=>m.gb>=need&&m.ln===ln).sort((a,b)=>a.p-b.p);out.bestMob=fit[0]||null;
     if(fit[0]&&cel.price-fit[0].p>=minGain)out.mob={...fit[0],cur:cel,gain:+(cel.price-fit[0].p).toFixed(2),need}}
   if(fib&&fib.price>0&&op.speed){const minGain=Math.max(15,fib.price*.1);const fit=FIB.filter(x=>x.sp>=op.speed*.8&&!x.n.startsWith(op.op)).sort((a,b)=>a.p-b.p);out.bestFib=fit[0]||null;
