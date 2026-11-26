@@ -479,7 +479,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="25/11/2026 18:08";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 08:13";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -745,7 +745,7 @@ async function ingest(getters){
   if(okN){for(const x of newFp)if(!st.fps.includes(x))st.fps.push(x);if(!st.fpLab)st.fpLab=newLab;
     let AUTO=null;if(wasEmpty&&newFp.size){const m=profs().find(p=>p.sid!==st.sid&&p.fps.some(x=>newFp.has(x)));if(m){PEND=m;const a=maxMo(st),b=maxMo(m.st);if(a&&b)AUTO=a>b?"cmp":a===b?"same":null}}
     if(!st.start)st.start=Date.now();recompute();save();renderAll();const k=Object.values(st.items).filter(v=>v.src==="fatura"||v.src==="conta"||v.src==="extrato").length;
-    say("st1",PEND?"Esta fatura é do mesmo cartão (ou conta) de uma simulação anterior. Escolha abaixo: comparar ou fazer uma nova.":opMsg+(k?`${okN} ${okN===1?"documento lido agora":"documentos lidos agora"}. No total: ${k} ${k===1?"item":"itens"}. Toque em Ver meu resultado.`:(/Extrato lido/.test(opMsg)?"":"Não encontrei assinaturas nem cobranças recorrentes neste arquivo. Confira se é o PDF da fatura do cartão baixado do app do banco. Se você paga algo nesse cartão, marque em Mais › Avançado › Ajustar itens."))+(warn?" "+warn:""));
+    say("st1",PEND?"Esta fatura é do mesmo cartão (ou conta) de uma simulação anterior. Escolha abaixo: comparar ou fazer uma nova.":opMsg+(k&&analyzeAll().total>0.5?`${okN} ${okN===1?"documento lido agora":"documentos lidos agora"}. No total: ${k} ${k===1?"item":"itens"}. Toque em Ver meu resultado.`:(/Extrato lido/.test(opMsg)?"":"Não encontrei assinaturas nem cobranças recorrentes neste arquivo. Confira se é o PDF da fatura do cartão baixado do app do banco. Se você paga algo nesse cartão, marque em Mais › Avançado › Ajustar itens."))+(warn?" "+warn:""));
     if(AUTO==="cmp"){doMatch("cmp");return}
     if(AUTO==="same"){const prev=PEND;PEND=null;const keepP=P;st=wrap(JSON.parse(JSON.stringify(prev.st)));P=keepP;renderMatch();save();go(4);say("st1",`Essa é a mesma fatura de ${moName(maxMo(prev.st))}. Abrimos a simulação que você já tinha.`);return}
     if(sampleFn)$("ai").disabled=false;
@@ -1248,7 +1248,7 @@ $("diag").addEventListener("click",async()=>{const t=diagText();const ta=$("txt"
 
 /* ---------- jornada ---------- */
 let SCR=0;
-function go(n){n=Math.max(0,Math.min(5,n));if(n>0&&typeof LAST!=="undefined"&&LAST){LAST=null;const bb=document.getElementById("backBox");if(bb)bb.hidden=true}if(n>=2&&PEND){PEND=null}$("toast").classList.remove("on");SCR=n;document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",+x.dataset.s===n));
+function go(n){n=Math.max(0,Math.min(5,n));if(n>=2&&!LAST&&!(analyzeAll().total>0.5)){n=1;setTimeout(()=>say("st1","Não reconheci assinaturas nem cobranças recorrentes nos arquivos. Confira se é o PDF da fatura do cartão baixado do app do banco. Ou marque o que você paga em Mais › Avançado › Ajustar itens (Netflix, Spotify, anuidade…) e eu calculo."),0)}if(n>0&&typeof LAST!=="undefined"&&LAST){LAST=null;const bb=document.getElementById("backBox");if(bb)bb.hidden=true}if(n>=2&&PEND){PEND=null}$("toast").classList.remove("on");SCR=n;document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",+x.dataset.s===n));
   $("topbar").hidden=n===0;document.body.classList.toggle("hasbar",n>0);$("prog").style.width=(n/5*100)+"%";window.scrollTo(0,0);renderAll();save()}
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!g.disabled){go(+g.dataset.go);return}const o=e.target.closest("[data-open]");if(o){openMore(o.dataset.open)}});
 $("back").addEventListener("click",()=>{if(SCR===3&&qHist.length){qUndo();return}go(SCR-1)});
@@ -1261,7 +1261,7 @@ function renderSlots(){const fl=st.files||[];const card=fl.filter(x=>!x.op&&!x.e
   set("slotCard","sCard",card.length>0,`${card.length} fatura(s) lida(s) · ${card.reduce((a,x)=>a+Object.keys(x.found).length,0)} itens`,"Última fatura fechada · assinaturas e apps");
   set("slotOp","sOp",op.length>0,op.length?`Conta ${op[op.length-1].op.op} · ${brl(op[op.length-1].op.sum)}${op[op.length-1].op.ok?" ✓ confere":" ⚠ confira"}`:"","Celular, internet e TV · Vivo, Claro, TIM");
   set("slotExt","sExt",ex.length>0,`${ex.length} extrato(s) · ${ex.reduce((a,x)=>a+Object.keys(x.found).length+Object.keys(x.ext||{}).length,0)} itens (em teste)`,"Opcional · últimos 30 dias, em PDF");
-  const anyItems=FAM?PK().some(p=>Object.keys(st.people[p].items).length):Object.keys(st.items).length>0;$("goRev").disabled=!anyItems}
+  const anyItems=FAM?PK().some(p=>Object.keys(st.people[p].items).length):Object.keys(st.items).length>0;$("goRev").disabled=!(anyItems&&analyzeAll().total>0.5)}
 const CATN={video:"Streaming e música",musica:"Streaming e música",ia:"IA e nuvem",nuvem:"IA e nuvem",tel:"Celular, internet e TV",clubes:"Clubes e academia",jogos:"Jogos",banco:"Banco e cobranças",oculta:"Banco e cobranças",juros:"Juros do cheque especial",outros:"Outros"};
 const CDI_A=0.1365,CDI_M=Math.pow(1+CDI_A,1/12)-1;const FV60=(Math.pow(1+CDI_M,60)-1)/CDI_M;const RTXT="100% do CDI (13,65% ao ano em nov/2026, fonte: Banco Central), antes de impostos";
 function investHTML(yr,title,note,big=true){const m=yr/12;return`<div class="ik">${title}</div>${big?`<b class="ib">${brl(yr)} <small>por ano</small></b>`:""}<div class="ir"><span>Em 5 anos, guardando</span><b>${brl(yr*5)}</b></div><div class="ir hl"><span>Em 5 anos, investindo ${brl(m)} por mês</span><b>${brl(m*FV60)}</b></div><small>Simulação com rendimento de ${RTXT}. ${note}</small>`}
