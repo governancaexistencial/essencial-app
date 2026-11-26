@@ -85,8 +85,9 @@ select{width:100%;min-height:42px;border:1px solid var(--line);border-radius:6px
 .proof{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
 .proof b.n{font-family:'Cormorant Garamond',Georgia,serif;font-size:34px;color:var(--ok)}
 textarea{width:100%;min-height:160px;margin-top:10px;border:1px solid var(--line);border-radius:6px;padding:10px;font:14px Manrope,sans-serif;background:var(--card);color:var(--ink)}
-.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(92vw,520px);background:var(--navy);color:#f6f1e7;border:1px solid #c9a24e88;border-radius:8px;padding:14px 16px;font-weight:600;font-size:15px;box-shadow:0 8px 30px #0005;z-index:9;opacity:0;pointer-events:none;transition:opacity .25s}.toast.on{opacity:1}
+.toast{position:fixed;left:50%;top:76px;transform:translateX(-50%);width:min(92vw,520px);background:var(--navy);color:#f6f1e7;border:1px solid #c9a24e88;border-radius:8px;padding:14px 16px;font-weight:600;font-size:15px;box-shadow:0 8px 30px #0005;z-index:9;opacity:0;pointer-events:none;transition:opacity .25s}.toast.on{opacity:1}
 .tile .status{margin-top:0}
+.fstat{font-size:13px;font-weight:600;color:#2f6b45;white-space:nowrap}.backbox .linkbtn{display:block;margin:6px auto 0}
 html,body{overscroll-behavior-y:contain}main{min-height:100vh}.scr{display:none;padding:clamp(18px,4vw,40px) max(5vw,16px) 90px}.scr.on{display:block}.wrap{max-width:720px}
 body.hasbar main{padding-top:84px}
 #topbar.topbar{padding:calc(10px + env(safe-area-inset-top,0px)) 10px 12px!important}
@@ -479,7 +480,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 12:48";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 17:44";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -526,7 +527,7 @@ let OLDUSER=false;try{OLDUSER=!localStorage.getItem("ess-seen")&&!!(localStorage
 st=blank();let LAST=null;try{const o=JSON.parse(localStorage.getItem(KEY)||"null");if(o&&filesOf(o).length)LAST=o}catch(e){}
 const SKEY=KEY+"_sessao";let RESTORED=null,SESS=true;try{sessionStorage.setItem("__t","1");sessionStorage.removeItem("__t");RESTORED=JSON.parse(sessionStorage.getItem(SKEY)||"null")}catch(e){SESS=false}
 if(RESTORED&&RESTORED.st){try{st=wrap(RESTORED.st);P=RESTORED.P||"a"}catch(e){st=blank();RESTORED=null}}
-let tT;const say=(id,m)=>{$(id).textContent=m;if(!m)return;const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(tT);tT=setTimeout(()=>t.classList.remove("on"),6000)};
+let tT;const say=(id,m)=>{$(id).textContent=m;if(!m)return;const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(tT);tT=setTimeout(()=>t.classList.remove("on"),3000)};
 const looksBill=(lines,found)=>{const U=lines.join(" ").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase();if(/\bINSS\b|PREVIDENCI|\bCNIS\b|BENEFICIARIO|HOLERITE|CONTRACHEQUE|BOLETIM/.test(U)&&Object.keys(found).length<2)return false;return Object.keys(found).length>=2||/FATURA|CARTAO DE CREDITO|VENCIMENTO|LIMITE (DE CREDITO|DISPONIVEL|TOTAL)|PAGAMENTO MINIMO|LANCAMENTOS|STMTTRN|<OFX>/.test(U)};
 const save=()=>{if(window.DEMO)return;try{writeProf()}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}try{let sc=0;try{sc=SCR}catch(e){}sessionStorage.setItem(SKEY,JSON.stringify({st,P,scr:sc,qh:typeof qHist!=="undefined"?qHist:[]}))}catch(e){}};
 
@@ -716,7 +717,7 @@ function recompute(){
   syncDyn();
   const files=(st.files||[]).filter(fl=>!fl.op);const nf=files.length;const agg={};
   files.forEach(fl=>{for(const[id,x]of Object.entries(fl.found)){(agg[id]=agg[id]||[]).push(x)}});
-  const cf=(st.files||[]).filter(fl=>fl.op);let op=null;if(cf.length){const by={};cf.forEach(f=>{by[f.op.acct||"x"]=f.op});const os=Object.values(by);op=os.length===1?os[0]:{...os[os.length-1],parts:os.flatMap(o=>o.parts),total:os.reduce((a,o)=>a+(o.total||0),0),sum:os.reduce((a,o)=>a+o.sum,0),ok:os.every(o=>o.ok),lines:os.length,linesInfo:os.flatMap(o=>o.linesInfo||[]),promos:os.flatMap(o=>o.promos||[]),services:[...new Set(os.flatMap(o=>o.services||[]))].slice(0,14)}}st.op=op;
+  const cf=(st.files||[]).filter(fl=>fl.op);let op=null;if(cf.length){const by={};cf.forEach(f=>{by[f.op.acct||"x"]=f.op});const os=Object.values(by);op=os.length===1?os[0]:{...os[os.length-1],parts:os.flatMap(o=>o.parts),total:os.reduce((a,o)=>a+(o.total||0),0),sum:os.reduce((a,o)=>a+o.sum,0),ok:os.every(o=>o.ok),lines:os.length,nAcct:os.length,linesInfo:os.flatMap(o=>o.linesInfo||[]),promos:os.flatMap(o=>o.promos||[]),services:[...new Set(os.flatMap(o=>o.services||[]))].slice(0,14)}}st.op=op;
   for(const[id,v]of Object.entries(st.items))if(v.src==="conta"&&(!op||!op.parts.some(p=>p.key===id)))delete st.items[id];
   if(op)for(const p of op.parts){const cur=st.items[p.key];st.items[p.key]={price:p.price,use:cur?.use||(p.key.startsWith("op_desc")||p.key.startsWith("op_cel")?"alto":"pend"),src:"conta",name:p.name,s:p.s,n:1,m:1};delete BY[p.key];ensureDyn(p.key)}
   for(const[id,v]of Object.entries(st.items))if(v.src==="fatura"&&!agg[id])delete st.items[id];
@@ -751,7 +752,7 @@ async function openViewer(i,hl){
   }catch(e){body.innerHTML='<p class="lead">Não consegui mostrar este arquivo.</p>'}
 }
 function closeViewer(){$("viewer").hidden=true;$("vbody").innerHTML="";document.body.style.overflow=""}
-function renderFiles(){const fl=st.files||[];$("files").innerHTML=fl.length?`<b>${fl.length===1?"Fatura lida":"Faturas lidas"}</b>`+fl.map((x,i)=>`<div class="frow"><span class="fname">${esc(x.name)}</span><button type="button" class="btn ghost sm" data-see="${i}">Abrir</button><button type="button" class="x" data-rm="${i}" aria-label="Tirar ${esc(x.name)}">×</button></div>`).join(""):""}
+function renderFiles(){setTimeout(()=>{(st.files||[]).forEach((x,i)=>{getFile(fkey(x)).then(b=>{if(b)return;const btn=document.querySelector('#files [data-see="'+i+'"]');if(btn){const sp=document.createElement("span");sp.className="fstat";sp.textContent="Lido ✓ · não fica guardado";btn.replaceWith(sp)}})})},0);const fl=st.files||[];$("files").innerHTML=fl.length?`<b>${fl.length===1?"Fatura lida":"Faturas lidas"}</b>`+fl.map((x,i)=>`<div class="frow"><span class="fname">${esc(x.name)}</span><button type="button" class="btn ghost sm" data-see="${i}">Abrir</button><button type="button" class="x" data-rm="${i}" aria-label="Tirar ${esc(x.name)}">×</button></div>`).join(""):""}
 async function ingest(getters){
   say("st1",getters.length>1?`Lendo ${getters.length} faturas…`:"Lendo a fatura…");
   let okN=0,fail=0,img=0,wrong=0,rep=0,total=0,pwN=0,opMsg="";st.files=st.files||[];const wasEmpty=PK().every(p=>!(FAM?st.people[p]:st).files.length&&!Object.keys((FAM?st.people[p]:st).items).length);const newFp=new Set();let newLab="";
@@ -1077,7 +1078,7 @@ function renderOffers(r){const pk=perksOf(r);$("perks").innerHTML=pk.map(p=>`<di
 function renderResult(){
   const r=analyzeAll();renderOffers(r);renderReveal(r);renderProv(r);$("sBig").textContent="R$\u00a0"+Math.round(r.save*12).toLocaleString("pt-BR");const brR=v=>"R$\u00a0"+Math.round(v).toLocaleString("pt-BR");$("sTot").textContent=brR(r.total);$("sAno").textContent=brR(r.total*12);renderCal(r);renderKids(r);renderJur();renderFb(r);fundUI();const y=r.save*12;$("big").textContent=brl(y);$("kTot").textContent=brl(r.total);$("invPlan").hidden=!(r.save>0.5);if(r.save>0.5)$("invPlan").innerHTML=investHTML(r.save*12,"Seu potencial de economia","Atualiza a cada resposta e a cada \"Vou trocar\".");$("inv").hidden=!(r.save>0.5);if(r.save>0.5)$("inv").innerHTML=investHTML(r.save*12,"E se você guardar essa economia?","Conta feita com as suas respostas e trocas escolhidas.",false);
   const np=r.its.filter(i=>(i.use==="pend"||i.use==="conf")&&!isOneoff(i.base||i.id,FAM&&i.owner?st.people[i.owner].files:undefined)&&!qSkip[i.base||i.id]).length;
-  $("pct").textContent=r.its.length?(np&&r.possible>r.save+0.5?`Pode chegar a ${brl(r.possible*12)} por ano: ${np===1?"falta 1 resposta":`faltam ${np} respostas`}.`:""):"Suba os documentos e veja em segundos";
+  $("pct").textContent=r.its.length?(np&&r.possible>r.save+0.5?(r.save<0.5?`Pode haver economia: ${np===1?"falta 1 resposta":`faltam ${np} respostas`}.`:`Pode chegar a ${brl(r.possible*12)} por ano: ${np===1?"falta 1 resposta":`faltam ${np} respostas`}.`):""):"Suba os documentos e veja em segundos";
   {const cur=r.total,eco=Math.min(r.save,cur),nw=Math.max(0,cur-eco),pc=cur>0?Math.round(eco/cur*100):0;
    const fm=v=>"R$\u00a0"+Math.round(v).toLocaleString("pt-BR");const row=(lb,k)=>{const c=+(cur*k).toFixed(2),e=+(eco*k).toFixed(2),n=+(c-e).toFixed(2);return`<div class="cr"><div class="ch"><b>${lb}</b>${pc?`<span class="pc">−${pc}%</span>`:""}</div><div class="cg"><div><small>Atual</small><b>${fm(c)}</b></div><div class="eco"><small>Economia</small><b>${fm(e)}</b></div><div><small>Novo</small><b>${fm(Math.round(c)-Math.round(e))}</b></div></div></div>`};
    $("cmpBox").innerHTML=row("Gastos por mês",1)+row("Gastos por ano",12)}
@@ -1091,8 +1092,8 @@ function renderResult(){
   if(!PAID()){const tmp=document.createElement("div");tmp.innerHTML=html;const kids=[...tmp.children];
     if(kids.length>3){const lockN=kids.slice(3).reduce((x,k)=>x+Math.max(1,k.querySelectorAll("[data-a]").length),0);const lv=kids.slice(3).reduce((x,k)=>{const ids=[...k.querySelectorAll("[data-a]")].map(i=>i.dataset.a);return x+ids.reduce((y,id)=>{const a=r.A.find(q=>q.id===id);return y+(a?a.v:0)},0)},0);
       html=kids.slice(0,3).map(k=>k.outerHTML).join("")+`<div class="lockc"><b>Mais ${lockN} ${lockN===1?"ação":"ações"} no seu plano${lv>0?` · ${brl(lv*12)}/ano`:""}</b><p class="lead small">As 3 maiores já estão acima. O plano completo, o PDF e a comparação com o mês que vem são do Completo.</p><button type="button" class="btn gold" data-fund="1">Ver o plano completo</button></div>`}}
-  const pnd=r.its.filter(i=>["pend","conf"].includes(i.use)&&!isOneoff(i.base||i.id,FAM&&i.owner?st.people[i.owner].files:undefined)&&!qSkip[i.base||i.id]);if(pnd.length){const sm=pnd.reduce((x,i)=>x+i.price,0);html=`<div class="falta"><b>Falta responder ${pnd.length} ${pnd.length===1?"item":"itens"}</b><p>${esc(pnd.slice(0,3).map(i=>`${i.name} (${brl(i.price)})`).join(", "))}${pnd.length>3?" e outros":""}. ${pnd.length===1?"Se não for necessário, é":"Se não forem necessários, são"} até ${brl(sm*12)} por ano a mais na sua economia.</p><button type="button" class="btn gold" data-answer="1">Responder agora</button></div>`+html}
-  $("acts").innerHTML=r.A.length||pnd.length?html:`<div class="empty">${(st.files||[]).length||Object.keys(st.items).length?"Nada a fazer por agora: não achamos troca mais barata para o que você enviou.":"Seu plano aparece aqui assim que você enviar um documento."}</div>`;
+  const pnd=r.its.filter(i=>["pend","conf"].includes(i.use)&&!isOneoff(i.base||i.id,FAM&&i.owner?st.people[i.owner].files:undefined)&&!qSkip[i.base||i.id]);if(pnd.length){const sm=pnd.reduce((x,i)=>x+i.price,0);html=`<div class="falta"><b>Falta responder ${pnd.length} ${pnd.length===1?"item":"itens"}</b><p>${esc(pnd.slice(0,3).map(i=>`${i.name} (${brl(i.price)})`).join(", "))}${pnd.length>3?" e outros":""}. Responda para saber se dá para economizar.</p><button type="button" class="btn gold" data-answer="1">Responder agora</button></div>`+html}
+  $("acts").innerHTML=r.A.length||pnd.length?html:`<div class="empty">${(st.files||[]).length||Object.keys(st.items).length?(r.O&&r.O.length?"Veja as trocas acima: marque Vou trocar no que fizer sentido e a economia entra aqui.":"Nada a fazer por agora: não achamos troca mais barata para o que você enviou."):"Seu plano aparece aqui assim que você enviar um documento."}</div>`;
   const doneV=r.A.filter(a=>st.done[a.id]&&a.v>0).reduce((x,a)=>x+a.v,0);$("kDone").textContent=brl(doneV*12);
   {const R0=v=>"R$\u00a0"+Math.round(v).toLocaleString("pt-BR");const short=t=>{const m=FAM?t.match(/^([^:]{1,30}):\s*(.*)$/):null;const b=(m?m[2]:t).replace(/^(Cancelar|Trocar|Rever o plano de)\s+/,"").replace(/\s+por\s+.*$/,"");return m?`${b} (${m[1]})`:b};let h="";
    if(!pr){h=doneV>0.5?`<div class="dl"><span>Marcado como feito</span><b>${R0(doneV*12)}/ano</b></div><p class="dn">Para comprovar, envie a fatura do mês que vem: o app confere o que saiu.</p>`:`<p class="dn">Marque <b>Já fiz</b> no checklist conforme for resolvendo. No mês que vem, a fatura nova comprova.</p>`}
@@ -1288,6 +1289,8 @@ let SCR=0;
 function go(n){n=Math.max(0,Math.min(5,n));if(n===4)TK("plano");if(n===3&&typeof SCR!=="undefined"&&SCR===2&&!PK().some(k=>{const kp=P;P=k;const c=qQueue().length;P=kp;return c})){n=4}if(n>=2&&!LAST&&!(analyzeAll().total>0.5)){n=1;setTimeout(()=>{say("st1","Não reconheci assinaturas nem cobranças recorrentes nos arquivos. Confira se é o PDF da fatura do cartão baixado do app do banco, ou toque abaixo nos serviços que você paga.");const d=document.getElementById("manD");if(d)d.open=true},0)}if(n>0&&typeof LAST!=="undefined"&&LAST){LAST=null;const bb=document.getElementById("backBox");if(bb)bb.hidden=true}if(n>=2&&PEND){PEND=null}$("toast").classList.remove("on");SCR=n;document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",+x.dataset.s===n));
   $("topbar").hidden=n===0;document.body.classList.toggle("hasbar",n>0);$("prog").style.width=(n/5*100)+"%";window.scrollTo(0,0);renderAll();save()}
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!g.disabled){go(+g.dataset.go);return}const o=e.target.closest("[data-open]");if(o){openMore(o.dataset.open)}});
+try{history.replaceState({ess:0},"");history.pushState({ess:1},"")}catch(e){}
+window.addEventListener("popstate",()=>{let used=false;if(!$("viewer").hidden){closeViewer();used=true}else if(!$("morePanel").hidden){$("morePanel").hidden=true;document.body.style.overflow="";renderAll();used=true}else if(SCR>0){if(SCR===3&&qHist.length)qUndo();else go(SCR-1);used=true}if(used){try{history.pushState({ess:1},"")}catch(e){}}});
 $("back").addEventListener("click",()=>{if(SCR===3&&qHist.length){qUndo();return}go(SCR-1)});
 function openMore(sec){$("morePanel").hidden=false;document.body.style.overflow="hidden";if(sec==="list")$("dList").open=true}
 $("more").addEventListener("click",()=>openMore());
@@ -1296,7 +1299,7 @@ $("moreClose").addEventListener("click",()=>{$("morePanel").hidden=true;document
 function renderSlots(){const fl=st.files||[];const card=fl.filter(x=>!x.op&&!x.ext),op=fl.filter(x=>x.op),ex=fl.filter(x=>x.ext);
   const set=(slot,el,ok,txt,def)=>{$(slot).classList.toggle("done",ok);$(el).textContent=ok?txt:def;$(slot).querySelector(".sact").textContent=ok?"✓ Enviar mais":"Enviar"};
   set("slotCard","sCard",card.length>0,`${card.length} fatura(s) lida(s) · ${card.reduce((a,x)=>a+Object.keys(x.found).length,0)} itens`,"Última fatura fechada · assinaturas e apps");
-  set("slotOp","sOp",op.length>0,op.length?(st.op&&st.op.lines>1?`${st.op.lines} contas ${st.op.op} · ${brl(st.op.sum)}${st.op.ok?" ✓ confere":" ⚠ confira"}`:`Conta ${op[op.length-1].op.op} · ${brl(op[op.length-1].op.sum)}${op[op.length-1].op.ok?" ✓ confere":" ⚠ confira"}`):"","Celular, internet e TV · Vivo, Claro, TIM");
+  set("slotOp","sOp",op.length>0,op.length?(st.op&&st.op.nAcct>1?`${st.op.nAcct} contas ${st.op.op} · ${brl(st.op.sum)}${st.op.ok?" ✓ confere":" ⚠ confira"}`:`Conta ${op[op.length-1].op.op}${op[op.length-1].op.lines>1?` · ${op[op.length-1].op.lines} linhas`:""} · ${brl(op[op.length-1].op.sum)}${op[op.length-1].op.ok?" ✓ confere":" ⚠ confira"}`):"","Celular, internet e TV · Vivo, Claro, TIM");
   set("slotExt","sExt",ex.length>0,`${ex.length} extrato(s) · ${ex.reduce((a,x)=>a+Object.keys(x.found).length+Object.keys(x.ext||{}).length,0)} itens (em teste)`,"Opcional · últimos 30 dias, em PDF");
   const anyItems=FAM?PK().some(p=>Object.keys(st.people[p].items).length):Object.keys(st.items).length>0;$("goRev").disabled=!(anyItems&&analyzeAll().total>0.5)}
 const CATN={video:"Streaming e música",musica:"Streaming e música",ia:"IA e nuvem",nuvem:"IA e nuvem",tel:"Celular, internet e TV",clubes:"Clubes e academia",jogos:"Jogos",banco:"Banco e cobranças",oculta:"Banco e cobranças",juros:"Juros do cheque especial",outros:"Outros"};
@@ -1347,7 +1350,8 @@ function renderReveal(r){const its=r.its.filter(i=>!["erro"].includes(i.use)&&!i
   const tot=Object.values(g).reduce((a,b)=>a+b,0);$("rvTot").textContent=brl(r.total);$("rvCnt").textContent=`em ${its.length} ${its.length===1?"cobrança":"cobranças"} · ${brl(r.total*12)} por ano`;
   $("rvWho").textContent=FAM?`${NL()} juntos`:"";
   $("bars").innerHTML=Object.entries(g).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar2"><div class="bl"><span>${k}</span><span>${brl(v)}</span></div><div class="bt"><i style="width:${tot?Math.max(3,v/tot*100):0}%"></i></div></div>`).join("");
-  $("rvPos").innerHTML=r.possible>0.5?investHTML(r.possible*12,"Você pode economizar até","Esse é o máximo possível: o valor real depende das suas respostas a seguir."):`<div class="ik">Responda as perguntas para descobrir quanto dá para economizar.</div>`;
+  const nQ=(()=>{try{return PK().reduce((x,k)=>{const kp=P;P=k;const c=qQueue().length;P=kp;return x+c},0)}catch(e){return 0}})();
+  $("rvPos").innerHTML=(r.save<0.5&&r.possible>0.5)?`<div class="ik">Pode haver economia. ${nQ?`Responda ${nQ===1?"1 pergunta rápida":nQ+" perguntas rápidas"} para saber o valor.`:"Veja o seu plano."}</div>`:r.possible>0.5?investHTML(r.possible*12,"Você pode economizar até","Esse é o máximo possível: o valor real depende das suas respostas a seguir."):`<div class="ik">Responda as perguntas para descobrir quanto dá para economizar.</div>`;
   $("offWrap").hidden=!r.O.length&&!perksOf(r).length}
 if(FAM){$("appTitle").textContent="Essencial em Família";$("appLead").textContent="Descubra quanto a casa paga todo mês sem perceber, o que está em dobro entre vocês e onde dá para cortar.";document.querySelectorAll(".famonly").forEach(x=>x.hidden=false)}
 function renderMatch(){const b=$("matchBox");if(!PEND){b.hidden=true;return}const d=new Date(PEND.at).toLocaleDateString("pt-BR");b.hidden=false;
@@ -1383,9 +1387,9 @@ document.querySelectorAll("[data-ver]").forEach(e=>e.textContent=`Versão ${VERS
 function renderBack(){const b=$("backBox"),go1=document.querySelector('[data-s="0"] [data-go="1"]');if(!LAST||SCR>0){b.hidden=true;if(go1)go1.hidden=false;return}
   const keep=st,kP=P;let y=0,mo=null;try{st=wrap(JSON.parse(JSON.stringify(LAST)));P="a";y=analyzeAll().save*12;mo=maxMo(LAST)}catch(e){}st=keep;P=kP;
   b.hidden=false;if(go1)go1.hidden=true;
-  b.innerHTML=`<b>Bem-vindo de volta</b><p>Sua simulação${mo?` de ${moName(mo)}`:""}: ${y>0.5?`economia de <strong>${brl(y)}</strong> por ano.`:"está salva neste celular."}</p><button type="button" class="btn gold xl" data-back="cont">Continuar</button><button type="button" class="btn wide" data-back="new">Enviar a fatura nova</button><button type="button" class="btn ghost wide" data-back="zero">Começar do zero</button>`}
+  b.innerHTML=`<b>Bem-vindo de volta</b><p>Sua simulação${mo?` de ${moName(mo)}`:""}${y>0.5?`: economia de <strong>${brl(y)}</strong> por ano.`:" está salva neste celular."}</p><button type="button" class="btn gold xl" data-back="cont">Continuar de onde parei</button><button type="button" class="linkbtn" data-back="new">Começar outra simulação</button>`}
 $("backBox").addEventListener("click",e=>{const t=e.target.closest("[data-back]");if(!t)return;const k=t.dataset.back;
-  if(k==="cont"){st=wrap(JSON.parse(JSON.stringify(LAST)));P="a";LAST=null;renderAll();go(4);say("st1","Continuamos de onde você parou.");return}
+  if(k==="cont"){st=wrap(JSON.parse(JSON.stringify(LAST)));P="a";LAST=null;renderAll();const hasQ=PK().some(k2=>{const kp=P;P=k2;const c=qQueue().length;P=kp;return c});go(hasQ?3:4);return}
   const old=LAST;LAST=null;st=blank();save();renderBack();
   if(k==="new"){go(1);say("st1",`Envie a fatura nova. Se for do mesmo cartão e de outro mês${maxMo(old)?` (a anterior é de ${moName(maxMo(old))})`:""}, comparamos sozinhos.`)}else{try{localStorage.removeItem(KEY)}catch(e){}go(0)}});
 if(!RESTORED)renderBack();
