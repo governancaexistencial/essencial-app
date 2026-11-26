@@ -330,7 +330,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
     <p class="lead small" style="text-align:center;margin:6px 0 0">Pix ou cartão. Ao concluir, você volta para cá com tudo liberado.</p>
     <h3 class="addh">Já comprou?</h3>
     <input class="finp" id="fMail" type="email" inputmode="email" autocomplete="email" placeholder="E-mail usado no Mercado Pago">
-    <details class="fcodew"><summary class="lead small">Tenho um código</summary><input class="finp" id="fCode" autocapitalize="characters" placeholder="Código (ex.: AB12-CD34)"></details>
+    <details class="fcodew"><summary class="lead small">Tenho um código</summary><input class="finp" id="fCode" autocapitalize="characters" placeholder="Código ou convite (ex.: AB12-CD34)"></details>
     <button class="btn gold" id="fAct" type="button">Ativar minha compra</button>
     <p class="lead small" id="fMsg"></p>
     <p class="lead small">Pagamento único anual, sem cobrança automática. Seus dados continuam só neste celular. <a id="fComp" target="_blank" rel="noopener" href="#">Precisa de ajuda?</a></p>
@@ -479,7 +479,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 09:48";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 10:29";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1201,14 +1201,19 @@ const FB_WA="5511999709664";
 /* Fundador: link de pagamento e verificação do código pessoal */
 const MP_LINK="https://mpago.li/2Ls1jcn";
 const licOf=e=>{e=String(e||"").trim().toLowerCase();const h=t=>{let x=2166136261;for(const c of t){x^=c.charCodeAt(0);x=Math.imul(x,16777619)>>>0}return x};const f=n=>n.toString(36).toUpperCase().padStart(7,"0").slice(-4);return f(h(e+"|ess26"))+"-"+f(h("ess26|"+e))};
-const CONVITE="amigos";
-function PAID(){try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");return!!(L&&L.e&&licOf(L.e)===L.c)}catch(e){return false}}
-(function(){try{const q=new URLSearchParams(location.search).get("convite");const tag=q&&q.toLowerCase()===CONVITE?"convite":((OLDUSER||!MP_LINK)?"teste":"");if(tag&&!PAID()){const e=tag+"@essencial";localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}if(q)history.replaceState(null,"",location.pathname)}catch(e){}})();
+const CONVITES={AMIGOS:"2026-12"};
+const ymNow=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")};
+const vipOf=ym=>"VIP-"+licOf("vip|"+ym).slice(0,4);
+function conviteOk(c){c=String(c||"").trim().toUpperCase().replace(/\s/g,"");if(!c)return null;const ym=ymNow();if(c===vipOf(ym))return{c,ok:true};if(/^VIP-/.test(c)){const d=new Date();for(let k=1;k<=12;k++){const t=new Date(d.getFullYear(),d.getMonth()-k,1);const y=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0");if(c===vipOf(y))return{c,ok:false,lim:y}}}const lim=CONVITES[c];if(!lim)return null;return{c,ok:ym<=lim,lim}}
+function fimMes(ym){const[y,m]=ym.split("-").map(Number);return new Date(y,m,0).toLocaleDateString("pt-BR")}
+function grantConvite(c){const e="convite-"+c.toLowerCase()+"@essencial";const x=new Date(Date.now()+365*864e5).toISOString().slice(0,10);try{localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e),x}))}catch(z){}}
+function PAID(){try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");if(!(L&&L.e&&licOf(L.e)===L.c))return false;if(L.x&&new Date().toISOString().slice(0,10)>L.x)return false;return true}catch(e){return false}}
+try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");if(L&&L.e==="convite@essencial"&&!L.x){L.x=new Date(Date.now()+365*864e5).toISOString().slice(0,10);localStorage.setItem("ess-lic",JSON.stringify(L))}}catch(e){} (function(){try{const q=new URLSearchParams(location.search).get("convite");const cv=conviteOk(q);if(cv&&cv.ok&&!PAID())grantConvite(cv.c);const tag=(!q&&(OLDUSER||!MP_LINK))?"teste":"";if(tag&&!PAID()){const e=tag+"@essencial";localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}if(q)history.replaceState(null,"",location.pathname)}catch(e){}})();
 function fundador(why){$("fWhy").textContent=why||"Libere o plano completo e o acompanhamento mês a mês.";$("fPay").textContent=MP_LINK?"Assinar por R$ 39,90 (Mercado Pago)":"Pagamento abre em breve";
   $("fComp").href=`https://wa.me/${FB_WA}?text=${encodeURIComponent("Olá! Preciso de ajuda com o Essencial Completo.")}`;$("fMsg").textContent="";$("fundPanel").hidden=false}
 function fundUI(){const L=(()=>{try{return JSON.parse(localStorage.getItem("ess-lic")||"null")}catch(e){return null}})();const ok=PAID();$("fundBtn").hidden=ok;$("fundOk").hidden=!ok;if(ok)$("fundOk").innerHTML=/@pago$/.test(L.e)?`<span class="fbadge">Completo</span> Ativo neste aparelho`:/@essencial$/.test(L.e)?`<span class="fbadge">Convidado</span> Acesso completo liberado neste aparelho`:`<span class="fbadge">Completo</span> Licenciado para ${esc(L.e)}`;$("pdf").textContent=ok?"Guardar meu plano (PDF)":"Guardar meu plano completo (PDF) · Completo"}
 $("fundClose").addEventListener("click",()=>{$("fundPanel").hidden=true});$("fundBtn").addEventListener("click",()=>{$("morePanel").hidden=true;fundador()});
-$("fAct").addEventListener("click",async()=>{const e=$("fMail").value.trim().toLowerCase(),c=$("fCode").value.trim().toUpperCase().replace(/\s/g,"");if(!/^\S+@\S+\.\S+$/.test(e)){$("fMsg").textContent="Confira o e-mail.";return}
+$("fAct").addEventListener("click",async()=>{const e=$("fMail").value.trim().toLowerCase(),c=$("fCode").value.trim().toUpperCase().replace(/\s/g,"");{const cv=conviteOk(c);if(cv){if(!cv.ok){$("fMsg").textContent=`Este código de convite era válido até ${fimMes(cv.lim)}. Peça um código novo a quem te convidou.`;return}grantConvite(cv.c);$("fMsg").textContent="Pronto! Convite ativado: Essencial Completo liberado por 1 ano.";fundUI();setTimeout(()=>{$("fundPanel").hidden=true;try{renderResult()}catch(x){}},900);return}}if(!/^\S+@\S+\.\S+$/.test(e)){$("fMsg").textContent=c?"Código não reconhecido. Confira e tente de novo.":"Confira o e-mail.";return}
   if(c){if(licOf(e)!==c){$("fMsg").textContent="Código não confere com este e-mail. Confira e tente de novo.";return}grant(e);return}
   $("fMsg").textContent="Procurando sua compra…";$("fAct").disabled=true;
   try{const d=await mpVerify("email="+encodeURIComponent(e));if(d.ok){grant(d.email||e);return}$("fMsg").textContent="Não encontramos uma compra aprovada com este e-mail. Use o e-mail da sua conta Mercado Pago ou toque em Precisa de ajuda."}
