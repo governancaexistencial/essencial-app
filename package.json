@@ -1,1 +1,1 @@
-{ "name": "essencial-app", "private": true, "version": "1.0.0", "type": "module", "scripts": { "build": "echo sem build" } }
+{ "name": "essencial-app", "private": true, "version": "1.0.0", "type": "module", "scripts": { "build": "echo sem build" }, "dependencies": { "@netlify/blobs": "^8.1.0" } }

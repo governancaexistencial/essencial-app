@@ -479,7 +479,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 10:29";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 11:16";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -757,7 +757,7 @@ async function ingest(getters){
     const slim=Object.fromEntries(Object.entries(found).map(([k,x])=>[k,{v:+x.v.toFixed(2),n:x.n,s:x.s,d:x.d}]));
     const i=st.files.findIndex(x=>x.name===name&&x.size===size);if(i>=0){st.files[i].found=slim;st.files[i].unk=lastUnknown.slice();st.files[i].mo=monthOf(lines);rep++}else st.files.push({name,size,found:slim,unk:lastUnknown.slice(),mo:monthOf(lines)});keepFile(name+"|"+size,blob||new Blob([lines.join("\n")],{type:"text/plain"}));okN++;total+=Object.keys(found).length}catch(err){if(err&&err.pw)pwN++;else fail++}}
   const warn=[rep?`${rep===1?"Essa fatura já tinha sido lida: atualizei, sem contar de novo.":"Algumas faturas já tinham sido lidas: atualizei, sem contar de novo."}`:"",wrong?`${wrong===1?"Um arquivo não parece":"Alguns arquivos não parecem"} fatura de cartão nem conta de operadora (ex.: documento do INSS) e foi ignorado.`:"",img?"Foto ou PDF escaneado não tem texto para ler: use o PDF baixado do app do banco.":"",pwN?"Um PDF tem senha e não foi aberto: suba de novo e digite a senha (muitos bancos usam os primeiros dígitos do CPF).":"",fail?`${fail} arquivo(s) não puderam ser abertos.`:""].filter(Boolean).join(" ");
-  if(okN){for(const x of newFp)if(!st.fps.includes(x))st.fps.push(x);if(!st.fpLab)st.fpLab=newLab;
+  if(okN){TK("doc");for(const x of newFp)if(!st.fps.includes(x))st.fps.push(x);if(!st.fpLab)st.fpLab=newLab;
     let AUTO=null;if(wasEmpty&&newFp.size){const m=profs().find(p=>p.sid!==st.sid&&p.fps.some(x=>newFp.has(x)));if(m){PEND=m;const a=maxMo(st),b=maxMo(m.st);if(a&&b)AUTO=a>b?"cmp":a===b?"same":null}}
     if(!st.start)st.start=Date.now();recompute();save();renderAll();const k=Object.values(st.items).filter(v=>v.src==="fatura"||v.src==="conta"||v.src==="extrato").length;
     say("st1",PEND?"Esta fatura é do mesmo cartão (ou conta) de uma simulação anterior. Escolha abaixo: comparar ou fazer uma nova.":opMsg+(k&&analyzeAll().total>0.5?`${okN} ${okN===1?"documento lido agora":"documentos lidos agora"}. No total: ${k} ${k===1?"item":"itens"}. Toque em Ver meu resultado.`:(/Extrato lido/.test(opMsg)?"":"Não encontrei assinaturas nem cobranças recorrentes neste arquivo. Confira se é o PDF da fatura do cartão baixado do app do banco, ou toque abaixo nos serviços que você paga."))+(warn?" "+warn:""));
@@ -779,7 +779,7 @@ Vencimento 10/12/2026
 11/11 DISNEY PLUS 46,90
 12/11 SUPERMERCADO BOM PRECO 412,30
 Total da fatura 745,59`;
-$("demoBtn").addEventListener("click",()=>{window.DEMO=true;document.body.classList.add("demo");$("demoBar").hidden=false;LAST=null;st=blank();go(1);ingest([async()=>({name:"Fatura de exemplo",size:DEMO_TXT.length,lines:DEMO_TXT.split("\n")})])});
+$("demoBtn").addEventListener("click",()=>{TK("demo");window.DEMO=true;document.body.classList.add("demo");$("demoBar").hidden=false;LAST=null;st=blank();go(1);ingest([async()=>({name:"Fatura de exemplo",size:DEMO_TXT.length,lines:DEMO_TXT.split("\n")})])});
 try{if(new URLSearchParams(location.search).get("exemplo")==="1"){history.replaceState(null,"",location.pathname);setTimeout(()=>$("demoBtn").click(),400)}}catch(e){}
 $("demoExit").addEventListener("click",()=>{try{sessionStorage.clear()}catch(e){}location.href=location.pathname});
 $("ptb").addEventListener("click",()=>{const t=$("pt").value.trim();if(!t){say("st1","Cole o texto da fatura no campo acima.");return}ingest([async()=>({name:"Texto colado "+new Date().toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}),size:t.length,lines:t.split(/\r?\n/)})]);$("pt").value=""});
@@ -1206,7 +1206,7 @@ const ymNow=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth
 const vipOf=ym=>"VIP-"+licOf("vip|"+ym).slice(0,4);
 function conviteOk(c){c=String(c||"").trim().toUpperCase().replace(/\s/g,"");if(!c)return null;const ym=ymNow();if(c===vipOf(ym))return{c,ok:true};if(/^VIP-/.test(c)){const d=new Date();for(let k=1;k<=12;k++){const t=new Date(d.getFullYear(),d.getMonth()-k,1);const y=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0");if(c===vipOf(y))return{c,ok:false,lim:y}}}const lim=CONVITES[c];if(!lim)return null;return{c,ok:ym<=lim,lim}}
 function fimMes(ym){const[y,m]=ym.split("-").map(Number);return new Date(y,m,0).toLocaleDateString("pt-BR")}
-function grantConvite(c){const e="convite-"+c.toLowerCase()+"@essencial";const x=new Date(Date.now()+365*864e5).toISOString().slice(0,10);try{localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e),x}))}catch(z){}}
+function grantConvite(c){if(typeof TK==="function")TK("convite",false);const e="convite-"+c.toLowerCase()+"@essencial";const x=new Date(Date.now()+365*864e5).toISOString().slice(0,10);try{localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e),x}))}catch(z){}}
 function PAID(){try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");if(!(L&&L.e&&licOf(L.e)===L.c))return false;if(L.x&&new Date().toISOString().slice(0,10)>L.x)return false;return true}catch(e){return false}}
 try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");if(L&&L.e==="convite@essencial"&&!L.x){L.x=new Date(Date.now()+365*864e5).toISOString().slice(0,10);localStorage.setItem("ess-lic",JSON.stringify(L))}}catch(e){} (function(){try{const q=new URLSearchParams(location.search).get("convite");const cv=conviteOk(q);if(cv&&cv.ok&&!PAID())grantConvite(cv.c);const tag=(!q&&(OLDUSER||!MP_LINK))?"teste":"";if(tag&&!PAID()){const e=tag+"@essencial";localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}if(q)history.replaceState(null,"",location.pathname)}catch(e){}})();
 function fundador(why){$("fWhy").textContent=why||"Libere o plano completo e o acompanhamento mês a mês.";$("fPay").textContent=MP_LINK?"Assinar por R$ 39,90 (Mercado Pago)":"Pagamento abre em breve";
@@ -1221,9 +1221,10 @@ $("fAct").addEventListener("click",async()=>{const e=$("fMail").value.trim().toL
 /* Pagamento automático (Mercado Pago Checkout Pro + funções do Netlify) */
 const FN="/.netlify/functions/";
 async function mpVerify(q){const r=await fetch(FN+"verify?"+q,{cache:"no-store"});return r.json()}
-function grant(email,pid){const e=String(email||("mp-"+pid+"@pago")).toLowerCase();try{localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}catch(x){}
+function grant(email,pid){if(typeof TK==="function")TK("compra",false);const e=String(email||("mp-"+pid+"@pago")).toLowerCase();try{localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}catch(x){}
   $("fMsg").textContent="Pronto! Seu Essencial Completo está ativo.";fundUI();setTimeout(()=>{$("fundPanel").hidden=true;try{renderResult()}catch(x){}},900);say("st1","Pronto! Seu Essencial Completo está ativo.")}
-async function startCheckout(){if(location.protocol==="file:"){location.href=MP_LINK;return}const b=$("fPay"),t=b.textContent;b.textContent="Abrindo o pagamento…";
+function TK(e,once){try{if(!/governancaexistencial\.com\.br$/.test(location.hostname))return;const d=new Date(Date.now()-108e5).toISOString().slice(0,10),k="ess-t-"+e;if(once!==false){if(localStorage.getItem(k)===d)return;localStorage.setItem(k,d)}const u="/.netlify/functions/track?e="+e+(document.documentElement.dataset.mode==="familia"?"&v=fam":"");if(navigator.sendBeacon)navigator.sendBeacon(u);else fetch(u,{method:"POST",keepalive:true})}catch(x){}}
+async function startCheckout(){TK("clique_compra");if(location.protocol==="file:"){location.href=MP_LINK;return}const b=$("fPay"),t=b.textContent;b.textContent="Abrindo o pagamento…";
   try{const r=await fetch(FN+"checkout",{method:"POST"});const d=await r.json();if(d.url){location.href=d.url;return}}catch(x){}b.textContent=t;location.href=MP_LINK}
 $("fPay").addEventListener("click",ev=>{ev.preventDefault();startCheckout()});
 (async function(){try{const q=new URLSearchParams(location.search),pid=q.get("payment_id")||q.get("collection_id");
@@ -1275,7 +1276,7 @@ $("diag").addEventListener("click",async()=>{const t=diagText();const ta=$("txt"
 
 /* ---------- jornada ---------- */
 let SCR=0;
-function go(n){n=Math.max(0,Math.min(5,n));if(n===3&&typeof SCR!=="undefined"&&SCR===2&&!PK().some(k=>{const kp=P;P=k;const c=qQueue().length;P=kp;return c})){n=4}if(n>=2&&!LAST&&!(analyzeAll().total>0.5)){n=1;setTimeout(()=>{say("st1","Não reconheci assinaturas nem cobranças recorrentes nos arquivos. Confira se é o PDF da fatura do cartão baixado do app do banco, ou toque abaixo nos serviços que você paga.");const d=document.getElementById("manD");if(d)d.open=true},0)}if(n>0&&typeof LAST!=="undefined"&&LAST){LAST=null;const bb=document.getElementById("backBox");if(bb)bb.hidden=true}if(n>=2&&PEND){PEND=null}$("toast").classList.remove("on");SCR=n;document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",+x.dataset.s===n));
+function go(n){n=Math.max(0,Math.min(5,n));if(n===4)TK("plano");if(n===3&&typeof SCR!=="undefined"&&SCR===2&&!PK().some(k=>{const kp=P;P=k;const c=qQueue().length;P=kp;return c})){n=4}if(n>=2&&!LAST&&!(analyzeAll().total>0.5)){n=1;setTimeout(()=>{say("st1","Não reconheci assinaturas nem cobranças recorrentes nos arquivos. Confira se é o PDF da fatura do cartão baixado do app do banco, ou toque abaixo nos serviços que você paga.");const d=document.getElementById("manD");if(d)d.open=true},0)}if(n>0&&typeof LAST!=="undefined"&&LAST){LAST=null;const bb=document.getElementById("backBox");if(bb)bb.hidden=true}if(n>=2&&PEND){PEND=null}$("toast").classList.remove("on");SCR=n;document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",+x.dataset.s===n));
   $("topbar").hidden=n===0;document.body.classList.toggle("hasbar",n>0);$("prog").style.width=(n/5*100)+"%";window.scrollTo(0,0);renderAll();save()}
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!g.disabled){go(+g.dataset.go);return}const o=e.target.closest("[data-open]");if(o){openMore(o.dataset.open)}});
 $("back").addEventListener("click",()=>{if(SCR===3&&qHist.length){qUndo();return}go(SCR-1)});
@@ -1387,5 +1388,6 @@ el.hidden=false;addEventListener("beforeinstallprompt",function(e){e.preventDefa
 b.addEventListener("click",function(){if(ev){ev.prompt();ev.userChoice.then(function(){ev=null;el.hidden=true})}});addEventListener("appinstalled",function(){el.hidden=true})})();
 }
 </script>
+<script>try{TK("open");document.addEventListener("click",e=>{if(e.target.closest("#chips2 [data-add],#chips2 button"))TK("manual")},true)}catch(x){}</script>
 </body>
 </html>
