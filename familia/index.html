@@ -327,8 +327,8 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
       <tr><td>Comparação com a fatura do mês seguinte</td><td>–</td><td class="hi">✓</td></tr>
       <tr><td>Versão Família (casal)</td><td>–</td><td class="hi">✓</td></tr>
     </tbody></table>
-    <div class="fprice">R$ 39,90 no primeiro ano<small>Preço de lançamento até 31/12/2026. Depois, R$ 99/ano. Garantia de 7 dias: não gostou, devolvemos.</small></div>
-    <a class="btn gold xl" id="fPay" href="#">Assinar por R$ 39,90 (Mercado Pago)</a>
+    <div class="fprice">R$ 39,90 · pagamento único<small>Não é mensal: você paga uma vez e usa por 12 meses, sem cobrança automática. Preço de lançamento até 31/12/2026; depois, R$ 99 por ano. Garantia de 7 dias: não gostou, devolvemos.</small></div>
+    <a class="btn gold xl" id="fPay" href="#">Pagar R$ 39,90 uma vez (Mercado Pago)</a>
     <p class="lead small" style="text-align:center;margin:6px 0 0">Pix ou cartão. Ao concluir, você volta para cá com tudo liberado.</p>
     <h3 class="addh">Já comprou?</h3>
     <input class="finp" id="fMail" type="email" inputmode="email" autocomplete="email" placeholder="E-mail usado no Mercado Pago">
@@ -481,7 +481,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 20:12";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 20:30";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1224,7 +1224,7 @@ function fimMes(ym){const[y,m]=ym.split("-").map(Number);return new Date(y,m,0).
 function grantConvite(c){if(typeof TK==="function")TK("convite",false);const e="convite-"+c.toLowerCase()+"@essencial";const x=new Date(Date.now()+365*864e5).toISOString().slice(0,10);try{localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e),x}))}catch(z){}}
 function PAID(){try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");if(!(L&&L.e&&licOf(L.e)===L.c))return false;if(L.x&&new Date().toISOString().slice(0,10)>L.x)return false;return true}catch(e){return false}}
 try{const L=JSON.parse(localStorage.getItem("ess-lic")||"null");if(L&&L.e==="convite@essencial"&&!L.x){L.x=new Date(Date.now()+365*864e5).toISOString().slice(0,10);localStorage.setItem("ess-lic",JSON.stringify(L))}}catch(e){} (function(){try{const q=new URLSearchParams(location.search).get("convite");const cv=conviteOk(q);if(cv&&cv.ok&&!PAID())grantConvite(cv.c);const tag=(!q&&(OLDUSER||!MP_LINK))?"teste":"";if(tag&&!PAID()){const e=tag+"@essencial";localStorage.setItem("ess-lic",JSON.stringify({e,c:licOf(e)}))}if(q)history.replaceState(null,"",location.pathname)}catch(e){}})();
-function fundador(why){$("fWhy").textContent=why||"Libere o plano completo e o acompanhamento mês a mês.";$("fPay").textContent=MP_LINK?"Assinar por R$ 39,90 (Mercado Pago)":"Pagamento abre em breve";
+function fundador(why){$("fWhy").textContent=why||"Libere o plano completo e o acompanhamento mês a mês.";$("fPay").textContent=MP_LINK?"Pagar R$ 39,90 uma vez (Mercado Pago)":"Pagamento abre em breve";
   $("fComp").href=`https://wa.me/${FB_WA}?text=${encodeURIComponent("Olá! Preciso de ajuda com o Essencial Completo.")}`;$("fMsg").textContent="";$("fundPanel").hidden=false}
 function fundUI(){const L=(()=>{try{return JSON.parse(localStorage.getItem("ess-lic")||"null")}catch(e){return null}})();const ok=PAID();$("fundBtn").hidden=ok;$("fundOk").hidden=!ok;if(ok)$("fundOk").innerHTML=/@pago$/.test(L.e)?`<span class="fbadge">Completo</span> Ativo neste aparelho`:/@essencial$/.test(L.e)?`<span class="fbadge">Convidado</span> Acesso completo liberado neste aparelho`:`<span class="fbadge">Completo</span> Licenciado para ${esc(L.e)}`;$("pdf").textContent=ok?"Guardar meu plano (PDF)":"Guardar meu plano completo (PDF) · Completo"}
 $("fundClose").addEventListener("click",()=>{$("fundPanel").hidden=true});$("fundBtn").addEventListener("click",()=>{$("morePanel").hidden=true;fundador()});
