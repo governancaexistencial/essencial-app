@@ -479,7 +479,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 08:49";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 09:22";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -587,7 +587,8 @@ function parseOperator(lines){
     const ph=first(/\b\d{2}\s?9?\d{4}-?(\d{4})\s+TIM\b/);const tail=ph?ph[1]:"";
     const g=first(/(\d+(?:[.,]\d+)?)\s?GB\s+INTERNET/);if(g)gb=num(g[1].includes(",")?g[1]:g[1]+",00");
     for(const x of L){if(!/INCLUID/.test(x.u)||/INTERNET|MINUTOS|DDD|SMS/.test(x.u))continue;const n=x.raw.replace(/^\s*\d+\s+/,"").split(/\s+-\s|\s{2,}|\s\d{2}\/\d{2}/)[0].trim();if(n&&n.length<=30&&!services.includes(n))services.push(n)}
-    linesInfo=[{tail,gb:gb||null}];
+    let promo=null;{const dl=L.find(x=>/DESCONTO PROMO/.test(x.u));const fl=pr&&pr.u.match(AMT);if(dl){const m=dl.u.replace(/\d{2}\/\d{2}\s+A\s+\d{2}\/\d{2}/g," ").match(/\b(\d{1,2})\/(6|12|18|24)\b/);const d=(dl.u.match(/-\s?\d{1,3}(?:\.\d{3})*,\d{2}/)||[])[0];if(m&&d){const all=pr?[...pr.u.matchAll(new RegExp(AMT.source,"g"))]:[];promo={i:+m[1],n:+m[2],disc:Math.abs(num(d.replace(/\s/g,""))),full:all.length?num(all[all.length-1][0]):null}}}}
+    linesInfo=[{tail,gb:gb||null,promo}];
     if(total!=null)parts.push({key:"op_cel"+(tail?"_"+tail:""),name:(plan||"Plano TIM")+(tail?` · final ${tail}`:""),price:total,s:"Total geral da conta TIM"});
     var acct=tail?"TIM"+tail:"";
   }else{
@@ -705,7 +706,7 @@ function recompute(){
   files.forEach(fl=>{for(const[id,x]of Object.entries(fl.found)){(agg[id]=agg[id]||[]).push(x)}});
   const cf=(st.files||[]).filter(fl=>fl.op);let op=null;if(cf.length){const by={};cf.forEach(f=>{by[f.op.acct||"x"]=f.op});const os=Object.values(by);op=os.length===1?os[0]:{...os[os.length-1],parts:os.flatMap(o=>o.parts),total:os.reduce((a,o)=>a+(o.total||0),0),sum:os.reduce((a,o)=>a+o.sum,0),ok:os.every(o=>o.ok),lines:os.length,linesInfo:os.flatMap(o=>o.linesInfo||[]),services:[...new Set(os.flatMap(o=>o.services||[]))].slice(0,14)}}st.op=op;
   for(const[id,v]of Object.entries(st.items))if(v.src==="conta"&&(!op||!op.parts.some(p=>p.key===id)))delete st.items[id];
-  if(op)for(const p of op.parts){const cur=st.items[p.key];st.items[p.key]={price:p.price,use:cur?.use||(p.key.startsWith("op_desc")?"alto":"pend"),src:"conta",name:p.name,s:p.s,n:1,m:1};delete BY[p.key];ensureDyn(p.key)}
+  if(op)for(const p of op.parts){const cur=st.items[p.key];st.items[p.key]={price:p.price,use:cur?.use||(p.key.startsWith("op_desc")||p.key.startsWith("op_cel")?"alto":"pend"),src:"conta",name:p.name,s:p.s,n:1,m:1};delete BY[p.key];ensureDyn(p.key)}
   for(const[id,v]of Object.entries(st.items))if(v.src==="fatura"&&!agg[id])delete st.items[id];
   for(const[id,arr]of Object.entries(agg)){if(!BY[id])continue;const v=SUMS.has(id)?arr.reduce((a,x)=>a+x.v,0)/nf:Math.max(...arr.map(x=>x.v));const cur=st.items[id];
     st.items[id]={price:+v.toFixed(2),use:cur?.use||(NEEDS.has(BY[id].cat)?"conf":"pend"),src:cur?.src==="manual"?"manual":"fatura",n:Math.max(...arr.map(x=>x.n||1)),m:arr.length,s:(arr.find(x=>x.s)||{}).s||"",ls:arr.flatMap(x=>x.ls||[]).slice(0,15),d:(arr.find(x=>x.d)||{}).d||cur?.d||0}}
@@ -834,6 +835,7 @@ function analyze(withOffers=true){
   if(!FAM&&(gT||q.kids==="sim")&&q.aprova!=="sim"){const unprot=q.aprova!=="sim";add("k:jogos","Proteger as compras das crianças nos jogos",`${gT?`Foram ${brl(gT)} por mês em média em jogos (${games.map(i=>i.name).join(", ")}). `:""}Ative a aprovação de compras: Family Link no Android, "Pedir para Comprar" no iPhone e os controles de gasto do Roblox. Tire o cartão salvo da loja de apps. Com a aprovação ativa, cada compra passa por você.`,0)}
   const paidMedia=its.filter(i=>["video","musica","ia"].includes(i.cat)&&!["nao","incl"].includes(i.use));
   if((!FAM||P==="a")&&!st.op&&paidMedia.length&&q.combo!=="nao")add("t:combo","Conferir o combo da operadora",`${q.combo==="sim"?"Seu plano já inclui streaming ou IA":"Muitos planos de celular incluem streaming ou IA"}. Se você paga ${paidMedia.slice(0,3).map(i=>i.name).join(", ")} à parte, veja se dá para ativar pelo plano.`,0);
+  if((!FAM||P==="a")&&st.op)(st.op.linesInfo||[]).filter(l=>l.promo&&l.promo.n>l.promo.i).forEach((l,i)=>add("t:promo"+i,`Renovar o desconto da ${st.op.op}${l.tail?` (linha final ${l.tail})`:""}`,promoTxt({...st.op,linesInfo:[{...l,tail:""}]})[0],0));
   if((!FAM||P==="a")&&q.linhas&&q.linhas!=="1")add("t:linhas","Juntar as linhas num plano família","Linhas de dependentes num mesmo plano costumam sair mais barato que planos separados.",0);
   const tv=its.find(i=>i.id==="tv");if(tv&&tv.use==="alto")add("t:tv","Avaliar se a TV por assinatura ainda compensa","Se a casa assiste mais streaming do que canais, tirar a TV do combo costuma ser a maior economia.",0);
   A.sort((a,b)=>b.v-a.v);
@@ -849,8 +851,8 @@ const MOB=[{n:"Vivo Pós Família 160GB (2 linhas)",gb:160,ln:2,p:270,src:SRC.vi
  ...[1,2,3,4,5].map(l=>({n:`Claro Pós 100GB (${l} ${l===1?"linha":"linhas"})`,gb:100,ln:l,p:+(179.9+50*(l-1)).toFixed(2),src:SRC.claroDep,f:1}))];
 const FIB=[{n:"Claro Fibra 350 Mega",sp:350,p:89.9,src:SRC.claroF,f:1},{n:"Claro Fibra 600 Mega",sp:600,p:99.9,src:SRC.claroF,f:1},{n:"TIM Ultrafibra 500 Mega",sp:500,p:99.99,src:SRC.timF,f:1},{n:"Vivo Fibra 600 Mega",sp:600,p:100,src:SRC.vivoF}];
 function opCompare(op){if(!op)return null;const out={mob:null,fib:null,bestMob:null,bestFib:null};
-  const cel=op.parts.find(p=>p.key.startsWith("op_cel"));const fib=op.parts.find(p=>p.key.startsWith("op_fibra"));
-  if(cel&&cel.price>0){const need=op.usage.length?Math.max(...op.usage)*1.15:(op.gb||0);const ln=op.lines||1;const minGain=Math.max(15,cel.price*.1);
+  const cels=op.parts.filter(p=>p.key.startsWith("op_cel"));const cel=cels.length>1?{...cels[0],price:+cels.reduce((a,p)=>a+p.price,0).toFixed(2)}:cels[0];out.cel=cel;const fib=op.parts.find(p=>p.key.startsWith("op_fibra"));
+  if(cel&&cel.price>0){const need=op.usage.length?Math.max(...op.usage)*1.15:(op.gb||0);const sep=cels.length>1&&cels.every(p=>/_\d{4}$/.test(p.key));const ln=sep?0:(op.lines||1);const minGain=Math.max(15,cel.price*.1);
     const fit=MOB.filter(m=>m.gb>=need&&m.ln===ln).sort((a,b)=>a.p-b.p);out.bestMob=fit[0]||null;
     if(fit[0]&&cel.price-fit[0].p>=minGain)out.mob={...fit[0],cur:cel,gain:+(cel.price-fit[0].p).toFixed(2),need}}
   if(fib&&fib.price>0&&op.speed){const minGain=Math.max(15,fib.price*.1);const fit=FIB.filter(x=>x.sp>=op.speed*.8&&!x.n.startsWith(op.op)).sort((a,b)=>a.p-b.p);out.bestFib=fit[0]||null;
@@ -914,12 +916,13 @@ function diagText(){const r=analyzeAll();const L=[`Diagnóstico ${APPN} · ${new
     else{Object.entries(fl.found).forEach(([k,x])=>L.push(`  ${BY[k]?BY[k].name:k}: ${brl(x.v)}${x.n>1?` (${x.n}x)`:""}`));if(fl.unk&&fl.unk.length){L.push("  Linhas não reconhecidas:");fl.unk.forEach(u=>L.push("   - "+u))}}}}
   if(r.audit.length){L.push("","Checagens automáticas:");r.audit.forEach(n=>L.push("  - "+n))}
   return L.join("\n")}
+function promoTxt(op){return(op.linesInfo||[]).filter(l=>l.promo).map(l=>{const p=l.promo,left=p.n-p.i;return`${l.tail?`Linha final ${l.tail}: o`:"O"} desconto de ${brl(p.disc)} está na parcela ${p.i} de ${p.n}${left>0?` (faltam ${left} ${left===1?"mês":"meses"})`:""}. Quando acabar, a conta sobe ${brl(p.disc)} por mês${p.full?`, para cerca de ${brl(p.full)}`:""}. Antes disso, peça à ${op.op} para renovar o desconto.`})}
 function renderOp(){const op=st.op;const el=$("opbox");if(!op){el.hidden=true;return}el.hidden=false;
   const oc=opCompare(op);const parts=op.parts.map(p=>`${esc(p.name)} ${brl(p.price)}`).join(" + ");
   const use=op.usage.length?`Internet móvel: ${Math.round(Math.min(...op.usage))} a ${Math.round(Math.max(...op.usage))} GB por mês nos últimos ${op.usage.length} meses${op.gb?`, de ${op.gb} GB contratados`:""}.`:"";
   const ln=op.linesInfo&&op.linesInfo.length?` Uso no mês por linha: ${op.linesInfo.map((l,i)=>`linha ${i+1} ${l.gb?l.gb.toFixed(1).replace(".",",")+" GB":"sem uso"}`).join(", ")}.`:"";
-  const cmp=oc?[oc.mob?`<span class="okc">Celular: dá para pagar menos (veja Trocas).</span>`:(oc.bestMob?`Celular: o plano parecido mais barato da tabela custa ${brl(oc.bestMob.p)}, mais que os seus ${brl(op.parts.find(p=>p.key.startsWith("op_cel")).price)}. Seu plano está bom.`:""),oc.fib?`<span class="okc">Internet: dá para pagar menos (veja Trocas).</span>`:(oc.bestFib?`Internet: a mais barata parecida custa ${brl(oc.bestFib.p)}. Não compensa trocar.`:"")].filter(Boolean).join(" "):"";
-  el.innerHTML=`<b>Conta ${esc(op.op)}${op.plan?` · ${esc(op.plan)}`:""}</b>${op.beta?' <span class="tag t-pend">leitura em teste</span>':""}<br>${parts} = ${brl(op.sum)} ${op.ok?`<span class="okc">✓ confere com o total da conta</span>`:`<span class="bad">⚠ total da conta: ${op.total!=null?brl(op.total):"não encontrado"}. Confira os valores nas perguntas.</span>`}<br>${use}${ln}${op.services.length?`<br>Já inclusos sem custo extra: ${op.services.map(esc).join(", ")}.`:""}${cmp?`<br>${cmp}`:""}`}
+  const cmp=oc?[oc.mob?`<span class="okc">Celular: dá para pagar menos (veja Trocas).</span>`:(oc.bestMob?`Celular: o plano parecido mais barato da tabela custa ${brl(oc.bestMob.p)}, mais que os seus ${brl(oc.cel.price)}. Seu plano está bom.`:""),oc.fib?`<span class="okc">Internet: dá para pagar menos (veja Trocas).</span>`:(oc.bestFib?`Internet: a mais barata parecida custa ${brl(oc.bestFib.p)}. Não compensa trocar.`:"")].filter(Boolean).join(" "):"";
+  el.innerHTML=`<b>Conta ${esc(op.op)}${op.plan?` · ${esc(op.plan)}`:""}</b>${op.beta?' <span class="tag t-pend">leitura em teste</span>':""}<br>${parts} = ${brl(op.sum)} ${op.ok?`<span class="okc">✓ confere com o total da conta</span>`:`<span class="bad">⚠ total da conta: ${op.total!=null?brl(op.total):"não encontrado"}. Confira os valores nas perguntas.</span>`}<br>${use}${ln}${op.services.length?`<br>Já inclusos sem custo extra: ${op.services.map(esc).join(", ")}.`:""}${promoTxt(op).map(t=>`<br>${esc(t)}`).join("")}${cmp?`<br>${cmp}`:""}`}
 
 /* ---------- comprovação ---------- */
 $("f2").addEventListener("change",async e=>{
@@ -954,7 +957,7 @@ function qQueue(){const Q=[];const it=st.items;const op=st.op;
     else if(v.use==="pend"&&id==="gother")Q.push({k:"i:"+id,t:`Há ${pr} por mês em cobranças do Google pela Play Store: apps, jogos e assinaturas como LinkedIn, Deezer ou Meta Verified. Abra play.google.com › Pagamentos e assinaturas e veja o que é. O que você quer fazer?`,o:[["nao","Cancelar tudo"],["menor","Cancelar uma parte"],["alto","Manter tudo"]]});
     else if(v.use==="pend"){
       if(id==="op_tv")Q.push({k:"i:"+id,t:`A TV por assinatura (${pr} por mês) vem no pacote ${op?"da "+op.op:"da operadora"}. Vocês assistem?`,o:[["alto","Assistimos bastante"],["medio","Pouco"],["nao","Quase nunca"]]});
-      else if(id.startsWith("op_cel"))Q.push({k:"i:"+id,t:op&&op.lines?`O plano de celular (${pr}) tem ${op.lines} linhas. Todas são usadas?`:`O plano de celular (${pr}): todas as linhas são usadas?`,o:[["alto","Sim, todas"],["menor","Uma ou mais quase não é usada"]]});
+            else if(id.startsWith("op_cel"))Q.push({k:"i:"+id,t:op&&op.lines?`O plano de celular (${pr}) tem ${op.lines} linhas. Todas são usadas?`:`O plano de celular (${pr}): todas as linhas são usadas?`,o:[["alto","Sim, todas"],["menor","Uma ou mais quase não é usada"]]});
       else if(id.startsWith("op_fibra"))Q.push({k:"i:"+id,t:`A internet de casa (${pr}) atende bem vocês?`,o:[["alto","Sim"],["menor","Pagaria menos por uma mais simples"]]});
       else if(id.startsWith("op_"))Q.push({k:"i:"+id,t:`"${nm}" (${pr}) na conta da operadora: vocês usam?`,o:[["alto","Sim"],["nao","Não"]]});
       else if(BY[id].cat==="jogos")Q.push({k:"i:"+id,t:`${nm}: ${pr} por mês em média. São compras de criança?`,o:[["alto","Sim"],["erro","Não é jogo"]]});
@@ -971,7 +974,7 @@ function qQueue(){const Q=[];const it=st.items;const op=st.op;
    if(all.size>=2&&[...all].some(x=>["netflix","disney","max","globo"].includes(x))&&!st.q.ads&&!qSkip.ads&&(!FAM||P===PK().find(p=>act(p).length)))Q.push({k:"q:ads",t:"Se um combo mais barato trouxer Netflix, Disney+ ou HBO Max com anúncios, serve para vocês?",o:[["sim","Serve"],["nao","Não, quero sem anúncios"]]})}
   if(!op&&!st.q.combo&&!qSkip.combo)Q.push({k:"q:combo",t:"Seu plano de celular ou internet inclui streaming ou IA?",o:[["sim","Sim"],["nao","Não"],["ns","Não sei"]]});
   if(!op&&!st.q.linhas&&!qSkip.linhas)Q.push({k:"q:linhas",t:"Quantas linhas de celular tem na casa?",o:[["1","1"],["2","2"],["3","3 ou mais"]]});
-  if(!st.q.kids&&!qSkip.kids&&(!FAM||P==="a"))Q.push({k:"q:kids",t:"Tem criança que joga no celular, tablet ou console?",o:[["sim","Sim"],["nao","Não"]]});
+  if(!st.q.kids&&!qSkip.kids&&(!FAM||P==="a")&&PK().some(k=>(((FAM?st.people[k]:st).files)||[]).some(f=>!f.op)))Q.push({k:"q:kids",t:"Tem criança que joga no celular, tablet ou console?",o:[["sim","Sim"],["nao","Não"]]});
   if(st.q.kids==="sim"&&!st.q.aprova&&!qSkip.aprova)Q.push({k:"q:aprova",t:"As compras nos jogos precisam da sua aprovação?",o:[["sim","Sim"],["nao","Não"],["ns","Não sei"]]});
   return Q}
 function qUndo(){const h=qHist.pop();if(!h)return;P=h.p;const key=h.k.slice(2);if(h.k.startsWith("q:")){if(h.prev===undefined)delete st.q[key];else st.q[key]=h.prev}else if(st.items[key])st.items[key].use=h.prev||"pend";delete qSkip[key];save();renderAll();if(SCR!==3)go(3)}
@@ -1022,7 +1025,7 @@ function perksOf(r){const c=clients();const out=[];const vivo=c.ops.find(o=>o.op
   return out}
 function provData(r){const c=clients();const out=[];const act=new Set(r.its.filter(i=>!["nao","incl","conf","erro"].includes(i.use)).map(i=>i.base||i.id));
   for(const op of c.ops){const L=[`Você paga ${brl(op.sum)}/mês: ${op.parts.map(p=>`${p.name} ${brl(p.price)}`).join(" + ")}.`];
-    if(op.services&&op.services.length)L.push(`Já incluso sem custo: ${op.services.join(", ")}.`);
+    if(op.services&&op.services.length)L.push(`Já incluso sem custo: ${op.services.join(", ")}.`);promoTxt(op).forEach(t=>L.push(t));{const oc0=opCompare(op);if(oc0&&oc0.cel&&!oc0.bestMob&&!oc0.mob)L.push("Celular: ainda não temos preços confiáveis de planos parecidos (mesma franquia e número de linhas) para comparar. Por isso, não sugerimos troca.")}
     if(op.op==="Vivo")L.push(`Grátis para ativar: Google AI Plus por ${geminiMonths(op)} meses (App Vivo › Assinaturas).`);
     const g=op.op.toLowerCase();const fit=r.O.find(o=>o.g===g||(o.req===op.op));const avail=OFFERS.filter(o=>o.req===op.op||o.g===g);
     if(fit)L.push(`O combo que mais se aproxima do que você assina: ${fit.name} por ${brl(fit.price)}/mês, economia de ${brl(fit.gain*12)}/ano.`);
@@ -1071,7 +1074,7 @@ function renderResult(){
     if(kids.length>3){const lockN=kids.slice(3).reduce((x,k)=>x+Math.max(1,k.querySelectorAll("[data-a]").length),0);const lv=kids.slice(3).reduce((x,k)=>{const ids=[...k.querySelectorAll("[data-a]")].map(i=>i.dataset.a);return x+ids.reduce((y,id)=>{const a=r.A.find(q=>q.id===id);return y+(a?a.v:0)},0)},0);
       html=kids.slice(0,3).map(k=>k.outerHTML).join("")+`<div class="lockc"><b>Mais ${lockN} ${lockN===1?"ação":"ações"} no seu plano${lv>0?` · ${brl(lv*12)}/ano`:""}</b><p class="lead small">As 3 maiores já estão acima. O plano completo, o PDF e a comparação com o mês que vem são do Completo.</p><button type="button" class="btn gold" data-fund="1">Ver o plano completo</button></div>`}}
   const pnd=r.its.filter(i=>["pend","conf"].includes(i.use)&&!isOneoff(i.base||i.id,FAM&&i.owner?st.people[i.owner].files:undefined)&&!qSkip[i.base||i.id]);if(pnd.length){const sm=pnd.reduce((x,i)=>x+i.price,0);html=`<div class="falta"><b>Falta responder ${pnd.length} ${pnd.length===1?"item":"itens"}</b><p>${esc(pnd.slice(0,3).map(i=>`${i.name} (${brl(i.price)})`).join(", "))}${pnd.length>3?" e outros":""}. ${pnd.length===1?"Se não for necessário, é":"Se não forem necessários, são"} até ${brl(sm*12)} por ano a mais na sua economia.</p><button type="button" class="btn gold" data-answer="1">Responder agora</button></div>`+html}
-  $("acts").innerHTML=r.A.length||pnd.length?html:`<div class="empty">Seu plano aparece aqui assim que você enviar um documento.</div>`;
+  $("acts").innerHTML=r.A.length||pnd.length?html:`<div class="empty">${(st.files||[]).length||Object.keys(st.items).length?"Nada a fazer por agora: não achamos troca mais barata para o que você enviou.":"Seu plano aparece aqui assim que você enviar um documento."}</div>`;
   const doneV=r.A.filter(a=>st.done[a.id]&&a.v>0).reduce((x,a)=>x+a.v,0);$("kDone").textContent=brl(doneV*12);
   {const R0=v=>"R$\u00a0"+Math.round(v).toLocaleString("pt-BR");const short=t=>{const m=FAM?t.match(/^([^:]{1,30}):\s*(.*)$/):null;const b=(m?m[2]:t).replace(/^(Cancelar|Trocar|Rever o plano de)\s+/,"").replace(/\s+por\s+.*$/,"");return m?`${b} (${m[1]})`:b};let h="";
    if(!pr){h=doneV>0.5?`<div class="dl"><span>Marcado como feito</span><b>${R0(doneV*12)}/ano</b></div><p class="dn">Para comprovar, envie a fatura do mês que vem: o app confere o que saiu.</p>`:`<p class="dn">Marque <b>Já fiz</b> no checklist conforme for resolvendo. No mês que vem, a fatura nova comprova.</p>`}
@@ -1087,7 +1090,7 @@ function renderResult(){
 function renderAll(){syncDyn();renderOp();renderSlots();renderMatch();renderProf();if(FAM&&!$("nameList").contains(document.activeElement))renderNames();renderFiles();renderQs();renderChips();renderList();renderResult()}
 
 $("qs").addEventListener("click",e=>{const sw=e.target.closest("[data-swap]");if(sw){P=sw.dataset.swap;qSkip={};renderAll();return}const u=e.target.closest("[data-unskip]");if(u){qSkip={};renderQs();return}
-  const sk=e.target.closest("[data-skip]");if(sk){const k=sk.dataset.skip;qSkip[k.slice(2)]=1;renderQs();return}
+  const sk=e.target.closest("[data-skip]");if(sk){const k=sk.dataset.skip;qHist.push({k,p:P,prev:k.startsWith("q:")?st.q[k.slice(2)]:(st.items[k.slice(2)]||{}).use,skip:1});qSkip[k.slice(2)]=1;renderQs();return}
   const bk=e.target.closest("[data-qback]");if(bk){qUndo();return}
   const b=e.target.closest("[data-qk]");if(!b)return;const k=b.dataset.qk,v=b.dataset.v;qHist.push({k,p:P,prev:k.startsWith("q:")?st.q[k.slice(2)]:(st.items[k.slice(2)]||{}).use});
   if(k.startsWith("q:"))st.q[k.slice(2)]=v;else{const id=k.slice(2);if(st.items[id])st.items[id].use=v}
@@ -1288,7 +1291,7 @@ function svcRows(){const out=[];const ppl=FAM?PK():[null];
       out.push({id,p,plan:planTag(id,price),name,cat:b.cat||(id.startsWith("op_")?"tel":"outros"),price:v.use==="incl"?0:price,use:v.use||"pend",src:srcLbl(id,v,op),conta:v.src==="conta"&&v.use!=="incl"&&v.use!=="conf"})}
     /* Itens da conta da operadora formam um pacote: aparecem juntos, num cartão só */
     const mine=out.filter(r=>r.p===p&&r.conta);
-    if(mine.length>1){const ids=new Set(mine.map(r=>r.id));for(let k=out.length-1;k>=0;k--)if(out[k].p===p&&ids.has(out[k].id))out.splice(k,1);
+    if(mine.length>1&&!mine.every(r=>/^op_cel_\d{4}$/.test(r.id))){const ids=new Set(mine.map(r=>r.id));for(let k=out.length-1;k>=0;k--)if(out[k].p===p&&ids.has(out[k].id))out.splice(k,1);
       const lv=["nao","menor","medio"];const worst=lv.find(u=>mine.some(r=>r.use===u))||(mine.every(r=>r.use==="alto")?"alto":"pend");
       out.push({id:"__combo",p,combo:mine.sort((a,b)=>b.price-a.price),name:`Pacote ${op||"da operadora"}`,cat:"tel",price:mine.reduce((a,r)=>a+r.price,0),use:worst,src:`Uma conta só · ${mine.length} itens`})}}
   return out.sort((a,b)=>b.price-a.price)}
