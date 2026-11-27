@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Governança Existencial · Essencial</title>
+<meta name="description" content="Descubra em minutos quanto você paga sem perceber em assinaturas, celular e TV. Diagnóstico grátis, feito no seu celular: nada é enviado para servidor.">
+<meta property="og:title" content="Governança Existencial · Essencial">
+<meta property="og:description" content="Quanto você paga sem perceber todo mês? Diagnóstico grátis, feito no seu celular.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="theme-color" content="#14213d">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14213d;--navy2:#1d2c4f;--gold:#c9a24e;--gold2:#e6cf98;--cream:#f6f1e7;--card:#fffaf0;--ink:#14213d;--soft:#5e6676;--line:#e3d9c4;--green:#2e6b46}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;line-height:1.1;margin:0}
+a{color:inherit}
+.w{max-width:1080px;margin:0 auto;padding:0 22px}
+.kick{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:600;border-radius:999px;padding:15px 26px;transition:transform .15s,box-shadow .15s}
+.btn:active{transform:scale(.98)}
+.bg{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(201,162,78,.28)}
+.bo{border:1.5px solid rgba(230,207,152,.55);color:var(--cream)}
+.bn{background:var(--navy);color:#fff}
+.bl{border:1.5px solid var(--navy);color:var(--navy)}
+/* nav */
+nav{position:absolute;top:0;left:0;right:0;z-index:5}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--cream);text-decoration:none;font-family:"Cormorant Garamond",serif;font-size:1.25rem;font-weight:700;letter-spacing:.02em}
+.gesel{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--gold);color:var(--navy);font:700 16px/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.03em;box-shadow:0 4px 14px rgba(0,0,0,.3);flex:none}.essbadge{display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;letter-spacing:.02em}.essbadge img{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--gold);box-shadow:0 4px 12px rgba(0,0,0,.25)}
+nav .lk{color:var(--gold2);font-size:.9rem;text-decoration:none;font-weight:500}
+/* hero */
+.hero{position:relative;background:radial-gradient(120% 90% at 70% 10%,#2a3d66 0%,var(--navy) 55%,#0e1830 100%);color:var(--cream);overflow:hidden;padding:120px 0 0}
+.hero .w{position:relative;z-index:2}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);margin:16px 0 18px;max-width:12ch}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero p.sub{font-size:1.1rem;color:#cdd3df;max-width:34rem;margin:0 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.mtn{display:block;width:100%;height:auto;margin-top:40px}
+.motto{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold2);font-size:1.15rem;margin-top:18px;opacity:.9}
+/* sections */
+section{padding:84px 0}
+.sh{max-width:40rem;margin-bottom:38px}.sh h2{font-size:clamp(2rem,5vw,3rem);margin:10px 0 12px}.sh p{color:var(--soft);margin:0;font-size:1.05rem}
+/* journey */
+.jr{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.st{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 22px;position:relative}
+.st .n{font-family:"Cormorant Garamond",serif;font-size:2.6rem;font-weight:700;color:var(--gold);line-height:1}
+.st h3{font-size:1.55rem;margin:10px 0 8px}.st p{margin:0;color:var(--soft);font-size:.95rem}
+.st.on{background:var(--navy);border-color:var(--navy);color:var(--cream)}.st.on p{color:#cdd3df}
+.badge{display:inline-block;margin-top:16px;background:var(--gold);color:var(--navy);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px}
+/* essencial */
+.ess{background:var(--navy);color:var(--cream)}
+.ess .sh p{color:#cdd3df}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+.sp{border:1px solid rgba(230,207,152,.22);border-radius:16px;padding:22px}
+.sp b{display:block;font-size:1.05rem;margin:8px 0 4px}.sp span{color:#cdd3df;font-size:.95rem}
+.sp i{font-style:normal;font-family:"Cormorant Garamond",serif;font-size:1.9rem;color:var(--gold);font-weight:700}
+.priv{display:flex;gap:14px;align-items:flex-start;background:rgba(230,207,152,.08);border:1px solid rgba(230,207,152,.25);border-radius:16px;padding:18px 20px;margin:0 0 30px}
+.priv svg{flex:none;margin-top:2px}.priv p{margin:0;color:#e5e1d6}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:54px}
+.ph{margin:0;text-align:center}
+.ph .fr{border-radius:34px;padding:10px;background:#0b1428;box-shadow:0 24px 50px rgba(0,0,0,.35);border:1px solid rgba(230,207,152,.25)}
+.ph img{display:block;width:100%;border-radius:26px;aspect-ratio:390/600;object-fit:cover;object-position:top}
+.ph figcaption{margin-top:16px;font-size:.95rem;color:#cdd3df}.ph figcaption b{display:block;color:var(--gold2);font-family:"Cormorant Garamond",serif;font-size:1.35rem}
+/* plans */
+.plans{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;align-items:stretch}
+.pl{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;display:flex;flex-direction:column}
+.pl h3{font-size:1.9rem}.pl .pr{font-family:"Cormorant Garamond",serif;font-size:2.8rem;font-weight:700;margin:6px 0 2px;line-height:1}
+.pl .pr small{font-family:Inter,sans-serif;font-size:.9rem;font-weight:500;color:var(--soft)}
+.pl .note{font-size:.88rem;color:var(--soft);margin:0 0 18px}
+.pl ul{list-style:none;padding:0;margin:0 0 26px;display:grid;gap:10px;flex:1}
+.pl li{padding-left:28px;position:relative}
+.pl li:before{content:"";position:absolute;left:0;top:5px;width:16px;height:16px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%2314213d' stroke-width='2'/%3E%3C/svg%3E") center/16px no-repeat}
+.pl li.off{color:#a3a8b3}.pl li.off:before{background:#e7e1d3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 8h6' stroke='%23a3a8b3' stroke-width='2'/%3E%3C/svg%3E") center/16px no-repeat}
+.pl.hi{background:var(--navy);color:var(--cream);border-color:var(--navy);position:relative;box-shadow:0 26px 60px rgba(20,33,61,.28)}
+.pl.hi .pr small{color:#cdd3df;white-space:nowrap;display:inline-block}.pl.hi .note{color:#cdd3df;white-space:normal}.pl.hi .note b{color:#fff}.pl.hi .pr{color:var(--gold2)}
+.rib{position:absolute;top:-13px;left:30px;background:var(--gold);color:var(--navy);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.strike{text-decoration:line-through;opacity:.6;margin-right:6px}
+.after{display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:center;margin-top:26px;color:var(--soft);font-size:.92rem}
+.after a{color:var(--navy);font-weight:600}
+/* faq */
+.faq{max-width:760px}
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-weight:600;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--gold);font-size:1.4rem;line-height:1}
+details[open] summary:after{content:"–"}
+details p{color:var(--soft);margin:10px 0 0}
+/* soon */
+.soon{background:linear-gradient(180deg,var(--cream),#efe6d2);text-align:center;padding:70px 0}
+.soon h2{font-size:clamp(1.8rem,4.5vw,2.6rem);margin:10px auto 10px;max-width:22ch}
+.soon p{color:var(--soft);margin:0 auto;max-width:34rem}
+footer{background:var(--navy);color:#a9b1c0;font-size:.88rem;padding:34px 0 calc(34px + env(safe-area-inset-bottom))}
+footer .w{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center}
+footer a{color:var(--gold2);text-decoration:none}
+/* reveal */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:860px){.jr{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}.plans{grid-template-columns:1fr}.gal{grid-template-columns:1fr;max-width:320px;margin-left:auto;margin-right:auto}}
+@media (max-width:520px){.jr{grid-template-columns:1fr}section{padding:64px 0}.hero{padding-top:104px}.cta .btn{flex:1 1 100%}}
+.plans{grid-template-columns:minmax(0,1fr)}@media(min-width:900px){.plans{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}}.pl{min-width:0}.pl li{overflow-wrap:anywhere}html,body{overflow-x:hidden}</style>
+<style id="netlify-badge-space">body{padding-bottom:72px}</style></head>
+<body>
+<nav><div class="w"><a class="brand" href="#"><span class="gesel" aria-hidden="true">GE</span>Governança Existencial</a><a class="lk" href="#planos">Planos</a></div></nav>
+
+<header class="hero">
+  <div class="w">
+    <div class="kick">Governança Existencial</div>
+    <h1>Governe a própria vida com <em>clareza</em>.</h1>
+    <p class="sub">Um método em quatro etapas para construir, proteger e deixar legado. E ferramentas simples para começar hoje, a partir do seu dinheiro.</p>
+    <div class="cta">
+      <a class="btn bg" href="https://essencial.governancaexistencial.com.br">Fazer meu diagnóstico grátis</a>
+      <a class="btn bo" href="#jornada">Conhecer a jornada</a>
+    </div>
+    <div class="motto">Para frente e para cima.</div>
+  </div>
+  <svg class="mtn" id="mtn" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22345c"/><stop offset="1" stop-color="#14213d"/></linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b4170"/><stop offset="1" stop-color="#172649"/></linearGradient>
+      <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#f3dca5" stop-opacity=".9"/><stop offset="1" stop-color="#c9a24e" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="1130" cy="70" r="120" fill="url(#sun)"/>
+    <path d="M0 260 L180 170 L300 220 L470 120 L600 200 L760 110 L900 190 L1060 60 L1200 160 L1320 120 L1440 180 L1440 360 L0 360Z" fill="url(#m2)" opacity=".75"/>
+    <path d="M0 300 L220 210 L360 260 L540 170 L700 250 L860 180 L1060 60 L1260 230 L1440 200 L1440 360 L0 360Z" fill="url(#m1)"/>
+    <path d="M1060 60 L1010 104 L1040 110 L990 150 L1028 160 L968 200" fill="none" stroke="#f6f1e7" stroke-opacity=".18" stroke-width="2"/>
+    <path id="trail" d="M120 340 C 320 330, 380 290, 470 285 S 640 300, 720 250 S 860 220, 900 175 S 1010 120, 1060 64" fill="none" stroke="#c9a24e" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/>
+    <g fill="#14213d" stroke="#c9a24e" stroke-width="3">
+      <circle cx="300" cy="318" r="11"/><circle cx="560" cy="289" r="11"/><circle cx="800" cy="232" r="11"/><circle cx="960" cy="150" r="11"/>
+    </g>
+    <g id="lbl" font-family="Inter,Arial" font-size="13" font-weight="700" fill="#e6cf98" text-anchor="middle" letter-spacing="1.5">
+      <text x="300" y="300">FUNDAÇÃO</text><text x="560" y="271">CONSTRUÇÃO</text><text x="800" y="214">BLINDAGEM</text><text x="960" y="132">LEGADO</text>
+    </g>
+    <line x1="1060" y1="62" x2="1060" y2="14" stroke="#c9a24e" stroke-width="3"/>
+    <path d="M1062 15 L1100 26 L1062 37Z" fill="#c9a24e"/>
+  </svg>
+</header>
+
+<section id="jornada">
+  <div class="w">
+    <div class="sh rv"><div class="kick">O método</div><h2>Uma jornada em quatro etapas</h2><p>Cada etapa constrói um degrau. Você pode começar por onde mais precisa hoje.</p></div>
+    <div class="jr">
+      <div class="st rv"><div class="n">1</div><h3>Fundação</h3><p>Quem você é antes do cargo que ocupa. Valores, família e propósito como base de todas as decisões.</p></div>
+      <div class="st rv"><div class="n">2</div><h3>Construção</h3><p>Disciplina transforma potencial em realização. Responsabilidade pela própria jornada.</p></div>
+      <div class="st on rv"><div class="n">3</div><h3>Blindagem</h3><p>Equilíbrio para crescer sem perder a essência: tempo, saúde, família e dinheiro protegidos.</p><span class="badge">Comece por aqui · Essencial</span></div>
+      <div class="st rv"><div class="n">4</div><h3>Legado</h3><p>Tudo ganha sentido quando serve a outras pessoas. O que fica além de você.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ess" id="essencial">
+  <div class="w">
+    <div class="sh rv"><div class="essbadge"><img src="img/essencial-icon.png" alt="">Essencial</div><div class="kick">A primeira ferramenta · Blindagem</div><h2>Descubra quanto você paga sem perceber.</h2><p>Assinaturas esquecidas, planos maiores do que você usa, combos que já vêm na sua operadora. O Essencial encontra tudo isso em poucos minutos.</p></div>
+    <div class="steps">
+      <div class="sp rv"><i>1</i><b>Envie a fatura</b><span>Do cartão e, se quiser, a conta do celular ou o extrato do banco. Sem senha de banco.</span></div>
+      <div class="sp rv"><i>2</i><b>Responda o que usa</b><span>Um toque por item: uso, pago mais do que uso, ou não uso.</span></div>
+      <div class="sp rv"><i>3</i><b>Receba o plano</b><span>O que cancelar, o que trocar e quanto sobra por mês e por ano, com link para resolver.</span></div>
+    </div>
+    <div class="priv rv">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c9a24e" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <p><b>Nada sai do seu celular.</b> A fatura é lida no próprio aparelho, sem cadastro. Nenhum dado da fatura é enviado para servidor.</p>
+    </div>
+    <div class="cta rv"><a class="btn bg" href="https://essencial.governancaexistencial.com.br">Fazer meu diagnóstico grátis</a><a class="btn bo" href="https://essencial.governancaexistencial.com.br/?exemplo=1">Ver um exemplo antes</a></div>
+    <div class="gal">
+      <figure class="ph rv"><div class="fr"><img src="img/diagnostico.jpg" alt="Tela do diagnóstico com o total pago por mês" loading="lazy"></div><figcaption><b>O diagnóstico</b>Quanto você paga e quanto dá para economizar. Grátis.</figcaption></figure>
+      <figure class="ph rv"><div class="fr"><img src="img/plano.jpg" alt="Tela do plano com combos e trocas recomendadas" loading="lazy"></div><figcaption><b>O plano completo</b>Combos, trocas e cancelamentos, da maior economia para a menor.</figcaption></figure>
+      <figure class="ph rv"><div class="fr"><img src="img/comprovado.jpg" alt="Tela com a economia comprovada na fatura seguinte" loading="lazy"></div><figcaption><b>A economia comprovada</b>Na fatura seguinte, o app confere o que já saiu de verdade.</figcaption></figure>
+    </div>
+    <p style="text-align:center;color:#8f98aa;font-size:.82rem;margin-top:22px">Telas com dados fictícios.</p>
+  </div>
+</section>
+
+<section id="planos">
+  <div class="w">
+    <div class="sh rv"><div class="kick">Planos</div><h2>Comece grátis. Vá além quando quiser.</h2><p>O diagnóstico é sempre grátis. O Completo transforma o diagnóstico em plano e acompanha a sua economia mês a mês.</p></div>
+    <div class="plans">
+      <div class="pl rv">
+        <h3>Grátis</h3><div class="pr">R$ 0</div><p class="note">Para descobrir quanto você pode economizar.</p>
+        <ul><li>Diagnóstico: quanto você paga e quanto dá para economizar</li><li>As 3 maiores ações para começar</li><li>Compartilhar o resultado</li><li class="off">Plano completo e PDF</li><li class="off">Comparação com a fatura seguinte</li><li class="off">Versão Família</li></ul>
+        <a class="btn bl" href="https://essencial.governancaexistencial.com.br">Fazer meu diagnóstico</a>
+      </div>
+      <div class="pl hi rv">
+        <span class="rib">Preço de lançamento</span>
+        <h3>Completo</h3><div class="pr"><span class="strike" style="font-size:1.4rem">R$ 99</span>R$ 39,90 <small>pagamento único</small></div><p class="note"><b>Não é mensal.</b> Você paga uma vez e usa por 12 meses. Não renova sozinho, sem cobrança automática. Preço de lançamento até 31/12/2026; depois, R$ 99 por ano.</p>
+        <ul><li>Tudo do Grátis</li><li>Todas as ações, com o que muda em cada plano</li><li>Plano em PDF com passo a passo e links</li><li>Comparação automática com a fatura do mês seguinte</li><li>Versão Família, para o casal</li></ul>
+        <a class="btn bg" href="https://essencial.governancaexistencial.com.br/?assinar=1">Pagar R$ 39,90 uma vez</a>
+      </div>
+    </div>
+    <div class="after rv"><span>🛡 Garantia de 7 dias: não gostou, devolvemos.</span><span>Já assinou? <a href="https://essencial.governancaexistencial.com.br" target="_blank" rel="noopener">A liberação é automática. Se precisar, abra o app e toque em “Já comprou?”</a></span></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="w faq">
+    <div class="sh rv"><div class="kick">Dúvidas</div><h2>Perguntas frequentes</h2></div>
+    <details><summary>É seguro enviar minha fatura?</summary><p>Sim. A fatura é lida dentro do seu celular, no navegador. Ela não vai para nenhum servidor, não pedimos cadastro nem senha de banco.</p></details>
+    <details><summary>O diagnóstico é grátis mesmo?</summary><p>É. Você vê quanto paga, quanto pode economizar e as 3 maiores ações. O Completo libera o plano inteiro, o PDF, a comparação mês a mês e a versão Família.</p></details>
+    <details><summary>É mensalidade?</summary><p>Não. É um pagamento único de R$ 39,90 que vale por 12 meses. Não existe cobrança automática: no fim do período, se quiser continuar, você decide e paga de novo.</p></details>
+    <details><summary>Como recebo o acesso ao Completo?</summary><p>Na hora. Pague pelo Mercado Pago (Pix ou cartão) e, ao voltar para o app, o Completo já aparece liberado. Se trocar de celular ou navegador, toque em “Já comprou?” e digite o e-mail usado na compra.</p></details>
+    <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias de garantia. É só pedir pelo <a href="https://wa.me/5511999709664?text=Ol%C3%A1%21%20Quero%20usar%20a%20garantia%20do%20Essencial%20Completo.%20E-mail%20da%20compra%3A%20" target="_blank" rel="noopener">WhatsApp</a> ou pelo e-mail de contato, e devolvemos o valor.</p></details>
+    <details><summary>Funciona no iPhone?</summary><p>Sim. Abra no Safari e toque em Compartilhar › Adicionar à Tela de Início para usar como app. No Android, use o Chrome › Instalar app.</p></details>
+    <details><summary>Os valores são exatos?</summary><p>O que você paga vem dos seus documentos. Preços de planos e combos vêm de fontes públicas, com link. Confira sempre com a empresa antes de trocar. O Essencial organiza e orienta; não é consultoria financeira nem recomenda investimentos.</p></details>
+  </div>
+</section>
+
+<section class="soon">
+  <div class="w rv"><div class="kick">Em breve</div><h2>A Governança Existencial vai além do dinheiro.</h2><p>Novas ferramentas e o método completo chegam em breve. Comece pela Blindagem: cuide do que você já construiu.</p></div>
+</section>
+
+<footer><div class="w"><span>© 2026 Governança Existencial</span><span><a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Privacidade</a> · <a href="https://www.instagram.com/governancaexistencial/" target="_blank" rel="noopener" aria-label="Instagram @governancaexistencial" style="display:inline-flex;align-items:center;gap:5px;vertical-align:middle"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@governancaexistencial</a> · <a href="mailto:contato.governancaexistencial@gmail.com">contato.governancaexistencial@gmail.com</a></span></div></footer>
+
+<script>
+(function(){var m=document.getElementById('mtn'),l=document.getElementById('lbl');function f(){var s=innerWidth<700;m.setAttribute('viewBox',s?'200 0 920 360':'0 0 1440 360');l.setAttribute('font-size',s?'22':'13');l.querySelectorAll('text').forEach(function(t){t.setAttribute('dy',s?'-6':'0')})}f();addEventListener('resize',f)})();
+(function(){var els=document.querySelectorAll('.rv');if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});els.forEach(function(e){io.observe(e)})})();
+</script>
+<script>(function(){function tk(e){try{var d=new Date(Date.now()-108e5).toISOString().slice(0,10),k="ge-t-"+e;if(localStorage.getItem(k)===d)return;localStorage.setItem(k,d);var u="https://essencial.governancaexistencial.com.br/.netlify/functions/track?e="+e;if(navigator.sendBeacon)navigator.sendBeacon(u);else fetch(u,{method:"POST",mode:"no-cors",keepalive:true})}catch(x){}}if(/governancaexistencial\.com\.br$/.test(location.hostname))tk("site");document.addEventListener("click",function(e){var a=e.target.closest("a[href*='essencial.governancaexistencial']");if(a)tk("site_app")},true)})();</script>
+</body>
+</html>
