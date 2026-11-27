@@ -481,7 +481,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="26/11/2026 20:54";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="26/11/2026 21:18";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:v>=1000?0:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
