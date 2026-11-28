@@ -162,7 +162,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
 .backbox{margin:6px 0 14px;padding:16px;border:1.5px solid var(--gold);border-radius:12px;background:var(--card);display:flex;flex-direction:column;gap:10px}
 .backbox b{font-size:17px}.backbox p{margin:0;color:var(--soft)}.backbox strong{color:var(--ink)}
 .adv>summary{font-weight:700}.adv{margin-top:6px}
-.inst{margin:14px 0 0;padding:12px 14px;border:1.5px solid var(--gold);border-radius:8px;background:var(--card);text-align:left;display:flex;flex-direction:column;gap:6px}
+.inst{margin:14px 0 0;text-align:left;display:flex;flex-direction:column;gap:8px}.instgo{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px;width:100%;min-height:52px;padding:0 16px;border:2px solid var(--gold);border-radius:12px;background:var(--card);color:var(--ink);font-weight:800;font-size:16px}.inst #instTxt{padding:10px 12px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
 .inst[hidden]{display:none!important}.inst b{font-size:14px}.inst span{font-size:13.5px;color:var(--soft);line-height:1.45}.inst .btn{align-self:flex-start}
 @media(display-mode:standalone){.inst{display:none!important}}
 .priv{margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--ok);border-radius:8px;background:var(--card);display:flex;flex-direction:column;gap:4px;text-align:left}
@@ -202,7 +202,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
 .docbox{background:#f6f1e7;border:1px solid #e3d9c4;border-radius:10px;padding:10px;display:grid;gap:8px;margin-top:6px;font-size:13.5px;color:#14213d}
 .docbox code+code{margin-top:4px}.docbox code{display:block;white-space:pre-wrap;word-break:break-word;font-size:13px;background:#fff;border-radius:6px;padding:6px 8px;margin-top:2px}
 .docbox small{display:block;opacity:.7;font-size:12px}.dg{display:flex;gap:14px;flex-wrap:wrap}
-.golinks{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:0 8px}.golink{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;margin:6px 0 2px;border-radius:999px;border:1.5px solid var(--gold);font-weight:600;font-size:14.5px;text-decoration:none;color:inherit;grid-column:2/-1;justify-self:start}
+.golinks{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:0 8px}.golink{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;display:inline-flex;align-items:center;min-height:40px;padding:0 14px;margin:6px 0 2px;border-radius:999px;border:1.5px solid var(--gold);font-weight:600;font-size:14.5px;text-decoration:none;color:inherit;grid-column:2/-1;justify-self:start}
 .prov{display:block;font-size:12px;font-weight:600;opacity:.85}.provl{color:#2e6b46;font-weight:600}
 .pv .verd{font-weight:700;margin:6px 0 2px}.why summary,.nrw summary{cursor:pointer;text-decoration:underline;font-size:14.5px;min-height:36px;display:flex;align-items:center}
 .vt.nr{opacity:.72}
@@ -220,13 +220,13 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
 .geby{display:flex;align-items:center;gap:12px;margin:22px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);text-decoration:none;font-size:14px;line-height:1.35}.geby b{font-weight:800}.geby small{display:block;color:var(--soft);font-weight:600;font-size:13px;margin-top:2px}.gesel{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:10px;background:#c9a24e;color:#14213d;font:700 15px/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.03em;flex:none}@media(max-width:380px){#topbar .stick small{font-size:10px!important;letter-spacing:0!important}#topbar .stick b{font-size:12px!important}#topbar .stick{gap:6px!important}}@media(max-width:340px){#topbar .ya{display:none}}.offer{display:grid;gap:6px;grid-template-columns:1fr;cursor:default}.offer .og.alt{color:var(--soft)}.offer .og.alt em{background:none;color:var(--soft)}.offer .og.alt{border-left-color:var(--line)}.odet summary::after{content:" ›";margin-left:4px}.odet[open] summary::after{content:" ˅"}.odet summary::-webkit-details-marker{display:none}.odet summary{list-style:none}.offer .osum{margin:2px 0;color:var(--ink);font-size:14px}.odet summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--ink);padding:8px 0;min-height:40px;display:flex;align-items:center}.odet p{margin:0 0 6px;color:var(--soft);font-size:14px}.odet a{display:inline-block;padding:10px 0;font-size:14px;font-weight:700;color:var(--ink)}.vtb{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border:1.5px solid var(--navy);border-radius:6px;font:700 15px Manrope,sans-serif;color:var(--navy);cursor:pointer;margin-top:4px}.vtb input{position:absolute;opacity:0;width:1px;height:1px}.offer.on .vtb{background:var(--ok);border-color:var(--ok);color:#fff}:root[data-theme=dark] .vtb{color:var(--gold);border-color:var(--gold)}.qcard .skip{min-height:44px;padding:10px 0}#topbar .ya{display:none}.trtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;border-bottom:1px solid var(--line);scrollbar-width:none}.trtabs button{flex:none;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;font-size:14px}.trtabs button.on{background:var(--navy,#14213d);color:#f6f1e7;border-color:transparent}
 .tcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}.tk{font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;font-weight:800;color:var(--gold-d,#a07f32)}.tk.g{color:#2f6b3a}.tk.y{color:#8a6420}
 .tbig{font-size:30px;font-weight:800;margin:2px 0}.tbig.sm{font-size:24px}.tmut{color:var(--soft);font-size:14px;line-height:1.4;margin:4px 0}.tp{margin:6px 0 10px;line-height:1.4}
-.tbars{display:flex;align-items:flex-end;gap:8px;height:120px;margin:10px 0 4px}.tbar{flex:1;text-align:center;font-size:11.5px;color:var(--soft)}.tbar i{display:block;border-radius:6px 6px 2px 2px;background:var(--gold);margin-bottom:4px}.tbar i.p{background:repeating-linear-gradient(45deg,var(--line),var(--line) 4px,transparent 4px,transparent 8px);border:1px dashed var(--gold)}.tbar b{display:block;color:var(--ink);font-size:11.5px}
+.tbars{display:flex;align-items:flex-end;justify-content:center;gap:10px;height:132px;margin:16px 0 6px}.tbar{max-width:64px}.tmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border:1px dashed var(--gold);border-radius:10px;font-size:14px}.tmeta b{white-space:nowrap}.tbar{flex:1;text-align:center;font-size:11.5px;color:var(--soft)}.tbar i{display:block;border-radius:6px 6px 2px 2px;background:var(--gold);margin-bottom:4px}.tbar i.p{background:repeating-linear-gradient(45deg,var(--line),var(--line) 4px,transparent 4px,transparent 8px);border:1px dashed var(--gold)}.tbar b{display:block;color:var(--ink);font-size:11.5px}
 .tseq{display:flex;gap:6px;margin-top:4px}.tseq i{flex:1;height:8px;border-radius:4px;background:var(--line)}.tseq i.on{background:var(--gold)}
 .tmo{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.tmo b{font-size:17px}.tmo button{min-width:44px;min-height:44px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;font-weight:800}
 .tfl{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.tfl button{min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;font-size:13.5px}.tfl button.on{background:var(--navy,#14213d);color:#f6f1e7;border-color:transparent}
-.tit{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:start;padding:10px 0;border-bottom:1px dashed var(--line)}.tit:last-child{border:0}.tit p{margin:0;font-size:14px;line-height:1.4;color:var(--soft)}.tit p b{display:block;color:var(--ink);font-size:14.5px}.tit em{font-style:normal;font-weight:800;white-space:nowrap}
+.tit{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:start;padding:10px 0;border-bottom:1px dashed var(--line)}.tit:last-child{border:0}.tit p{margin:0;font-size:14px;line-height:1.4;color:var(--soft);min-width:0}.tit p b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink);font-size:14.5px}.tit p span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tit em{font-style:normal;font-weight:800;white-space:nowrap}
 .tck{width:28px;height:28px;border-radius:8px;border:2px solid var(--ink);background:transparent;color:#fff;font-weight:900;padding:0}.tck.ok{background:#2f6b3a;border-color:#2f6b3a}.tck:disabled{opacity:1}
-.tof{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:4px}.tof p{margin:0;font-size:14px;line-height:1.4;color:var(--soft)}.tof p b{display:block;color:var(--ink)}.tof em{font-style:normal;font-weight:800;white-space:nowrap}.tava{border-style:dashed}.tdark{background:var(--navy,#14213d);color:#f6f1e7}.tdark .tk{color:var(--gold)}
+.tof{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:4px}.tof p{margin:0;font-size:14px;line-height:1.4;color:var(--soft);min-width:0}.tof p b{display:block;color:var(--ink)}.tof em{font-style:normal;font-weight:800;white-space:nowrap}.tava{border-style:dashed}.tdark{background:var(--navy,#14213d);color:#f6f1e7}.tdark .tk{color:var(--gold)}
 .tgo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px;color:var(--soft)}.tgo:last-child{border:0}.tgo b{display:block;color:var(--ink);font-size:14.5px}.tgr{text-align:right;color:var(--ink);font-weight:700}.tpk{display:block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--gold-d,#a07f32)}
 .ttag{display:inline-block;font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px;margin-top:4px}.ttag.g{background:#e2efe4;color:#2f6b3a}.ttag.y{background:#f6ead0;color:#8a6420}.ttag.n{background:var(--line);color:var(--ink)}
 .tgo>.ttag{align-self:start;justify-self:end}.tdel{border:0;background:none;font-size:16px;margin-left:6px;min-width:32px;min-height:32px}
@@ -261,8 +261,9 @@ body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area
   <button type="button" class="btn gold xl" data-go="1">Começar</button>
   <p class="lead small five">Leva uns 5 minutos.</p>
   <button type="button" class="btn wide demob" id="demoBtn">Ver um exemplo antes (sem enviar nada)</button>
+  <div class="inst" id="inst" hidden><button type="button" class="instgo" id="instBtn">📲 Instalar o app no celular <span aria-hidden="true">›</span></button><span id="instTxt" hidden></span></div>
   <button type="button" class="linkbtn homemais" id="homeMais">Meu plano, código de cortesia e ajuda ›</button>
-  <div class="inst" id="inst" hidden><b>Instale como app</b><span id="instTxt"></span><button type="button" class="btn gold" id="instBtn" hidden>Instalar app</button></div>
+  
   <div class="priv"><b>Seus dados ficam com você</b><span>Os documentos são lidos aqui no seu celular. Nada é enviado para a internet nem guardado fora dele, e você pode apagar tudo em Mais (Recomeçar do zero e Simulações guardadas).</span></div>
   <a class="geby" href="https://governancaexistencial.com.br" target="_blank" rel="noopener"><span class="gesel" aria-hidden="true">GE</span><span>Uma ferramenta da <b>Governança Existencial</b><small>Conheça o método completo ›</small></span></a>
   <p class="ver" data-ver></p>
@@ -385,7 +386,7 @@ body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area
   <div class="pbody">
     <div class="plancard" id="planCard"></div>
     <button class="btn gold wide" type="button" id="trOpen" style="margin-bottom:10px">Meu acompanhamento</button>
-    <button class="btn wide" type="button" data-svc="1" style="margin-bottom:10px">Meus serviços: o que está ativo e quanto custa</button>
+    <button class="btn wide" type="button" data-svc="1" style="margin-bottom:10px">Meus serviços e valores</button>
     <a class="btn wide fbm" id="fbBtn2" target="_blank" rel="noopener" href="#" hidden style="margin-bottom:10px">Contar o que achei (WhatsApp)</a>
     <button class="btn wide" type="button" id="fundBtn" hidden>Conhecer o Completo</button><p class="lead small" id="fundOk" hidden></p>
     <a class="btn wide bugb" id="bugBtn" target="_blank" rel="noopener" href="#" style="margin-bottom:10px">Relatar um problema (WhatsApp)</a>
@@ -525,7 +526,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="28/11/2026 10:55";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="28/11/2026 12:03";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>(+v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",minimumFractionDigits:2,maximumFractionDigits:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1079,7 +1080,7 @@ const TIERS={
 function smallerTier(id,price){const L=(TIERS[id]||[]).filter(t=>t[1]<price-0.5);if(!L.length)return null;const t=L.sort((a,b)=>b[1]-a[1])[0];return{n:t[0],p:t[1],obs:t[2],d:t[3]||[],src:t[4]||""}}
 function tierMore(tr,cur){if(!tr||!tr.d.length)return"";return`<details class="qdoc tdiff"><summary>O que muda no ${esc(tr.n)}</summary><ul>${tr.d.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>${tr.src?`<a class="srcl" href="${tr.src}" target="_blank" rel="noopener">Fonte ↗</a>`:""}</details>`}
 function actLink(a,r){const raw=a.id.split("|").pop();const [pre,iid]=[raw.slice(0,1),raw.slice(2)];
-  if(pre==="x"){const o=(r.O||[]).find(o=>o.id===iid);if(!o)return null;const L=[];if(o.src)L.push([o.src,"1. Ativar a oferta ↗"]);for(const c of o.cov||[]){const k=c.id||"";const u=cancelURL(k)||cancelURL(k.replace(/^primech_\d+$/,"primech"));if(u)L.push([u,`${L.length+1}. Cancelar ${c.name} ↗`])}return L.length?L:null}
+  if(pre==="x"){const o=(r.O||[]).find(o=>o.id===iid);if(!o)return null;const L=[];if(o.src)L.push([o.src,"1. Ativar a oferta ↗"]);for(const c of o.cov||[]){const k=c.id||"";const u=cancelURL(k)||cancelURL(k.replace(/^primech_\d+$/,"primech"));if(u)L.push([u,`${L.length+1}. ${(o.cov||[]).length>1?"Cancelar "+String(c.name).split(/[ (]/)[0]:"Cancelar o plano atual"} ↗`])}return L.length?L:null}
   const base=iid.replace(/^primech_\d+$/,"primech");const u=cancelURL(iid)||cancelURL(base);if(!u)return null;
   const CH={netflix:"https://www.netflix.com/changeplan"};return[[pre==="m"&&CH[base]?CH[base]:u,pre==="c"?"Cancelar agora ↗":pre==="m"?"Mudar o plano ↗":"Abrir ↗"]]}
 function guessPlan(id,price){const L=PLANS[id];if(!L||!(price>0))return null;for(const[n,ps,k]of L)for(const p of ps){if(Array.isArray(p)?price>=p[0]&&price<=p[1]:Math.abs(price-p)<=Math.max(0.6,p*0.02))return{n,k}}return null}
@@ -1313,7 +1314,7 @@ function fundUI(){const L=(()=>{try{return JSON.parse(localStorage.getItem("ess-
   const renew=(kind==="paid"||kind==="gift")&&dl<=30;
   const refAte=kind==="paid"&&LX.d?new Date(Date.parse(LX.d+"T12:00:00Z")+7*864e5).toISOString().slice(0,10):null;const canRef=refAte&&lday()<=refAte;
   const txt=kind==="free"?"O Completo libera o plano inteiro em PDF e o acompanhamento mês a mês. R$ 39,90, pagamento único, vale 12 meses.":kind==="exp"?"Seu diagnóstico continua grátis. Renove para voltar a ter o plano completo por mais 12 meses.":renew?`Faltam ${dl} ${dl===1?"dia":"dias"}. Renove agora: os 12 meses novos somam à data atual, você não perde nenhum dia.`:kind==="gift"?"Acesso completo por código de cortesia, neste aparelho.":"Acesso completo neste aparelho. Não renova sozinho: sem cobrança automática.";
-  $("planCard").innerHTML=`<small class="pck">Meu plano</small><div class="pcrow"><b>${nome}</b><span class="pcst ${renew?"warn":kind}">${st}</span></div><p class="lead small">${txt}</p>${kind==="free"?`<div class="pcact"><button type="button" class="btn gold" data-plan="buy">Ver o Completo</button><button type="button" class="btn ghost" data-plan="code">Tenho um código</button></div>`:(kind==="exp"||renew)?`<div class="pcact"><button type="button" class="btn gold" data-plan="renew">Renovar</button><button type="button" class="btn ghost" data-plan="code">Tenho um código</button></div>`:""}${canRef?`<button type="button" class="linkbtn pcref" id="refBtn">Pedir reembolso · garantia de 7 dias, até ${fmt(refAte)}</button>`:""}`;
+  $("planCard").innerHTML=`<small class="pck">Meu plano</small><div class="pcrow"><b>${nome}</b><span class="pcst ${renew?"warn":kind}">${st}</span></div><p class="lead small">${txt}</p>${kind==="free"?`<div class="pcact"><button type="button" class="btn gold" data-plan="buy">Ver o Completo</button><button type="button" class="btn ghost" data-plan="code">Tenho um código</button></div>`:(kind==="exp"||renew)?`<div class="pcact"><button type="button" class="btn gold" data-plan="renew">Renovar</button><button type="button" class="btn ghost" data-plan="code">Tenho um código</button></div>`:""}${canRef?`<button type="button" class="linkbtn pcref" id="refBtn">Pedir reembolso (até ${fmt(refAte)})</button>`:""}`;
   const rb=$("renewBar");if(rb){rb.hidden=!renew&&kind!=="exp";if(!rb.hidden)rb.innerHTML=renew?`Seu Completo termina em ${dl} ${dl===1?"dia":"dias"}. <button type="button" class="linkbtn" data-plan="renew">Renovar</button>`:`Seu Completo terminou. <button type="button" class="linkbtn" data-plan="renew">Renovar por 12 meses</button>`}}
 document.addEventListener("click",e=>{const r=e.target.closest("#refBtn");if(!r)return;if(!r.dataset.arm){r.dataset.arm=1;r.textContent="Confirmar reembolso? O Completo será desativado neste aparelho. Toque de novo.";setTimeout(()=>{if(r.isConnected){delete r.dataset.arm;try{fundUI()}catch(x){}}},6000);return}const L=LICX()||{};const msg=`Olá! Quero pedir o reembolso do Essencial Completo (garantia de 7 dias). Compra: ${L.lp||"-"} · e-mail: ${/@pago$/.test(L.e||"")?"-":L.e} · data: ${(L.d||"").split("-").reverse().join("/")}`;try{localStorage.removeItem("ess-lic")}catch(x){}window.open(`https://wa.me/${FB_WA}?text=${encodeURIComponent(msg)}`,"_blank");fundUI();say("st1","Pedido de reembolso enviado. O Completo foi desativado neste aparelho e o diagnóstico grátis continua.")});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-plan]");if(!b)return;$("morePanel").hidden=true;document.body.style.overflow="";fundador(b.dataset.plan==="renew"?"Renove por mais 12 meses. O tempo novo soma ao que você ainda tem.":undefined);if(b.dataset.plan==="code"){const d=document.querySelector("#fundPanel .fcodew");if(d){d.open=true;setTimeout(()=>{const c=$("fCode");if(c)c.focus()},150)}}});
@@ -1506,9 +1507,9 @@ if(!RESTORED)renderBack();
 /* instalar como app (só onde há manifesto) */
 (function(){var el=document.getElementById("inst");if(!el||!document.querySelector('link[rel="manifest"]'))return;var stA=matchMedia("(display-mode: standalone)").matches||navigator.standalone;if(stA)return;
 var ios=/iphone|ipad|ipod/i.test(navigator.userAgent),t=document.getElementById("instTxt"),b=document.getElementById("instBtn"),ev=null;
-t.innerHTML=ios?"No Safari, toque em <b>Compartilhar</b> (o quadrado com a seta para cima) e depois em <b>Adicionar à Tela de Início</b>.":"No Chrome, toque no menu <b>⋮</b> e em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.";
-el.hidden=false;addEventListener("beforeinstallprompt",function(e){e.preventDefault();ev=e;b.hidden=false;t.textContent="Toque abaixo e o ícone aparece junto dos seus apps, sem precisar de loja."});
-b.addEventListener("click",function(){if(ev){ev.prompt();ev.userChoice.then(function(){ev=null;el.hidden=true})}});addEventListener("appinstalled",function(){el.hidden=true})})();
+t.innerHTML=ios?"Toque em <b>Compartilhar</b> (quadrado com seta ⬆) e em <b>Adicionar à Tela de Início</b>.":"Toque no menu <b>⋮</b> do navegador e em <b>Instalar app</b>.";
+el.hidden=false;addEventListener("beforeinstallprompt",function(e){e.preventDefault();ev=e});
+b.addEventListener("click",function(){if(ev){ev.prompt();ev.userChoice.then(function(){ev=null;el.hidden=true})}else{t.hidden=!t.hidden}});addEventListener("appinstalled",function(){el.hidden=true})})();
 /* ---------- Meu acompanhamento (Completo) ---------- */
 const nf2=v=>(+v||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const TMODE=document.documentElement.dataset.mode==="familia"?"fam":"ind";
@@ -1540,10 +1541,10 @@ function trackHist(){try{const os=FAM?PK().map(p=>st.people[p]):[st];const mo=os
 function billGroups(){const G={};for(const f of allF()){if(!f.venc||!f.venc.d||f.kind==="extrato")continue;const k=f.op?("op:"+f.op.op+":"+(f.op.acct||"")):("c:"+((f.fp&&f.fp[0])||"cartao"));const one=f.op&&f.op.parts.length===1&&/_\d{4}$/.test(f.op.parts[0].key);const lab=f.op?`Conta ${f.op.op}${one?" final "+f.op.parts[0].key.slice(-4):""}`:`Fatura ${f.fl||"do cartão"}`;const g=G[k]||(G[k]={k,lab,day:+f.venc.d.slice(8,10),files:[],v:null,auto:!!f.venc.auto});g.files.push(f);if(f.op&&f.op.total)g.v=f.op.total}return Object.values(G)}
 function monthEvents(ym){const ev=[];const PG=lsGet(PGKEY,{});const first=allF().map(f=>f.mo).filter(Boolean).sort()[0]||ym;
   if(ym>=first||ym>=trNow())for(const g of billGroups()){const dd=String(Math.min(g.day,28)).padStart(2,"0");const key=ym+"|"+g.k;const nx=ymAdd(ym,1);const auto=g.files.some(f=>f.mo===nx&&f.pay);const man=!!PG[key];
-    ev.push({key,d:dd,t:`${g.lab} · vence ${dd}/${ym.slice(5)}`,s:auto?"Paga · o pagamento aparece na fatura seguinte":man?"Paga · você marcou":(g.auto?"Débito automático · confira o saldo":"Lembrete 2 dias antes"),v:g.v,done:auto||man,kind:"pay",lock:auto})}
+    ev.push({key,d:dd,t:`${g.lab} · vence ${dd}/${ym.slice(5)}`,s:auto?"Paga · vista na fatura seguinte":man?"Paga · você marcou":(g.auto?"Débito automático":"Lembrete 2 dias antes"),v:g.v,done:auto||man,kind:"pay",lock:auto})}
   if(ym===trNow()){const r=analyzeAll();for(const a of r.A.filter(a=>a.v>0))ev.push({key:"a:"+a.id,d:"",t:a.t,s:"Ação do seu plano",v:-a.v,done:!!st.done[a.id],kind:"act",aid:a.id})}
   for(const g of(st.ops||[]))for(const p of(g.promos||[]))if(p.end&&p.end.slice(0,7)===ym)ev.push({key:"p:"+g.op+p.end,d:p.end.slice(8,10),t:`Fim do desconto ${g.op}${p.tail?" (linha final "+p.tail+")":""} · ${p.end.slice(8,10)}/${p.end.slice(5,7)}`,s:"Ligue antes para renegociar",v:p.disc,done:false,kind:"info"});
-  const mx=maxMo(st);if(mx&&ymAdd(mx,1)===ym){const h=histOf().some(x=>x.mo===ym);ev.push({key:"up:"+ym,d:"10",t:`Enviar a fatura de ${TRMESES[+ym.slice(5)-1]}`,s:"A partir do dia 10 · para comprovar a economia",done:h,kind:"up",lock:h})}
+  const mx=maxMo(st);if(mx&&ymAdd(mx,1)===ym){const h=histOf().some(x=>x.mo===ym);ev.push({key:"up:"+ym,d:"10",t:`Enviar a fatura de ${TRMESES[+ym.slice(5)-1]}`,s:"A partir do dia 10",done:h,kind:"up",lock:h})}
   return ev.sort((a,b)=>(a.d||"99")<(b.d||"99")?-1:1)}
 function goalsCalc(){const G=lsGet(MKEY,[]);const r=analyzeAll();let left=+(r.save||0);const now=trNow();
   return{eco:+(r.save||0),list:G.map((g,i)=>({...g,i})).sort((a,b)=>(a.pl-b.pl)||((a.dt||"9")<(b.dt||"9")?-1:1)).map(g=>{if(g.pl===4&&G.some(x=>x.pl<4)&&left<=0.005)return{...g,need:g.dt?+(g.v/Math.max(1,ymDiff(now,g.dt)+1)).toFixed(2):null,st:"fila"};const n=g.dt?Math.max(1,ymDiff(now,g.dt)+1):12;const need=+(g.v/n).toFixed(2);const cov=Math.min(need,Math.max(0,left));left=+(left-cov).toFixed(2);return{...g,need,st:cov>=need-0.005?"ok":cov>0?"parte":"falta",falta:+(need-cov).toFixed(2)}})}}
@@ -1551,13 +1552,13 @@ function tLock(txt){return`<div class="tcard tlock"><div class="tk">No Completo<
 function tRes(){const r=analyzeAll();const H=histOf();const tot=H.reduce((a,h)=>a+h.ok,0);const mx=maxMo(st);const nx=mx?ymAdd(mx,1):null;const mxv=Math.max(r.save||0,...H.map(h=>h.ok),1);
   const bars=H.slice(-5).map(h=>`<div class="tbar"><i style="height:${Math.max(4,Math.round(h.ok/mxv*96))}px"></i><b>${nf2(h.ok)}</b>${ymShort(h.mo).slice(0,3)}</div>`).join("")+(r.save>0.5?`<div class="tbar"><i class="p" style="height:${Math.round(r.save/mxv*96)}px"></i><b>meta</b>${nf2(r.save)}</div>`:"");
   const seq=(()=>{let n=0;for(let i=H.length-1;i>=0;i--){if(i===H.length-1||ymDiff(H[i].mo,H[i+1].mo)===1)n++;else break}return n})();
-  return`<div class="tcard"><div class="tk">Economia comprovada</div><div class="tbig">${brl(tot)}</div><p class="tmut">${H.length?`confirmada em ${H.length} ${H.length===1?"fatura nova":"faturas novas"}`:"Ainda não comprovada: envie a fatura do próximo mês."}</p>${bars?`<div class="tbars">${bars}</div><p class="tmut">Barras: economia de cada mês. Tracejado: a meta do seu plano.</p>`:""}</div>
+  return`<div class="tcard"><div class="tk">Economia comprovada</div><div class="tbig">${brl(tot)}</div><p class="tmut">${H.length?`confirmada em ${H.length} ${H.length===1?"fatura nova":"faturas novas"}`:"Ainda não comprovada: envie a fatura do próximo mês."}</p>${H.length?`<div class="tbars">${bars}</div><p class="tmut">Barras: economia de cada mês. Tracejado: a meta do plano.</p>`:(r.save>0.5?`<div class="tmeta"><span>Meta do seu plano</span><b>${brl(r.save)}/mês</b></div>`:"")}</div>
   <div class="tcard"><div class="tk">Próximo passo</div><p class="tp"><b>${nx?`Envie a fatura de ${TRMESES[+nx.slice(5)-1]} a partir de 10/${nx.slice(5)}.`:"Envie a fatura do próximo mês."}</b> A gente compara e mostra o que já saiu.</p><button type="button" class="btn gold wide" data-tup="1">Enviar fatura nova</button>${nx?`<button type="button" class="btn wide" data-tics="up" style="margin-top:8px">📅 Colocar no calendário</button>`:""}</div>
   <div class="tcard"><div class="tk">Constância</div><p class="tp">${seq?`<b>${seq} ${seq===1?"mês":"meses"} seguidos no controle</b>${seq<12?` · faltam ${12-seq} para fechar o ano`:""}`:"<b>Comece no próximo mês:</b> envie a fatura nova e marque o primeiro mês no controle."}</p><div class="tseq">${Array.from({length:6},(_,i)=>`<i class="${i<Math.min(seq,6)?"on":""}"></i>`).join("")}</div></div>`}
 function tCal(){const ym=TMO||trNow();const ev=monthEvents(ym);const f=TCF||"all";const L=ev.filter(e=>f==="all"||(f==="open"?!e.done:e.done));const nO=ev.filter(e=>!e.done).length;
   return`<div class="tmo"><button type="button" data-tmo="-1" aria-label="Mês anterior">‹</button><b>${ymLong(ym)}</b><button type="button" data-tmo="1" aria-label="Próximo mês">›</button></div>
   <div class="tfl"><button type="button" data-tcf="all" class="${f==="all"?"on":""}">Todos (${ev.length})</button><button type="button" data-tcf="open" class="${f==="open"?"on":""}">Em aberto (${nO})</button><button type="button" data-tcf="done" class="${f==="done"?"on":""}">Concluídos (${ev.length-nO})</button></div>
-  <div class="tcard">${L.length?L.map(e=>`<div class="tit"><button type="button" class="tck${e.done?" ok":""}" data-tck="${esc(e.key)}"${e.lock?" disabled":""} aria-label="${e.done?"Concluído":"Marcar como feito"}">${e.done?"✓":""}</button><p><b>${esc(e.t)}</b>${esc(e.s)}</p>${e.v!=null&&e.v!==0?`<em>${e.v<0?"−":""}${brl(Math.abs(e.v))}</em>`:""}</div>`).join(""):`<p class="tmut">Nada ${f==="done"?"concluído":f==="open"?"em aberto":"neste mês"}.</p>`}</div>
+  <div class="tcard">${L.length?L.map(e=>`<div class="tit"><button type="button" class="tck${e.done?" ok":""}" data-tck="${esc(e.key)}"${e.lock?" disabled":""} aria-label="${e.done?"Concluído":"Marcar como feito"}">${e.done?"✓":""}</button><p><b>${esc(String(e.t).replace(/\s*\(R\$[^)]*\)/,""))}</b><span>${esc(e.s)}</span></p>${e.v!=null&&e.v!==0?`<em>${e.v<0?"−":""}${brl(Math.abs(e.v))}</em>`:""}</div>`).join(""):`<p class="tmut">Nada ${f==="done"?"concluído":f==="open"?"em aberto":"neste mês"}.</p>`}</div>
   ${ev.some(e=>e.kind==="pay"||e.kind==="up"||e.kind==="info")?`<button type="button" class="btn wide" data-tics="mes">📅 Colocar tudo no calendário</button>`:""}`}
 function tOf(){const r=analyzeAll();const rec=[],ava=[];const W=/fidelidade|carência|carencia|confira|conferir|disponibilidade/i;
   for(const o of r.O||[]){const x={t:o.name,p:o.note||"",v:o.gain,src:o.src};(W.test(o.note||"")?ava:rec).push(x)}
@@ -1586,7 +1587,7 @@ function renderTrack(){const P0=PAID();const T=[["res","Resumo"],["cal","Calend�
   if(TTAB==="obj"&&TGF)tgNeed()}
 function tgNeed(){const v=num(($("tgV")||{}).value||"0"),dt=($("tgD")||{}).value;const n=$("tgN");if(!n)return;if(!(v>0)||!dt){n.textContent="";return}const m=Math.max(1,ymDiff(trNow(),dt)+1);const need=+(v/m).toFixed(2);n.innerHTML=`<b>Precisa de ${brl(need)} por mês</b> durante ${m} ${m===1?"mês":"meses"}.`}
 function openTrack(tab){if(tab)TTAB=tab;else if(!PAID())TTAB="apr";TMO=trNow();TGF=null;renderTrack();$("trackPanel").hidden=false;document.body.style.overflow="hidden";try{TK("acompanhamento")}catch(e){}}
-window.openTrack=openTrack;
+window.openTrack=openTrack;window.dicaSemana=()=>{const w=Math.floor(Date.now()/(7*864e5))%DICAS.length;return DICAS[w]};
 $("trClose").addEventListener("click",()=>{$("trackPanel").hidden=true;document.body.style.overflow=""});
 function dlICS(txt,name){const b=new Blob([txt],{type:"text/calendar"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 function icsEv(date,sum,desc,rr){const f=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");const e=new Date(date);e.setDate(e.getDate()+1);return["BEGIN:VEVENT","UID:ess-"+Date.now()+"-"+Math.random().toString(36).slice(2)+"@essencial","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z","DTSTART;VALUE=DATE:"+f(date),"DTEND;VALUE=DATE:"+f(e),...(rr?[rr]:[]),"SUMMARY:"+sum.replace(/[,;]/g,m=>"\\"+m),"DESCRIPTION:"+desc.replace(/[,;]/g,m=>"\\"+m),"BEGIN:VALARM","TRIGGER:-P2D","ACTION:DISPLAY","DESCRIPTION:"+sum.replace(/[,;]/g,m=>"\\"+m),"END:VALARM","END:VEVENT"]}
@@ -1651,24 +1652,45 @@ $("trOpen").addEventListener("click",()=>{$("morePanel").hidden=true;openTrack()
 .mtool b{display:block}.mtool span{font-size:15px;color:var(--soft)}
 .mbook{margin:6px 0 16px;font-size:15px}
 .hcard.hwide{grid-column:1/-1}
+
+.hub-new .howto{display:none}
+#hubFirst{margin:14px 0 4px}#hubFirst .hcard{min-height:0}
+.hverse{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;margin-top:12px;padding:16px;border-radius:14px;background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.hverse .hvt{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;line-height:1.3;font-weight:700;margin:8px 0 6px}
+.hverse small{display:block;font-size:13px;color:var(--soft)}
+.priv b{font-weight:600}
+.hverse .hk{font:800 12px/1.3 Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.hub-new #appLead{margin-bottom:18px}
+.hverse .hgo{display:block;margin-top:12px;font-weight:800;color:var(--gold);font-size:15px}
+.priv{all:unset;display:block;text-align:center;margin:16px 0 4px;font-size:14px;color:var(--soft)}
+.priv b{font-weight:600}
 </style><script>(function(){
 "use strict";
 var $=function(i){return document.getElementById(i)};
 function brlH(v){return "R$ "+(Math.round(v*100)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})}
 /* 1. Início em cards para quem volta */
+function verso(){try{var d=window.dicaSemana&&window.dicaSemana();if(!d)return"";var e=function(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+  return '<button type="button" class="hverse" id="hVerse"><span class="hk">Para pensar esta semana · '+e(d[0])+'</span><span class="hvt">“'+e(d[3])+'”</span><small>'+e(d[1])+' · '+e(d[2])+' · NVI</small><span class="hgo">Ver a ação da semana ›</span></button>'}catch(x){return""}}
+function vlink(root){var v=root.querySelector("#hVerse");if(v)v.onclick=function(){if(window.openTrack)window.openTrack("apr")}}
+
 function hubHome(){
   var s0=document.querySelector('[data-s="0"] .wrap'),bb=$("backBox");if(!s0||!bb)return;
-  var ret=!bb.hidden;s0.classList.toggle("hub-ret",ret);
-  var h=$("hubHome");
-  if(!ret){if(h)h.remove();return}
+  var ret=!bb.hidden;s0.classList.toggle("hub-ret",ret);s0.classList.toggle("hub-new",!ret);
+  var pv=s0.querySelector(".priv");if(pv&&!pv.dataset.c){pv.dataset.c=1;pv.innerHTML='<b>🔒 Seus documentos ficam só no seu celular.</b>'}
+  var h=$("hubHome"),f=$("hubFirst");
+  if(!ret){if(h)h.remove();if(!f){var d=$("demoBtn");if(!d)return;f=document.createElement("div");f.id="hubFirst";f.className="hub";
+    f.innerHTML='<div class="hgrid"><button type="button" class="hcard" id="hubAcc1"><span class="hk">Agenda</span><span><b>Meu mês</b><small>Calendário e objetivos</small></span><span class="hgo">Abrir ›</span></button>'
+     +'<button type="button" class="hcard" id="hubMet1"><span class="hk">O Método</span><span><b>Os 4 pilares</b><small>Deus, Saúde, Família e Trabalho</small></span><span class="hgo">Conhecer ›</span></button></div>'+verso();
+    d.parentNode.insertBefore(f,d.nextSibling);$("hubMet1").onclick=metodo;$("hubAcc1").onclick=function(){if(window.openTrack)window.openTrack()};vlink(f)}return}
+  if(f)f.remove();
   if(h)return;
   h=document.createElement("div");h.id="hubHome";h.className="hub";
   h.innerHTML='<h3>Que bom te ver de novo</h3><p class="hsub">Escolha por onde seguir.</p><div class="hgrid">'
    +'<button type="button" class="hcard main hwide" id="hubNew"><span class="hk">Dinheiro</span><span><b>Nova simulação</b><small>Descubra o que escapa todo mês</small></span><span class="hgo">Começar ›</span></button>'
    +'<button type="button" class="hcard" id="hubAcc"><span class="hk">Agenda</span><span><b>Meu mês</b><small>Calendário e objetivos</small></span><span class="hgo">Abrir ›</span></button>'
    +'<button type="button" class="hcard" id="hubMet"><span class="hk">O Método</span><span><b>Os 4 pilares</b><small>Deus, Saúde, Família e Trabalho</small></span><span class="hgo">Conhecer ›</span></button>'
-   +'</div>';
-  bb.parentNode.insertBefore(h,bb);
+   +'</div>'+verso();
+  bb.parentNode.insertBefore(h,bb);vlink(h);
   $("hubNew").onclick=function(){var n=bb.querySelector('[data-back="new"]');if(n)n.click()};
   $("hubMet").onclick=metodo;
   $("hubAcc").onclick=function(){if(window.openTrack)window.openTrack()};
