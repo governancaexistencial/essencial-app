@@ -233,7 +233,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
 .tpl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:6px}.tpl button{min-height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;font-size:12px;padding:0 2px}.tpl button.on{background:var(--navy,#14213d);color:#f6f1e7}
 .tch{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tch button{min-height:36px;padding:0 12px;border-radius:999px;border:0;background:var(--line);color:var(--ink);font-weight:600;font-size:13.5px}
 .tin{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:10px;padding:0 12px;font-size:16px;background:var(--card);color:var(--ink);margin-top:6px}.trow{display:flex;gap:8px}.trow>*{flex:1}
-.tverse{font-size:18px;font-weight:700;line-height:1.4;margin:6px 0 2px}.tlock p{margin:6px 0 12px;line-height:1.4}
+.tcopy{font-size:12px;color:var(--soft);line-height:1.4;margin:8px 0 0}.tverse{font-size:18px;font-weight:700;line-height:1.4;margin:6px 0 2px}.tlock p{margin:6px 0 12px;line-height:1.4}
 .gonebox{border:1.5px solid var(--gold);border-radius:12px;padding:10px 12px;margin-top:12px}.gk{font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--gold-d,#a07f32)}.stillbox{background:var(--navy,#14213d);color:#f6f1e7;border-radius:12px;padding:12px;margin-bottom:12px}.stillbox p{margin:4px 0 10px;font-size:14px}
 </style>
 <meta name="theme-color" content="#14213d"><link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -524,7 +524,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="28/11/2026 08:56";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="28/11/2026 10:01";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>(+v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",minimumFractionDigits:2,maximumFractionDigits:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1516,14 +1516,15 @@ function lsGet(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")??d}ca
 function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 const PILAR=["Deus","Saúde","Família","Trabalho","Conquistas"];
 const IDEIAS=[["Doar","Dízimo","Ajudar alguém","Retiro ou curso"],["Academia","Personal","Exames","Livros"],["Aniversário","Viagem","Estudo dos filhos","Casa"],["Curso","Mentoria","Livros","Certificação"],["Carro","Imóvel","Reforma","Outro bem"]];
-const DICAS=[["Provérbios 21:20","Quem é sábio guarda reservas; quem não é gasta tudo o que tem.","separe hoje a economia do mês para um objetivo."],
- ["Provérbios 27:23","Conheça bem o que é seu e cuide do que você tem.","abra a fatura e confira cada assinatura."],
- ["Lucas 14:28","Antes de construir, sente e calcule quanto vai custar.","dê valor e data a um objetivo."],
- ["Lucas 16:10","Quem é fiel no pouco também é fiel no muito.","faça hoje uma ação pequena do seu plano."],
- ["Provérbios 13:11","O que se junta aos poucos cresce.","guarde, mesmo que seja pouco."],
- ["Eclesiastes 3:1","Há um tempo certo para cada coisa.","coloque no calendário o vencimento das suas contas."],
- ["2 Coríntios 9:7","Cada um dê com alegria, conforme decidiu no coração.","pense num objetivo para o pilar Deus."],
- ["Provérbios 22:7","Quem toma emprestado fica preso a quem empresta.","veja se há juros ou parcelas esquecidas na fatura."]];
+const DICAS=[["Deus","1 Crônicas 29:12","Davi, em oração","A riqueza e a honra vêm de ti; tu dominas sobre todas as coisas.","comece o mês agradecendo e separe primeiro o que é para Deus e para ajudar alguém."],
+ ["Saúde","Provérbios 17:22","Salomão, filho de Davi","O coração bem-disposto é remédio eficiente, mas o espírito oprimido resseca os ossos.","caminhe 20 minutos hoje e durma no horário."],
+ ["Família","Salmos 127:1","Salomão, filho de Davi","Se o SENHOR não for o construtor da casa, inútil será o trabalho dos construtores.","combine com a família um objetivo para a economia do mês."],
+ ["Trabalho","Provérbios 22:29","Salomão, filho de Davi","Você já observou alguém habilidoso em seu trabalho? Ele se apresentará diante de reis e não se apresentará diante de gente desconhecida.","reserve 30 minutos para aprender algo do seu trabalho."],
+ ["Trabalho","Provérbios 16:3","Salomão, filho de Davi","Entregue ao SENHOR tudo o que você faz, e os seus planos serão estabelecidos.","escreva o seu plano da semana e comece pelo mais importante."],
+ ["Prosperidade","Provérbios 27:23","Salomão, filho de Davi","Esforce-se para saber bem como as suas ovelhas estão; dê cuidadosa atenção aos seus rebanhos.","abra a fatura e confira cada assinatura."],
+ ["Prosperidade","Provérbios 21:20","Salomão, filho de Davi","Na casa do sábio há tesouros valiosos e azeite, mas o tolo devora tudo o que pode.","separe hoje a economia do mês para um objetivo."],
+ ["Prosperidade","Mateus 6:33","Jesus, Filho de Davi","Busquem, pois, em primeiro lugar o reino de Deus e a sua justiça, e todas essas coisas serão acrescentadas a vocês.","revise seus objetivos: Deus, Saúde, Família e Trabalho vêm antes das conquistas."]];
+const NVI="Bíblia Sagrada, Nova Versão Internacional®, NVI® Copyright © 1993, 2000, 2011 by Biblica, Inc.® Usado com permissão. Todos os direitos reservados.";
 const LIVROS=[["Essencialismo","Greg McKeown","fazer menos, e melhor"],["O Homem Mais Rico da Babilônia","George S. Clason","guardar uma parte de tudo o que ganha"],["Hábitos Atômicos","James Clear","pequenas melhorias todos os dias"],["Do Mil ao Milhão","Thiago Nigro","gastar bem antes de cortar tudo"]];
 let TTAB="res",TMO=null;
 function trNow(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
@@ -1574,8 +1575,9 @@ function tGoals(){const C=goalsCalc();const tag=g=>g.st==="ok"?`<span class="tta
   ${C.list.length?`<div class="tcard">${C.list.map(g=>`<div class="tgo"><span><span class="tpk">${g.pl<4?(g.pl+1)+" · ":""}${PILAR[g.pl]}</span><b>${esc(g.t)}</b>${brl(g.v)}${g.dt?" até "+ymShort(g.dt):""}</span><span class="tgr">${g.need!=null?brl(g.need)+"/mês":""}<br>${tag(g)}<button type="button" class="tdel" data-tgd="${g.i}" aria-label="Tirar ${esc(g.t)}">🗑</button></span></div>`).join("")}</div>`:`<p class="tmut">Nenhum objetivo ainda. Comece por um pilar.</p>`}
   ${form||`<button type="button" class="btn gold wide" data-tgn="1">+ Novo objetivo</button>`}`}
 function tLearn(){const w=Math.floor(Date.now()/(7*864e5))%DICAS.length;const d=DICAS[w];
-  return`<div class="tcard"><div class="tk">Para pensar esta semana</div><p class="tverse">${esc(d[1])}</p><p class="tmut">${d[0]} · adaptado</p><p class="tp"><b>Ação:</b> ${esc(d[2])}</p></div>
-  ${PAID()?`<div class="tcard"><div class="tk">Livros para evoluir</div>${LIVROS.map(l=>`<div class="tgo"><span><b>${esc(l[0])}</b>${esc(l[1])} · ${esc(l[2])}</span></span></div>`).join("")}<div class="tgo"><span><b>O Tratado da Governança Existencial</b>o livro do método</span><span class="ttag y">Em breve</span></div></div><p class="tmut">Resumos escritos por nós, sem trechos dos livros.</p>`:tLock("Livros para evoluir, com resumos do que cada um ensina.")}`}
+  return`<div class="tcard"><div class="tk">Para pensar esta semana · ${esc(d[0])}</div><p class="tverse">“${esc(d[3])}”</p><p class="tmut"><b>${esc(d[1])}</b> · ${esc(d[2])} · NVI</p><p class="tp"><b>Ação:</b> ${esc(d[4])}</p><p class="tcopy">Na linha da família de Davi: Davi, Salomão e Jesus, o Filho de Davi.</p></div>
+  ${PAID()?`<div class="tcard"><div class="tk">Livros para evoluir</div>${LIVROS.map(l=>`<div class="tgo"><span><b>${esc(l[0])}</b>${esc(l[1])} · ${esc(l[2])}</span></div>`).join("")}<div class="tgo"><span><b>O Tratado da Governança Existencial</b>o livro do método</span><span class="ttag y">Em breve</span></div></div><p class="tmut">Resumos escritos por nós, sem trechos dos livros.</p>`:tLock("Livros para evoluir, com resumos do que cada um ensina.")}
+  <p class="tcopy">${NVI}</p>`}
 function renderTrack(){const P0=PAID();const T=[["res","Resumo"],["cal","Calendário"],["of","Ofertas"],["obj","Objetivos"],["apr","Aprender"]];
   $("trTabs").innerHTML=T.map(([k,l])=>`<button type="button" data-ttab="${k}" class="${TTAB===k?"on":""}">${l}</button>`).join("");try{const on=$("trTabs").querySelector(".on");if(on)on.scrollIntoView({block:"nearest",inline:"center"})}catch(e){}
   const L={res:"O gráfico da economia mês a mês e o próximo passo com data.",cal:"O calendário do mês: vencimentos, ações do plano e fins de desconto.",of:"As ofertas do mês para o que você já tem.",obj:"Seus objetivos pelos 4 pilares, com quanto por mês cada um precisa."};
