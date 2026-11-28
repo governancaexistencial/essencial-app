@@ -524,7 +524,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="28/11/2026 10:01";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="28/11/2026 10:29";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>(+v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",minimumFractionDigits:2,maximumFractionDigits:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1649,7 +1649,7 @@ $("trOpen").addEventListener("click",()=>{$("morePanel").hidden=true;openTrack()
 .mtool{margin:16px 0;padding:14px;border-radius:10px;border:1.5px solid var(--gold);background:var(--card)}
 .mtool b{display:block}.mtool span{font-size:15px;color:var(--soft)}
 .mbook{margin:6px 0 16px;font-size:15px}
-.hcard.hwide{grid-column:1/-1;min-height:0}
+.hcard.hwide{grid-column:1/-1}
 </style><script>(function(){
 "use strict";
 var $=function(i){return document.getElementById(i)};
@@ -1663,8 +1663,8 @@ function hubHome(){
   if(h)return;
   h=document.createElement("div");h.id="hubHome";h.className="hub";
   h.innerHTML='<h3>Que bom te ver de novo</h3><p class="hsub">Escolha por onde seguir.</p><div class="hgrid">'
-   +'<button type="button" class="hcard main" id="hubNew"><span class="hk">Dinheiro</span><span><b>Nova simulação</b><small>Descubra o que escapa todo mês</small></span><span class="hgo">Começar ›</span></button>'
-   +'<button type="button" class="hcard hwide" id="hubAcc"><span class="hk">Agenda</span><span><b>Meu acompanhamento</b><small>Calendário e objetivos</small></span><span class="hgo">Abrir ›</span></button>'
+   +'<button type="button" class="hcard main hwide" id="hubNew"><span class="hk">Dinheiro</span><span><b>Nova simulação</b><small>Descubra o que escapa todo mês</small></span><span class="hgo">Começar ›</span></button>'
+   +'<button type="button" class="hcard" id="hubAcc"><span class="hk">Agenda</span><span><b>Meu mês</b><small>Calendário e objetivos</small></span><span class="hgo">Abrir ›</span></button>'
    +'<button type="button" class="hcard" id="hubMet"><span class="hk">O Método</span><span><b>Os 4 pilares</b><small>Deus, Saúde, Família e Trabalho</small></span><span class="hgo">Conhecer ›</span></button>'
    +'</div>';
   bb.parentNode.insertBefore(h,bb);
