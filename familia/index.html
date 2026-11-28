@@ -235,6 +235,7 @@ html[data-mode=familia] .ico-ind{display:none}html:not([data-mode=familia]) .ico
 .tin{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:10px;padding:0 12px;font-size:16px;background:var(--card);color:var(--ink);margin-top:6px}.trow{display:flex;gap:8px}.trow>*{flex:1}
 .tcopy{font-size:12px;color:var(--soft);line-height:1.4;margin:8px 0 0}.tverse{font-size:18px;font-weight:700;line-height:1.4;margin:6px 0 2px}.tlock p{margin:6px 0 12px;line-height:1.4}
 .gonebox{border:1.5px solid var(--gold);border-radius:12px;padding:10px 12px;margin-top:12px}.gk{font-size:11.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--gold-d,#a07f32)}.stillbox{background:var(--navy,#14213d);color:#f6f1e7;border-radius:12px;padding:12px;margin-bottom:12px}.stillbox p{margin:4px 0 10px;font-size:14px}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:#14213d;z-index:60;pointer-events:none}
 </style>
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#14213d"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Família">
@@ -524,7 +525,7 @@ const USE=[["pend","Ainda não respondi"],["alto","Uso"],["medio","Uso pouco"],[
 const CONF=[["conf","Conferir: é cobrança mesmo?"],["nao","Confirmado: quero cortar ou negociar"],["ok","Confirmado: vou manter"],["erro","Não é cobrança: ignorar"]];
 const NEEDS=new Set(["banco","oculta"]);
 const QS=[["combo","Seu plano de celular ou internet inclui streaming ou IA?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]],["linhas","Quantas linhas de celular tem na casa?",[["1","1"],["2","2"],["3","3 ou mais"]]],["kids","Tem criança que joga no celular, tablet ou console?",[["sim","Sim"],["nao","Não"]]],["aprova","As compras nos jogos precisam da sua aprovação?",[["sim","Sim"],["nao","Não"],["ns","Não sei"]]]];
-const KEY="raiox-pro-v1";const VERSAO="28/11/2026 10:29";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
+const KEY="raiox-pro-v1";const VERSAO="28/11/2026 10:55";const COPY="© 2026 Essencial · Uso pessoal. Proibida a cópia, alteração ou revenda.";
 const brl=v=>(+v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",minimumFractionDigits:2,maximumFractionDigits:2});
 const num=s=>{if(typeof s==="number")return s;s=String(s).trim();const v=parseFloat(s.includes(",")?s.replace(/\./g,"").replace(",","."):s);return isNaN(v)?0:v};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
